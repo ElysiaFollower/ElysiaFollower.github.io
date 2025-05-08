@@ -1,0 +1,26 @@
+/* 在 my-custom-footer.css 中 - 最终且更精确的美化样式 */
+
+/* 针对性地覆盖主题中对 footer.footer 的背景设置 —— 主题里是使用的和文章版块等一样的background-color定义，而且加了!important */
+/* 通过增加父选择器 .main-content-footer 来提高特指度，从而覆盖主题的 !important 规则 */
+.main-content-footer footer.footer {
+  background-color: transparent !important; /* 使用 transparent 并保留 !important */
+
+  /*移除边框线 */
+  border-top: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+
+  /*调整一下字体大小*/
+  font-size: 0.8rem !important;
+
+  /*调整一下padding内边距, 外部容器是main-content-footer，免得过分往下内容没了*/
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.main-content-footer {
+  /*调整一下padding*/
+  padding-bottom: 3px !important;
+}
+

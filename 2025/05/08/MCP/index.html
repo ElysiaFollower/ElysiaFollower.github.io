@@ -13,7 +13,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2025/05/07/test2/"/>
+    <link rel="canonical" href="http://example.com/2025/05/08/mcp/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -23,16 +23,16 @@
         
         <meta name="description" content="分享技术路上的所学所思，也拾掇些钟情角色的记忆碎片💖。一个不成体系的小破站 (〃∀〃)ゞ 希望能遇见兴趣相投的你~ ✨">
 <meta property="og:type" content="article">
-<meta property="og:title" content="test2">
-<meta property="og:url" content="http://example.com/2025/05/07/test2/index.html">
+<meta property="og:title" content="What is MCP">
+<meta property="og:url" content="http://example.com/2025/05/08/MCP/index.html">
 <meta property="og:site_name" content="Seele">
 <meta property="og:description" content="分享技术路上的所学所思，也拾掇些钟情角色的记忆碎片💖。一个不成体系的小破站 (〃∀〃)ゞ 希望能遇见兴趣相投的你~ ✨">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/open_graph.png">
-<meta property="article:published_time" content="2025-05-07T14:22:39.000Z">
-<meta property="article:modified_time" content="2025-05-07T15:51:25.390Z">
+<meta property="article:published_time" content="2025-05-08T06:46:45.000Z">
+<meta property="article:modified_time" content="2025-05-08T06:48:30.966Z">
 <meta property="article:author" content="Seele">
-<meta property="article:tag" content="test">
+<meta property="article:tag" content="MCP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/open_graph.png">
     
@@ -46,7 +46,7 @@
     
     <title>
         
-            test2 | Seele 💘
+            What is MCP | Seele 💘
         
     </title>
 
@@ -592,7 +592,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">test2</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">What is MCP</h1>
 			</div>
 			
 		</div>
@@ -613,15 +613,15 @@
 					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2025-05-07 22:22:39</span>
-        <span class="mobile">2025-05-07 22:22:39</span>
+        <span class="desktop">2025-05-08 14:46:45</span>
+        <span class="mobile">2025-05-08 14:46:45</span>
         <span class="hover-info">创建</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-05-07 23:51:25</span>
-            <span class="mobile">2025-05-07 23:51:25</span>
+            <span class="desktop">2025-05-08 14:48:30</span>
+            <span class="mobile">2025-05-08 14:48:30</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -635,7 +635,7 @@
                     
                         
                         <li>
-                            <a href="/categories/test/">test</a>&nbsp;
+                            <a href="/categories/technique/">technique</a>&nbsp;
                         </li>
                     
                     
@@ -649,7 +649,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/test/">test</a>&nbsp;
+                        <a href="/tags/MCP/">MCP</a>&nbsp;
                     </li>
                 
             </ul>
@@ -657,6 +657,10 @@
     
 
     
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.9k 字</span>
+        </span>
     
     
     
@@ -675,25 +679,335 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			
+			<h3 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h3><p>由claude的母公司Anthropic于2024年11月25日推出，全称<strong>模型上下文协议(Model Context Protocol)</strong></p>
+<ul>
+<li><p>这是一个开放标准, 在该网站可以看到官方文档 <a class="link"   target="_blank" rel="noopener" href="https://modelcontextprotocol.io/" >https://modelcontextprotocol.io/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<ul>
+<li>中文文档：<a class="link"   target="_blank" rel="noopener" href="https://mcp-docs.cn/introduction" >https://mcp-docs.cn/introduction<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+</li>
+<li><p>旨在将<strong>人工智能应用</strong>与<strong>不同工具</strong>和数据源进行连接</p>
+<ul>
+<li>提供一种标准化的路径来沟通 模型 与 工具</li>
+<li>属于<em>中间协议层</em>， 就像USB-C转接器一样，统一外部server接入host， 如下图所示， 通过MCP client作为转接器，不同的Server最终以统一的接口形式暴露给host，让模型得知。</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/./picture/MCP%E7%A4%BA%E6%84%8F%E5%9B%BE.png"
+                      alt="MCP示意图"
+                ></p>
+</li>
+<li><blockquote>
+<p>MCP is an open protocol that standardizes how applications provide context to LLMs. Think of MCP like a USB-C port for AI applications. Just as USB-C provides a standardized way to connect your devices to various peripherals and accessories, MCP provides a standardized way to connect AI models to different data sources and tools.</p>
+</blockquote>
+</li>
+</ul>
+<p>本质上是在模型和外部工具间添加一个 <strong>中介程序</strong>， 对接口进行<strong>封装</strong></p>
+<ul>
+<li>原先的外部工具套上一层壳(规范接口)就成了一个个<em>server</em></li>
+<li>中介程序中由<em>client</em> 和 <em>server</em> 打交道<ul>
+<li>通信基于MCP协议</li>
+</ul>
+</li>
+<li>而容纳<em>client</em>的中介程序，就是<em>MCP Host</em> —— 例如vscode的cline插件</li>
+</ul>
+<p>具体架构见图 <a href="#%E4%B8%80%E8%88%AC%E6%9E%B6%E6%9E%84">架构</a></p>
+<h3 id="现实意义"><a href="#现实意义" class="headerlink" title="现实意义"></a>现实意义</h3><p>能够帮助我们在抽象的顶层设计设计agent或Workflow —— 相当于将模型与工具封装隔离，设计者不需要过多考虑交互的细节与融合。<br>而现在的LLMs经常需要同外部数据或者工具进行融合，以此来增强自己的能力</p>
+<p>举个例子，假如没有MCP，那么不同如 Claude Desktop、IDE 或 AI 工具等AI应用，想要增加外部工具的调用，则需要彼此按照自己的村规对每个不同的工具做适配(比如function calling)</p>
+<p>而引入MCP协议作为中间层之后，一切变得井然有序, 如右图(目前的MCPserver数已经上万，如果没有中间层，这是不可想象的)</p>
+<p>在此之后，甚至可能可以基于MCP协议对模型进行专门的训练，使之对工具使用的接口更加熟悉，调用更加稳定。(因为本质上要求模型按规定格式输出)</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/./picture/MCP%E7%8E%B0%E5%AE%9E%E6%84%8F%E4%B9%89.png"
+                      alt="MCP现实意义"
+                ></p>
+<h3 id="一般架构"><a href="#一般架构" class="headerlink" title="一般架构"></a>一般架构</h3><ul>
+<li><p><strong>MCP Hosts</strong>: 如 Claude Desktop、IDE 或 AI 工具，希望通过 MCP 访问数据的程序</p>
+</li>
+<li><p><strong>MCP Clients</strong>: 维护与服务器一对一连接的协议客户端</p>
+</li>
+<li><p><strong>MCP Servers</strong>: 轻量级程序，通过标准的 Model Context Protocol 提供特定能力</p>
+</li>
+<li><p><strong>本地数据源</strong>: MCP 服务器可安全访问的计算机文件、数据库和服务</p>
+</li>
+<li><p><strong>远程服务</strong>: MCP 服务器可连接的互联网上的外部系统（如通过 APIs）</p>
+</li>
+<li><p><strong>MCP Hosts</strong>: Programs like Claude Desktop, IDEs, or AI tools that want to access data through MCP</p>
+</li>
+<li><p><strong>MCP Clients</strong>: Protocol clients that maintain 1:1 connections with servers</p>
+</li>
+<li><p><strong>MCP Servers</strong>: Lightweight programs that each expose specific capabilities through the standardized Model Context Protocol</p>
+</li>
+<li><p><strong>Local Data Sources</strong>: Your computer’s files, databases, and services that MCP servers can securely access</p>
+</li>
+<li><p><strong>Remote Services</strong>: External systems available over the internet (e.g., through APIs) that MCP servers can connect to</p>
+</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/./picture/MCP%E6%9E%B6%E6%9E%84.png"
+                      alt="MCP架构"
+                ></p>
+<p>其中MCPserver虽然名字里带个server<br>但它实际上完全可以是本地的一个程序，只是在逻辑关系上就像提供服务的server一样——因为本质上是外部工具的封装</p>
+<p>外部工具封装成MCP Server， 根据MCP协议，在传输层与MCP Client进行交互， client再将信息整合与Host交互</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/./picture/%E6%9E%B6%E6%9E%842.png"
+                      alt="架构2"
+                ></p>
+<h4 id="传输层实现细节"><a href="#传输层实现细节" class="headerlink" title="传输层实现细节"></a>传输层实现细节</h4><p>文档：<a class="link"   target="_blank" rel="noopener" href="https://modelcontextprotocol.io/docs/concepts/transports#standard-input%2Foutput-stdio" >https://modelcontextprotocol.io/docs/concepts/transports#standard-input%2Foutput-stdio<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>有两种传输方式</p>
+<ol>
+<li>stdio(适用于本地进程，两者都在同一台计算机上)<ul>
+<li>在这种模式下，server进程被client进程创建出来作为子进程，然后通过标准输入输出进行交互<ul>
+<li>client把消息写到server的stdin， server把response写到它的stdout</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>基于HTTP的SSE传输(SSE: Server-Sent Events) <ul>
+<li>使用 Server-Sent Events技术实现client到server的通信<ul>
+<li>client使用HTTP GET和HTTP POST与server进行交互</li>
+</ul>
+</li>
+<li>通信的协议内容基于JSON-RPC2.0</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>其实也允许自定义传输方式，但那样就偏离了统一接口的目的，因为又引入了未定义的行为</li>
+</ul>
+<h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><ul>
+<li><p><strong>Resources</strong></p>
+<ul>
+<li><p>它允许server暴露可以被 clients 读取并用作 LLM 交互上下文的数据和内容</p>
+<ul>
+<li><p>server通过<code>resources/list</code> endpoint暴露可用资源，resource结构</p>
+<div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  uri<span class="punctuation">:</span> string;           <span class="comment">// Unique identifier for the resource</span></span><br><span class="line">  name<span class="punctuation">:</span> string;          <span class="comment">// Human-readable name</span></span><br><span class="line">  description?<span class="punctuation">:</span> string;  <span class="comment">// Optional description</span></span><br><span class="line">  mimeType?<span class="punctuation">:</span> string;     <span class="comment">// Optional MIME type</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>或者</p>
+<div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  uriTemplate<span class="punctuation">:</span> string;   <span class="comment">// URI template following RFC 6570</span></span><br><span class="line">  name<span class="punctuation">:</span> string;          <span class="comment">// Human-readable name for this type</span></span><br><span class="line">  description?<span class="punctuation">:</span> string;  <span class="comment">// Optional description</span></span><br><span class="line">  mimeType?<span class="punctuation">:</span> string;     <span class="comment">// Optional MIME type for all matching resources</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>client可以通过<code>resources/read</code> 请求读取resources</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Prompts</strong></p>
+<ul>
+<li><p>允许 servers 定义可复用的提示模板和工作流，可以被Client获取</p>
+<ul>
+<li><p>prompt结构</p>
+<div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  name<span class="punctuation">:</span> string;              <span class="comment">// Unique identifier for the prompt</span></span><br><span class="line">  description?<span class="punctuation">:</span> string;      <span class="comment">// Human-readable description</span></span><br><span class="line">  arguments?<span class="punctuation">:</span> <span class="punctuation">[</span>              <span class="comment">// Optional list of arguments</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      name<span class="punctuation">:</span> string;          <span class="comment">// Argument identifier</span></span><br><span class="line">      description?<span class="punctuation">:</span> string;  <span class="comment">// Argument description</span></span><br><span class="line">      required?<span class="punctuation">:</span> boolean;    <span class="comment">// Whether argument is required</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>client可以通过<code>prompts/list</code>发现可用的prompts模版，然后嵌入必要的参数，通过<code>prompts/get</code> 进行使用</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Tools</strong></p>
+<ul>
+<li><p>使 servers 能够向 clients 暴露可执行功能</p>
+<ul>
+<li><p>Tool结构</p>
+<div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  name<span class="punctuation">:</span> string;          <span class="comment">// Unique identifier for the tool</span></span><br><span class="line">  description?<span class="punctuation">:</span> string;  <span class="comment">// Human-readable description</span></span><br><span class="line">  inputSchema<span class="punctuation">:</span> <span class="punctuation">&#123;</span>         <span class="comment">// JSON Schema for the tool&#x27;s parameters</span></span><br><span class="line">    type<span class="punctuation">:</span> <span class="string">&quot;object&quot;</span><span class="punctuation">,</span></span><br><span class="line">    properties<span class="punctuation">:</span> <span class="punctuation">&#123;</span> ... <span class="punctuation">&#125;</span>  <span class="comment">// Tool-specific parameters</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  annotations?<span class="punctuation">:</span> <span class="punctuation">&#123;</span>        <span class="comment">// Optional hints about tool behavior</span></span><br><span class="line">    title?<span class="punctuation">:</span> string;      <span class="comment">// Human-readable title for the tool</span></span><br><span class="line">    readOnlyHint?<span class="punctuation">:</span> boolean;    <span class="comment">// If true, the tool does not modify its environment</span></span><br><span class="line">    destructiveHint?<span class="punctuation">:</span> boolean; <span class="comment">// If true, the tool may perform destructive updates</span></span><br><span class="line">    idempotentHint?<span class="punctuation">:</span> boolean;  <span class="comment">// If true, repeated calls with same args have no additional effect</span></span><br><span class="line">    openWorldHint?<span class="punctuation">:</span> boolean;   <span class="comment">// If true, tool interacts with external entities</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>Clients 可以通过 <code>tools/list</code> endpoint 列出可用的 tools</p>
+</li>
+<li><p>Client 可以使用 <code>tools/call</code> endpoint 调用tool，servers 执行请求的操作并返回结果</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Sampling</strong></p>
+<ul>
+<li><p>它允许 servers 通过 client 请求 LLM 补全，从而实现复杂的 agentic 行为，同时保持安全性和隐私性</p>
+<ul>
+<li><p>这里产生了对LLM的请求，需要借用Host完成，而后文会提到这并不在MCP明确规定的范围内，所以未必所有的Host都支持该功能</p>
+</li>
+<li><p>如<em>Claude Desktop</em></p>
+<blockquote>
+<p>This feature of MCP is not yet supported in the Claude Desktop client.</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Roots</strong></p>
+<ul>
+<li>它定义了 servers 可以操作的边界<ul>
+<li>告知 servers 相关 resources 及其位置信息</li>
+<li>明确哪些 resources 是你的 workspace 的一部分</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>注意上述的这些核心概念，一般只有Tool部分是都会支持的，其它的具体要看client和host的实现</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/./picture/%E6%94%AF%E6%8C%81%E7%9F%A9%E9%98%B5.png"
+                      alt="支持矩阵"
+                ></p>
+<h3 id="工作过程"><a href="#工作过程" class="headerlink" title="工作过程"></a>工作过程</h3><h5 id="Client-和-Server之间的通信"><a href="#Client-和-Server之间的通信" class="headerlink" title="Client 和 Server之间的通信"></a>Client 和 Server之间的通信</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/./picture/%E8%BF%9E%E6%8E%A5%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png"
+                      alt="连接工作流程"
+                ></p>
+<ol>
+<li>Clinet向Server发生初始化请求</li>
+<li>Server会告诉Client自己拥有哪些工具以及协议版本(&gt; protocol version and capabilities)</li>
+<li>Client向Server发送信息，确认初始化成功</li>
+<li>开始正常信息交流<ul>
+<li>Request-Response: Client或Server发生请求，另一方响应</li>
+<li>Notifications: 一方单方面发送消息，不要求响应</li>
+</ul>
+</li>
+</ol>
+<p>当出现以下三种情况时终止</p>
+<ul>
+<li>使用<code>close()</code>干净关闭</li>
+<li>传输断开</li>
+<li>出现错误</li>
+</ul>
+<h5 id="Client-和-模型之间的通信"><a href="#Client-和-模型之间的通信" class="headerlink" title="Client 和 模型之间的通信"></a>Client 和 模型之间的通信</h5><ul>
+<li>MCP协议主要规定的是<strong>client和server之间的通信</strong>，<strong>Client和模型之间的通信会受到host具体实现的影响</strong>，但这一部分仍然有助于我们理解一个MCP应用的工作流程<ul>
+<li><strong>Anthropic的官网上似乎并没有规定Client和AI模型之间的通信 —— 只是规定了client和server之间的通信</strong></li>
+</ul>
+</li>
+</ul>
+<p>以cline为例，有人通过数据抓包发现，在实际工作的时候，Cline插件并没有使用<em>function calling</em>技术，而是——直接把所有外部工具的详细信息直接写在了提示词中(json格式，系统提示词，”role”:”system”)，甚至还有Cline内置的工具，甚至还有详细的使用案例教学，长达上万字符。其中用户的信息也同样在这段提示词中，通过另一项json来进行指定(用户提示词，”role”: “user”)。</p>
+<p>所以发生的事情是这样的：</p>
+<ol>
+<li>Host(如Cline)， 将用户的require附加上关于MCP工具的所有使用说明提供给模型</li>
+<li>模型按照提示词指定的格式调用工具，如使用<use_mcp_tool>标签进行标记<ul>
+<li>如果模型请求了工具调用，那么工具执行结果很可能会和原先的系统提示词、用户提示词一起发给模型，让它进行<strong>重新生成</strong>，直到没有工具调用请求。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>引自<em>BV1sWoMYUEi9</em>， <a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/29001189476" >https://zhuanlan.zhihu.com/p/29001189476<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+</blockquote>
+<hr>
+<h3 id="工程实践"><a href="#工程实践" class="headerlink" title="工程实践"></a>工程实践</h3><p>以下是一些MCP server汇总网站</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://smithery.ai/" >https://smithery.ai/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://mcp.so/" >https://mcp.so/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.mcp-home.com/" >https://www.mcp-home.com/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://mcpmarket.com/" >https://mcpmarket.com/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://mcpmarket.cn/" >https://mcpmarket.cn/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://mcpservers.org/" >https://mcpservers.org/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+<h4 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h4><p>找到一个心仪的MCP server(或者自己做一个)</p>
+<ul>
+<li>这里使用的MCP Server：<a class="link"   target="_blank" rel="noopener" href="https://mcp.so/server/fetch/modelcontextprotocol" >https://mcp.so/server/fetch/modelcontextprotocol<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+<p>一般来说，他会是类似的界面，有一些说明，但最重要的是右侧红框标记的<strong>Server Config</strong>， 将其复制到MCP Host的MCP Server配置文件即可</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/./picture/fetch.png"
+                      alt="fetch"
+                ></p>
+<p>以cline作为客户端为例：</p>
+<p>找到一个配置选项，点击就会打开一个json文件</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/./picture/Cline%E6%B7%BB%E5%8A%A0MCPServer.png"
+                      alt="cline添加MCPServer"
+                ></p>
+<p>在这个json文件复制进入从server提供者那里得到的server config即可——如果有多个的话，用逗号隔开。</p>
+<div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;fetch&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;uvx&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;mcp-server-fetch&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
+<p>以类似上述json格式去定义MCPserver<br>其中fetch为一个MCPserver的名字，运行的程序为uvx，参数为mcp-server-fetch</p>
+<ul>
+<li>所以可知，需要首先下载uvx程序<ul>
+<li>MCPserver大多使用python或者node进行编写，对应启动程序一般是(在MCP server供应处复制的时候看看command是什么就知道了)<ul>
+<li>python - uvx(uv tool run的别名)</li>
+<li>node - npx</li>
+</ul>
+</li>
+<li>关于uv：<ul>
+<li><blockquote>
+<p>An extremely fast Python package and project manager, written in Rust.</p>
+</blockquote>
+<ul>
+<li>python包管理器</li>
+</ul>
+</li>
+<li>文档：<a class="link"   target="_blank" rel="noopener" href="https://docs.astral.sh/uv/" >https://docs.astral.sh/uv/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li>mac+linux安装： <code>curl -LsSf https://astral.sh/uv/install.sh | sh</code></li>
+<li>windows安装： <code>powershell -ExecutionPolicy ByPass -c &quot;irm https://astral.sh/uv/install.ps1 | iex&quot;</code></li>
+</ul>
+</li>
+<li>关于npx, 其为node的一部分，所以已经安装过Node.js的不需要做额外安装</li>
+<li>uvx&#x2F;npx之外的command同理(原理是通的，都是运行命令做一些事情)</li>
+</ul>
+</li>
+</ul>
+<p>在客户端配置MCPserver的时候很多时候会运行命令、进行注册，所以要保证安装成功才能正常注册。</p>
+<ul>
+<li>注：在客户端配置完MCPserver可能会出现以下情况<ul>
+<li>尝试运行命令-&gt;发现对应工具没有安装-&gt;开始下载安装-&gt;安装太久，超时-&gt;配置失败<ul>
+<li>则解决方法为，现在自己的终端运行一遍，保证下载完成，例如<code>uvx mcp-server-fetch</code><ul>
+<li>下载完成可能需要手动退出，因为对应程序可能会被运行，然后开始等待输入</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>在网站找到提供的MCPserver时，提供方提供的json可能是上面那个示例的格式<br>但在实际配置的时候，可能会出现多两个参数<br>disabled和timeout<br>分别表示是否启用该工具以及超时时间</p>
+<p>还有一个<em>transportType</em>，这也是非常重要的，有两种选择，就是先前于<a href="#%E4%BC%A0%E8%BE%93%E5%B1%82%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82">传输层实现细节</a>提到的，但是网上具体的MCP Server提供的Server Config模版很多时候不自带这个选项，可以自行指定</p>
+<ul>
+<li>stdio</li>
+<li>sse</li>
+</ul>
+<div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;fetch&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">60</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;uvx&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;mcp-server-fetch&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;transportType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;stdio&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>然后就可以使用了</p>
+<hr>
+<p>同理，在Claude Desktop中</p>
+<p>找到对应的位置，打开config.json （claude_desktio_config.json）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/./picture/claude-desktop%E9%85%8D%E7%BD%AEMCP.png"
+                      alt="PixPin_2025-05-03_12-02-27"
+                ></p>
+<p>复制写入必要内容，然后重启Claude Desktop即可使用。</p>
+<div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;fetch&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;uvx&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;mcp-server-fetch&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;transportType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;stdio&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
+
+
 		</div>
 
 		
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> test2</li>
+        <li><strong>标题:</strong> What is MCP</li>
         <li><strong>作者:</strong> Seele</li>
         <li><strong>创建于
-                :</strong> 2025-05-07 22:22:39</li>
+                :</strong> 2025-05-08 14:46:45</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2025-05-07 23:51:25
+                    :</strong> 2025-05-08 14:48:30
             </li>
         
         <li>
-            <strong>链接:</strong> https://blog-seeles-secret-garden.vercel.app/2025/05/07/test2/
+            <strong>链接:</strong> https://blog-seeles-secret-garden.vercel.app/2025/05/08/MCP/
         </li>
         <li>
             <strong>
@@ -715,7 +1029,7 @@
 		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
 			
 			<li class="tag-item mx-0.5">
-				<a href="/tags/test/">#test</a>&nbsp;
+				<a href="/tags/MCP/">#MCP</a>&nbsp;
 			</li>
 			
 		</ul>
@@ -727,27 +1041,27 @@
     <div class="recommended-article-header text-xl md:text-3xl font-bold mt-10">
      <i aria-hidden="true"></i><span>推荐阅读</span>
     </div>
-    <div class="recommended-article-group"><a class="recommended-article-item" href="/2025/05/07/test3/" title="test3" rel="bookmark">
-  <img src="/images/open_graph.png" alt="test3" class="!max-w-none">
-  <span class="title">test3</span>
-</a><a class="recommended-article-item" href="/2025/05/07/test1/" title="test1" rel="bookmark">
-  <img src="/images/open_graph.png" alt="test1" class="!max-w-none">
-  <span class="title">test1</span>
-</a><a class="recommended-article-item" href="/2025/05/07/hello-world/" title="Hello World" rel="bookmark">
+    <div class="recommended-article-group"><a class="recommended-article-item" href="/2025/05/07/hello-world/" title="Hello World" rel="bookmark">
   <img src="/images/open_graph.png" alt="Hello World" class="!max-w-none">
   <span class="title">Hello World</span>
+</a><a class="recommended-article-item" href="/2025/05/07/test2/" title="test2" rel="bookmark">
+  <img src="/images/open_graph.png" alt="test2" class="!max-w-none">
+  <span class="title">test2</span>
+</a><a class="recommended-article-item" href="/2025/05/07/test3/" title="test3" rel="bookmark">
+  <img src="/images/open_graph.png" alt="test3" class="!max-w-none">
+  <span class="title">test3</span>
 </a></div>
    </div>
    <div class="recommended-mobile">
    <div class="recommended-article-header text-xl md:text-3xl font-bold mt-10">
      <i aria-hidden="true"></i><span>推荐阅读</span>
    </div>
-   <div class="recommended-article-group"><a class="recommended-article-item" href="/2025/05/07/test3/" title="test3" rel="bookmark">
-  <img src="/images/open_graph.png" alt="test3" class="!max-w-none">
-  <span class="title">test3</span>
-</a><a class="recommended-article-item" href="/2025/05/07/test1/" title="test1" rel="bookmark">
-  <img src="/images/open_graph.png" alt="test1" class="!max-w-none">
-  <span class="title">test1</span>
+   <div class="recommended-article-group"><a class="recommended-article-item" href="/2025/05/07/hello-world/" title="Hello World" rel="bookmark">
+  <img src="/images/open_graph.png" alt="Hello World" class="!max-w-none">
+  <span class="title">Hello World</span>
+</a><a class="recommended-article-item" href="/2025/05/07/test2/" title="test2" rel="bookmark">
+  <img src="/images/open_graph.png" alt="test2" class="!max-w-none">
+  <span class="title">test2</span>
 </a></div>
    </div>
   </div>
@@ -755,23 +1069,11 @@
 		
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
-			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2025/05/07/test3/">
-					<span class="left arrow-icon flex justify-center items-center">
-						<i class="fa-solid fa-chevron-left"></i>
-					</span>
-					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item">test3</span>
-						<span class="post-nav-item">上一篇</span>
-					</span>
-				</a>
-			</div>
-			
 			
 			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="next" rel="next" href="/2025/05/07/test1/">
+				<a class="next" rel="next" href="/2025/05/07/test3/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item">test1</span>
+						<span class="post-nav-title-item">test3</span>
 						<span class="post-nav-item">下一篇</span>
 					</span>
 					<span class="right arrow-icon flex justify-center items-center">
@@ -792,8 +1094,8 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
-		<div class="page-title">test2</div>
-		
+		<div class="page-title">What is MCP</div>
+		<ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction"><span class="nav-text">introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%B0%E5%AE%9E%E6%84%8F%E4%B9%89"><span class="nav-text">现实意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E6%9E%B6%E6%9E%84"><span class="nav-text">一般架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-text">核心概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="nav-text">工作过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5"><span class="nav-text">工程实践</span></a></li></ol>
 
 	</div>
 </div>
