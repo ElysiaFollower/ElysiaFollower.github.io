@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Seele">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2025/05/13/dify-introduction/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="分享技术路上的所学所思，也拾掇些钟情角色的记忆碎片💖。一个不成体系的小破站 (〃∀〃)ゞ 希望能遇见兴趣相投的你~ ✨">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dify-introduction">
+<meta property="og:url" content="http://example.com/2025/05/13/dify-introduction/index.html">
+<meta property="og:site_name" content="Seele">
+<meta property="og:description" content="分享技术路上的所学所思，也拾掇些钟情角色的记忆碎片💖。一个不成体系的小破站 (〃∀〃)ゞ 希望能遇见兴趣相投的你~ ✨">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/open_graph.png">
+<meta property="article:published_time" content="2025-05-13T03:02:28.000Z">
+<meta property="article:modified_time" content="2025-05-14T07:06:20.340Z">
+<meta property="article:author" content="Seele">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/open_graph.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/seele-cute-black-opacity.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/seele-cute-black-opacity.png">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/seele-cute-black-opacity.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            dify-introduction | Seele 💘
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+            
+                
+                    <link rel="stylesheet" href="/css/my-custom-footer.css">
+                
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":false},"author_label":{"enable":true,"auto":false,"list":["Lv6"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"atom-one-dark"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_sa"},"lazyload":true,"pangu_js":true,"recommendation":{"enable":true,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/open_graph.png","skip_dirs":["/docs/","/private/"]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":"少女祈祷中... (◕ᴗ◕✿)"},"open_graph":{"enable":true,"image":"/images/open_graph.png","description":"分享技术路上的所学所思，也拾掇些钟情角色的记忆碎片💖。一个不成体系的小破站 (〃∀〃)ゞ 希望能遇见兴趣相投的你~ ✨"},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/pardo.png","dark":"/images/sparkle.jpg"},"title":"勇者Seele的冒险手册","subtitle":{"text":["当你为错过太阳而哭泣的时候，你也要再错过群星了","有一个夜晚我烧毁了所有的记忆，从此我的梦就透明了","有一个早晨我扔掉了所有的昨天，从此我的脚步就轻盈了","我无法选择命运，但我可以选择成为什么样的人","世界是不美好，所以美好才是人们心中的渴望","是大家的心意，让我成为了现在的我","当一个故事要结束的时候，我们总会想起它的开始，就像是一切回到了从前","生命是昂贵又脆弱的东西。一个人能活着，是因为许多无辜的生命为他献上了牺牲","故事总有结束的时候，但留下的记忆不会消失，传递的感情不会消失。它们会成为后来者的钥匙，被人铭记......延伸向未来，永远存在","那些带领我、指引我的人，我会循着他们的足迹前进，以此铭记，他们存在过","永远不要期待在雪地里能走回头路，风雪会将你的脚印全部掩埋，你只能向前","在身处黑暗时，人总会想抓住点什么吧","每个人都是一面镜子，倒映出在他眼中的样子","我们不需要救世主，我们自己来拯救自己","铭记过去，是为了开拓更好的未来","有时候，如果过于在意一件事，它反而会让人忘记初心，甚至变成阻碍我们前进的魔咒","如果因为害怕玫瑰上的刺而否定玫瑰本身，进而远离花园，那会是多么遗憾的一件事啊","我想……每个人的回忆，都值得被守护","相信你愿意相信的，坚持你愿意坚持的，这不就够了吗？","所谓童话就是总有一天会结束的故事","不知何时起，我已不再畏惧黑暗，因为我知道，有一束光，永远在那里","我从不相信什么命运，未来由我自己来决定","即使未来不能改变，我也要自己决定到达那个结果的过程。重要的是在这段旅途中，我想要相信什么。那会决定在抵达终点时，我能够得到什么。而结局，也会因此展现截然不同的意义","一个人的命运，就是他的性格","任何人都有机会看清世界的本貌，并且承担它的重量——这就是我们所说的牺牲","赫克托耳知道王国终将陷落。阿喀琉斯也自己被预言的死亡。但他们两人，依然义无反顾地踏上了战场，在这个从一开始就注定是悲剧的故事里，没有一个人曾为此犹豫或者动摇，他们如此，我们，亦是如此","他们并非坚韧过于常人，只是知晓失败是胜利的另一种名字","鸟为什么会飞？因为它们必须飞向天际","当终焉的陨星在白垩纪降下，唯有自由的鸟儿才能跳出既定的灭亡","真理属于人类，谬误属于时代","执拗的花朵永远不会因暴雨而褪去颜色，你的决心也一定能在绝境中绽放真我","愿你前行的道路有群星闪耀。愿你留下的足迹有百花绽放。你即是上帝的馈赠，世界因你而瑰丽","悲剧并非终结，而是希望的起始。只有人类会这样想，也只有人类会将这样的信念化为现实","告别过去，是为了走向未来","要流传给后世的，绝不应该只有憎恨和使命。只有领略过这个时代的光辉和灿烂，未来的人们才能理解我们为之而战的意义","不是被推搡，被裹挟着向前，也不是沿着被别人选定的道路行进。而是怀着这样的想法——我想要怎么做，我应该怎么做——去决定自己的命路，自己的刻印","以自我的意志，朝着自身所设下的目标，用自在的方式，竭尽全力活过“我”作为主角的一生","悲伤不会凭空消失，但温暖的感情也会永远在心底珍藏","我们在世间留下的足迹，终会在未来的某一日，成为另一个人前行的灯火","想验证一个人的真心，首先得要相信，不是吗?","人性的美丽……就是如此闪耀，却易碎的事物呀。但正因为易碎，所以才要用心去保护，对不对?","我们会留在过去，而你将走向未来。然后，就去绽放出独属于你的，无瑕而美丽的光辉吧!"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":80,"backing_speed":25,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":false},"text_color":{"light":"#89ffef","dark":"#ff0000"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/ElysiaFollower","instagram":null,"zhihu":"https://www.zhihu.com/people/54-47-65-12-54","twitter":null,"email":null,"bilibili":"https://space.bilibili.com/86672293?spm_id_from=333.1007.0.0"},"qrs":{"weixin":"/images/wechat_qrc.png"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"相册":{"path":"/masonry","icon":"fa-regular fa-image"},"Friends":{"path":"/links","icon":"fa-regular fa-link"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"cloud"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"info","announcement":"技术力有限，如果文章中存在错误或不足之处，欢迎来联系博主~🫡<br><br>\n使用图片来自网络，能力有限，无法一一找出原作者orz😭<br>\n如需注明作者请联系博主,侵删🫶    \n","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2025/5/7 23:03:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        少女祈祷中... (◕ᴗ◕✿)
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/kiana-ashamed.jpg" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Seele 💘
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    归档
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-regular fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags"
+                                        >
+                                    <i class="fa-regular fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/masonry"
+                                        >
+                                    <i class="fa-regular fa-image fa-fw"></i>
+                                    相册
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/links"
+                                        >
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    友情链接
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                归档
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/masonry"
+                        >
+                            <span>
+                                相册
+                            </span>
+                            
+                                <i class="fa-regular fa-image fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/links"
+                        >
+                            <span>
+                                友情链接
+                            </span>
+                            
+                                <i class="fa-regular fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">dify-introduction</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/seele-cute-white.png">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Seele</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv6</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-05-13 11:02:28</span>
+        <span class="mobile">2025-05-13 11:02:28</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-05-14 15:06:20</span>
+            <span class="mobile">2025-05-14 15:06:20</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3k 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h2 id="dify部署与访问"><a href="#dify部署与访问" class="headerlink" title="dify部署与访问"></a>dify部署与访问</h2><p>部署在——本地机特定端口<br>只要在局域网下就能直接访问(包括编写好的AI应用提供的服务)(检验过) (个人测试时没有受到本地防火墙的干扰，但若出现，可以手动关闭)<br>以浙大为例，只要连在同一个无线网下就可以，校外用浙大RVPN应该能实现同样的效果(还没检验过)</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/05/13/dify-introduction/PixPin_2025-05-14_14-06-31.png"
+                      alt="PixPin_2025-05-14_14-06-31"
+                ></p>
+<p>反正找到能访问本地机的IP地址即可，如果没有上述红框圈起的地址或地址无效。可以使用ipconfig寻找当前机器的无线网络适配器的IP地址。</p>
+<p>其他人只需要在浏览器网址栏输入 <code>[该地址]/signin</code>即可访问。如果不行的话有可能会是本地有多个web服务(产生冲突，不能自动索引？我猜的)。不管怎么说，可以使用netstat命令观察本地所有对外开放的端口，无非全部检查一遍，在明确dify服务监听的特定端口之后，在浏览器网址栏输入<code>[该地址]:[端口号]/signin</code>应该就万无一失了。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/05/13/dify-introduction/PixPin_2025-05-14_14-19-55.png"
+                      alt="PixPin_2025-05-14_14-19-55"
+                ></p>
+<h2 id="一些前置知识"><a href="#一些前置知识" class="headerlink" title="一些前置知识"></a>一些前置知识</h2><p><strong>ollama是什么？</strong></p>
+<p><del class="mask">玩具，并不重要，事实上现在有很多能够提供模型API的平台了，比如<a class="link"   target="_blank" rel="noopener" href="https://openrouter.ai/models" >https://openrouter.ai/models<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>  。包括我们也可以使用模型官网提供的API或者其他各种模型管理平台，对于dify来说，只需要安装对应插件就能提供支持</del></p>
+<p>ollama是一个<strong>模型管理平台</strong>，可以用来管理模型，包括模型的上传、下载、部署、监控等。本身并不是模型<br>部署在本地机上。<br><strong>开源</strong>~~</p>
+<p><strong>模型后面跟的B是什么？</strong><br>B:billion，表示10^9，表示模型的<strong>可训练参数的数量</strong></p>
+<p><strong>dify是什么？</strong><br>dify是一个<strong>开源的AI应用开发平台</strong><br>我们可以将它作为脚手架进行AI应用的开发</p>
+<ul>
+<li>减少造轮子的工作</li>
+<li>可以以较高地效率完成复杂创意工作流的设计</li>
+<li>自由度很高，可以diy (比如不满意它自带的知识库检索，可以外接RAGflow API)</li>
+<li>有别人写好的插件或模版可以直接套用</li>
+<li>方便团队协作</li>
+<li>方便调试</li>
+</ul>
+<h2 id="模型从哪来？"><a href="#模型从哪来？" class="headerlink" title="模型从哪来？"></a>模型从哪来？</h2><p>右上角用户-&gt;设置-&gt;模型供应商 (在右上角系统模型设置还能看到我们的默认模型)<br>dify支持了很多了模型供应商——本质上是通过插件控制了接口，非常简单，安装插件即可增加支持</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/05/13/dify-introduction/PixPin_2025-05-14_14-35-06.png"
+                      alt="PixPin_2025-05-14_14-35-06"
+                ></p>
+<h3 id="如何添加dify上可用的模型？"><a href="#如何添加dify上可用的模型？" class="headerlink" title="如何添加dify上可用的模型？"></a>如何添加dify上可用的模型？</h3><p><strong>如果是我们本地GPU服务器提供的模型</strong></p>
+<ul>
+<li>在ollama模型供应商里选择添加模型<ul>
+<li>直接填写提供ollama服务的服务器的ip地址和端口号就好(虽然这也是ollama的安全隐患，但作为玩具，无所谓了)<ul>
+<li>之后填写该服务下提供的一个 <strong>模型名称</strong> 即可。若是通过检验，就会成功加入</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>如果是自己本机跑的模型</strong></p>
+<ul>
+<li>那就填自己本机提供服务的ip地址和端口号，原理上是类似的。<br>本机上的模型不一定要依赖于ollama，还可以考虑<strong>Xorbits Inference</strong></li>
+</ul>
+<p><strong>其它闭源模型</strong><br>直接填API key即可<br><del class="mask">但是不小心被别人拿去用了可能会狠狠烧钱</del></p>
+<ul>
+<li>不确定添加闭源模型之后别人能否直接使用该模型进行编排(可以测试)</li>
+<li><del class="mask">但其他人至少可以通过无休止地运行你编排的工作流而间接地燃烧你的API token</del></li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/05/13/dify-introduction/PixPin_2025-05-14_14-34-21.png"
+                      alt="PixPin_2025-05-14_14-34-21"
+                ></p>
+<h2 id="工作室"><a href="#工作室" class="headerlink" title="工作室"></a>工作室</h2><p><strong>创建AI应用的地方</strong></p>
+<p>导入DSL文件是直接导入现有应用(别人做好的)<br>从应用模版创建可以从现有模版创建，<del class="mask">站在巨人的肩膀上XD</del></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/05/13/dify-introduction/PixPin_2025-05-14_14-47-28.png"
+                      alt="PixPin_2025-05-14_14-47-28"
+                ></p>
+<p><strong>创建空白应用</strong>就是正常地自己创建<br><del class="mask">有四种应用类型，需要关注的主要是三种</del>，现2025年已经拓展到5种</p>
+<ul>
+<li>聊天助手</li>
+<li>Agent</li>
+<li>文本生成应用</li>
+<li>chatflow</li>
+<li>工作流</li>
+</ul>
+<h3 id="三种应用类型区别"><a href="#三种应用类型区别" class="headerlink" title="三种应用类型区别"></a>三种应用类型区别</h3><p>聊天助手就是字面意思：一个可以和你进行多轮对话的机器人<br>Agent可以简单理解为聊天助手的升级版——<strong>可以调用工具</strong>辅助完成任务<br>工作流就是一个<strong>流程图</strong>，在其中我们可以编排任务的处理方式，可以联合调用多个模型、工具，可以实现自动化的任务处理。</p>
+<p>三种应用类型各有优劣</p>
+<ul>
+<li><p>聊天助手：可多轮对话，支持基础编排和<strong>工作流编排</strong>，后者的情况下可以应用为<strong>可多次根据用户输入处理任务的工作流</strong></p>
+</li>
+<li><p><strong>工作流(<del class="mask">无敌</del>)</strong>：静态编排，稳定性强，但一次性工作，结束了就结束了。但是可发布为<strong>工具</strong>被Agent调用</p>
+<ul>
+<li>如果使用新增的chatflow，那么可以循环对话，感觉已经没有痛点了……<del class="mask">工作流is all you need</del></li>
+</ul>
+</li>
+<li><p>Agent: 动态编排，灵活性强。理论上来讲，我们期望Agent做的事是：<strong>利用自身的推理能力，将任务分解成多个子任务或者一个任务流程，并利用工具分步解决各个任务，最后输出结果</strong>。实际上我们期望的就是它自己去实现一个工作流的编排，并执行。容易知道这对模型推理能力的要求是很高的，就我们目前拥有的模型实例而言，Agent的推理能力还不够强，所以不能太依赖模型本身的推理能力去完成任务。<strong>通过在提示词中给出工作流程的示例或规定</strong>、<strong>将能完成特定任务的工作流作为工具封装好</strong>，从一定意义上可以减轻这个问题。</p>
+<ul>
+<li>但个人认为这个行为本质上还是通过<strong>降低了编排的动态性，增强其静态性</strong>，让Agent更趋于工作流，从而降低灵活性，提高稳定性，降低对模型推理能力的要求。</li>
+</ul>
+</li>
+</ul>
+<h3 id="关于提示词"><a href="#关于提示词" class="headerlink" title="关于提示词"></a>关于提示词</h3><p>可以发现需要提示词的地方右上角都有一个<strong>AI自动生成</strong>。如果自己不想写的话可以利用那个功能快速写一段提示词。</p>
+<p>注意提示词的生成能力取决于你在设置的时候设置的推理模型</p>
+<ul>
+<li>不过坦白说可以直接这样生成提示词——<a class="link"   target="_blank" rel="noopener" href="https://www.aipromptgenerator.net/zh?utm_source=ai-bot.cn" >https://www.aipromptgenerator.net/zh?utm_source=ai-bot.cn<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+<h4 id="关于编写提示词"><a href="#关于编写提示词" class="headerlink" title="关于编写提示词"></a>关于编写提示词</h4><p>下面是一些实践经验但不一定靠谱，靠谱的可以看这——<a class="link"   target="_blank" rel="noopener" href="https://www.promptingguide.ai/zh" >https://www.promptingguide.ai/zh<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>很多时候，只需要在最后面打上几个换行，然后用 ## 开头写个小标题，然后在下面补上几句说明就行了。<br>使用 ## 打小标题的目的是<strong>提供更清晰、更结构化的说明</strong>，这有助于模型的理解。</p>
+<blockquote>
+<p>例如：<br>## 输出说明<br>使用中文输出</p>
+<p>## 输入说明<br>用户输入为</p>
+</blockquote>
+<p>在提示词等地方需要插入或者绑定变量的话只需要用 { {  } } 框起来就行</p>
+<p>在工作流环境中给大模型配置提示词的时候可以发现有三种类型</p>
+<ul>
+<li>SYSTEM: 系统提示词——为对话提供高层指导(比如它要干什么，它的约束是什么<del class="mask">输出格式等</del>)</li>
+<li>USER: 用户提示词——向模型提供指令、查询或任何基于文本的输入()</li>
+<li>ASSITANT: 助手提示词——理论上是提供基于用户消息的模型回复<br>但在实际中目前似乎并未发现三者除了名字外有什么应用差异((?</li>
+</ul>
+<h3 id="关于工作流的编排"><a href="#关于工作流的编排" class="headerlink" title="关于工作流的编排"></a>关于工作流的编排</h3><p><strong>核心操作</strong></p>
+<ul>
+<li>鼠标右键可添加节点或注释</li>
+<li>鼠标左键选中连接线之后按<strong>backspace</strong>键可以删除连接线</li>
+<li>ctrl+c, ctrl+v可以复制粘贴节点</li>
+<li>在连接线上按 <strong>+</strong> 图标可以直接插入一个节点</li>
+<li>可以添加的节点除基础节点外还有工具(可以把工作流理解成静态编排的Agent，也是有工具调用能力的)</li>
+</ul>
+<p>chatflow和workflow的节点可能会稍有不同，但本质上是一致的。</p>
+<ul>
+<li><p>在<strong>开始</strong>节点，可定义输入变量。包括文本输入和文件输入等</p>
+</li>
+<li><p><strong>问题分类器</strong>，可利用模型对输入变量进行检验，完成问题的分类，决定工作流的走向</p>
+</li>
+<li><p><strong>变量聚合器</strong>，可将多个输入变量聚合成一个变量，方便后续进行统一处理(但是类型匹配是个讨厌的问题)</p>
+</li>
+<li><p><strong>结束</strong>节点，结束工作流，记得配置输出变量</p>
+</li>
+</ul>
+<p>完成配置之后记得<strong>发布</strong>和<strong>更新</strong>，不然不会生效<br>在发布选项卡里还有发布为<strong>工具</strong>，相当于可以对工作流进行封装，只暴露输入变量和输出变量的接口。</p>
+<p>反正结果大概就这样，挺图形化的，挺简单的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/05/13/dify-introduction/PixPin_2025-05-14_14-48-14.png"
+                      alt="PixPin_2025-05-14_14-48-14"
+                ></p>
+<h3 id="Agent的使用"><a href="#Agent的使用" class="headerlink" title="Agent的使用"></a>Agent的使用</h3><p>提示词原理同上，可以AI生成，也可以人工输入。用自然语言描述即可。结构化的提示词is preferred。</p>
+<p>可以调用工具</p>
+<p><strong>特别注意</strong>：写完之后记得发布更新！！！不然退出之后什么都不会留下(2024&#x2F;12&#x2F;13)</p>
+<p><strong>AI应用创建完成之后按运行</strong>，在任何地方都可以使用。直接把链接发给别人，别人就能用。(前提应该是能访问到dify部署的机子，在浙大局域网下应该就能访问)</p>
+<p><del class="mask">坦白说，dify在创建应用模版的时候所谓的Agent并不是最符合个人对Agent的印象的，感觉实际上工作流或者说chatflow可实现的智能化程度更高？</del></p>
+<p>好吧其实也只能说是工作流上限更高，但可能做的不好地话会偏静态</p>
+<p>Agent应该是可以动态调用工具。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/05/13/dify-introduction/PixPin_2025-05-14_14-52-33.png"
+                      alt="PixPin_2025-05-14_14-52-33"
+                ></p>
+<h3 id="知识库的建立"><a href="#知识库的建立" class="headerlink" title="知识库的建立"></a>知识库的建立</h3><p>可以上传各种文本。实际上文本本身没有特殊要求——<strong>即便更加结构化的数据有利于AI更好地建立知识库</strong>。随便写一段txt都可以导入建立知识库。但是杂乱的数据可能对嵌入模型的能力需求更高。</p>
+<p><strong>分段设置</strong><br>自动分段与清洗，挺好的。对于一般的数据可以使用它。<br>如果是自己手写的知识库，推荐使用自定义。比如定义 <strong>##</strong> 为分段标识符，就基本可以保证实现完美的分段效果。</p>
+<p>在索引方式方面。选择<strong>高质量</strong>意味着用模型去进行文本嵌入，否则使用离线的文本索引方式(dify自带的)。</p>
+<p>检索设置涉及到重排序问题，需要rerank模型。</p>
+<p>后面新增的<strong>父子分段</strong>可能更好地捕捉上下文关系，见仁见智吧</p>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><p>打开对应的AI应用，点到<strong>日志</strong>页面，可以追踪运行结果，调试还是比较方便的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/05/13/dify-introduction/PixPin_2025-05-14_14-54-28.png"
+                      alt="PixPin_2025-05-14_14-54-28"
+                ></p>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><p>工具是Agent的灵魂，不必我多说了叭(</p>
+<p>除了自己编排工作流发布成工具外</p>
+<p>在dify的市场界面也可以使用很多人做好的工具</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/05/13/dify-introduction/PixPin_2025-05-14_14-56-51.png"
+                      alt="PixPin_2025-05-14_14-56-51"
+                ></p>
+<h3 id="MCP"><a href="#MCP" class="headerlink" title="MCP"></a>MCP</h3><p>MCP协议的出现极大地赋能了AI工具的开发，现在市面上已有上万MCP server</p>
+<ul>
+<li>其中一个网站：<a class="link"   target="_blank" rel="noopener" href="https://mcp.so/" >https://mcp.so/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+<p>虽然尚未尝试，但注意到dify的拓展中已经出现了对MCP相关的支持，如果能够使用MCP赋能，那么dify的边界将会更加强大</p>
+<p>—— <del class="mask">或许只要不涉及到底层算法层面的革新，dify已经能够满足对AI应用开发的所有需求(bushi)</del></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/05/13/dify-introduction/PixPin_2025-05-14_14-57-34.png"
+                      alt="PixPin_2025-05-14_14-57-34"
+                ></p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> dify-introduction</li>
+        <li><strong>作者:</strong> Seele</li>
+        <li><strong>创建于
+                :</strong> 2025-05-13 11:02:28</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2025-05-14 15:06:20
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://blog-seeles-secret-garden.vercel.app/2025/05/13/dify-introduction/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+
+		
+  <div class="recommended-article px-2 sm:px-6 md:px-8">
+   <div class="recommended-desktop">
+    <div class="recommended-article-header text-xl md:text-3xl font-bold mt-10">
+     <i aria-hidden="true"></i><span>推荐阅读</span>
+    </div>
+    <div class="recommended-article-group"><a class="recommended-article-item" href="/2025/05/08/MCP/" title="MCP - image test" rel="bookmark">
+  <img src="/images/open_graph.png" alt="MCP - image test" class="!max-w-none">
+  <span class="title">MCP - image test</span>
+</a><a class="recommended-article-item" href="/2025/05/09/announcement/" title="公告(说明)" rel="bookmark">
+  <img src="/images/open_graph.png" alt="公告(说明)" class="!max-w-none">
+  <span class="title">公告(说明)</span>
+</a><a class="recommended-article-item" href="/2025/05/07/test2/" title="test2" rel="bookmark">
+  <img src="/images/open_graph.png" alt="test2" class="!max-w-none">
+  <span class="title">test2</span>
+</a></div>
+   </div>
+   <div class="recommended-mobile">
+   <div class="recommended-article-header text-xl md:text-3xl font-bold mt-10">
+     <i aria-hidden="true"></i><span>推荐阅读</span>
+   </div>
+   <div class="recommended-article-group"><a class="recommended-article-item" href="/2025/05/08/MCP/" title="MCP - image test" rel="bookmark">
+  <img src="/images/open_graph.png" alt="MCP - image test" class="!max-w-none">
+  <span class="title">MCP - image test</span>
+</a><a class="recommended-article-item" href="/2025/05/09/announcement/" title="公告(说明)" rel="bookmark">
+  <img src="/images/open_graph.png" alt="公告(说明)" class="!max-w-none">
+  <span class="title">公告(说明)</span>
+</a></div>
+   </div>
+  </div>
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/05/09/announcement/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">公告(说明)</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">dify-introduction</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#dify%E9%83%A8%E7%BD%B2%E4%B8%8E%E8%AE%BF%E9%97%AE"><span class="nav-text">dify部署与访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-text">一些前置知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E4%BB%8E%E5%93%AA%E6%9D%A5%EF%BC%9F"><span class="nav-text">模型从哪来？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0dify%E4%B8%8A%E5%8F%AF%E7%94%A8%E7%9A%84%E6%A8%A1%E5%9E%8B%EF%BC%9F"><span class="nav-text">如何添加dify上可用的模型？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E5%AE%A4"><span class="nav-text">工作室</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E5%BA%94%E7%94%A8%E7%B1%BB%E5%9E%8B%E5%8C%BA%E5%88%AB"><span class="nav-text">三种应用类型区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%8F%90%E7%A4%BA%E8%AF%8D"><span class="nav-text">关于提示词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%9A%84%E7%BC%96%E6%8E%92"><span class="nav-text">关于工作流的编排</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Agent%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">Agent的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B"><span class="nav-text">知识库的建立</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E8%AF%95"><span class="nav-text">调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MCP"><span class="nav-text">MCP</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2025</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Seele</a>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+    
+<script src="/js/build/libs/minimasonry.min.js"></script>
+
+    
+<script src="/js/build/plugins/masonry.js" type="module"></script>
+
+
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+    
+<script src="/js/build/libs/pangu.min.js"></script>
+
+<script src="/js/build/plugins/pangu.js"></script>
+
+
+
+
+	
+</body>
+
+</html>
