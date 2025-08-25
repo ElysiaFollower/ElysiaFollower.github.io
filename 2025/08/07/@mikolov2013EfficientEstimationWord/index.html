@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Prometheus0017">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2025/08/07/@mikolov2013efficientestimationword/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="分享技术路上的所学所思，也拾掇些钟情角色的记忆碎片💖。一个不成体系的小破站 (〃∀〃)ゞ 希望能遇见兴趣相投的你~ ✨">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重读经典：Word2Vec如何通过“简化”撬动了整个NLP世界？">
+<meta property="og:url" content="http://example.com/2025/08/07/@mikolov2013EfficientEstimationWord/index.html">
+<meta property="og:site_name" content="Seele">
+<meta property="og:description" content="分享技术路上的所学所思，也拾掇些钟情角色的记忆碎片💖。一个不成体系的小破站 (〃∀〃)ゞ 希望能遇见兴趣相投的你~ ✨">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/open_graph.png">
+<meta property="article:published_time" content="2025-08-07T14:22:36.000Z">
+<meta property="article:modified_time" content="2025-08-25T13:41:23.862Z">
+<meta property="article:author" content="Prometheus17">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="basis">
+<meta property="article:tag" content="Word2Vec">
+<meta property="article:tag" content="paper">
+<meta property="article:tag" content="impressive">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/open_graph.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/seele-cute-black-removebg.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/seele-cute-black-removebg.png">
+    <meta name="theme-color" content="#fe5d6d">
+    <link rel="shortcut icon" href="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/seele-cute-black-removebg.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            重读经典：Word2Vec如何通过“简化”撬动了整个NLP世界？ | Null Pointer律者 😋
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["Lv6"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"atom-one-dark"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_sa"},"lazyload":true,"pangu_js":true,"recommendation":{"enable":true,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/open_graph.png","skip_dirs":["/docs/","/private/"]}},"colors":{"primary":"#fe5d6d","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":true,"family":"'Ma Shan Zheng', cursive","url":"https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap"},"english":{"enable":false,"family":null,"url":null},"title":{"enable":true,"family":"'Ma Shan Zheng', cursive","url":"https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap"}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":"少女祈祷中... (◕ᴗ◕✿)"},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/open_graph.png","description":"分享技术路上的所学所思，也拾掇些钟情角色的记忆碎片💖。一个不成体系的小破站 (〃∀〃)ゞ 希望能遇见兴趣相投的你~ ✨"},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/夏日生存狂想曲17.png","dark":"https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/sparkle.jpg"},"title":"17号的航行日志","subtitle":{"text":["当你为错过太阳而哭泣的时候，你也要再错过群星了","有一个夜晚我烧毁了所有的记忆，从此我的梦就透明了","有一个早晨我扔掉了所有的昨天，从此我的脚步就轻盈了","我无法选择命运，但我可以选择成为什么样的人","世界是不美好，所以美好才是人们心中的渴望","是大家的心意，让我成为了现在的我","当一个故事要结束的时候，我们总会想起它的开始，就像是一切回到了从前","生命是昂贵又脆弱的东西。一个人能活着，是因为许多无辜的生命为他献上了牺牲","故事总有结束的时候，但留下的记忆不会消失，传递的感情不会消失。它们会成为后来者的钥匙，被人铭记......延伸向未来，永远存在","那些带领我、指引我的人，我会循着他们的足迹前进，以此铭记，他们存在过","永远不要期待在雪地里能走回头路，风雪会将你的脚印全部掩埋，你只能向前","在身处黑暗时，人总会想抓住点什么吧","每个人都是一面镜子，倒映出在他眼中的样子","我们不需要救世主，我们自己来拯救自己","铭记过去，是为了开拓更好的未来","有时候，如果过于在意一件事，它反而会让人忘记初心，甚至变成阻碍我们前进的魔咒","如果因为害怕玫瑰上的刺而否定玫瑰本身，进而远离花园，那会是多么遗憾的一件事啊","我想……每个人的回忆，都值得被守护","相信你愿意相信的，坚持你愿意坚持的，这不就够了吗？","所谓童话就是总有一天会结束的故事","不知何时起，我已不再畏惧黑暗，因为我知道，有一束光，永远在那里","我从不相信什么命运，未来由我自己来决定","即使未来不能改变，我也要自己决定到达那个结果的过程。重要的是在这段旅途中，我想要相信什么。那会决定在抵达终点时，我能够得到什么。而结局，也会因此展现截然不同的意义","一个人的性格，就是他的命运","任何人都有机会看清世界的本貌，并且承担它的重量——这就是我们所说的牺牲","赫克托尔知道王国终将陷落，阿喀琉斯也明白自己正在走向死亡。但他们两人，依然义无反顾地踏上了战场，在这个从一开始就注定是悲剧的故事里，没有一个人曾为此犹豫或者动摇，他们如此，我们，亦是如此","他们并非坚韧过于常人，只是知晓失败是胜利的另一种名字","鸟为什么会飞？因为它们必须飞向天际","当终焉的陨星在白垩纪降下，唯有自由的鸟儿才能跳出既定的灭亡","真理属于人类，谬误属于时代","执拗的花朵永远不会因暴雨而褪去颜色，你的决心也一定能在绝境中绽放真我","愿你前行的道路有群星闪耀。愿你留下的足迹有百花绽放。你即是上帝的馈赠，世界因你而瑰丽","悲剧并非终结，而是希望的起始。只有人类会这样想，也只有人类会将这样的信念化为现实","告别过去，是为了走向未来","要流传给后世的，绝不应该只有憎恨和使命。只有领略过这个时代的光辉和灿烂，未来的人们才能理解我们为之而战的意义","不是被推搡，被裹挟着向前，也不是沿着被别人选定的道路行进。而是怀着这样的想法——我想要怎么做，我应该怎么做——去决定自己的命路，自己的刻印","以自我的意志，朝着自身所设下的目标，用自在的方式，竭尽全力活过“我”作为主角的一生","悲伤不会凭空消失，但温暖的感情也会永远在心底珍藏","我们在世间留下的足迹，终会在未来的某一日，成为另一个人前行的灯火","想验证一个人的真心，首先得要相信，不是吗?","人性的美丽……就是如此闪耀，却易碎的事物呀。但正因为易碎，所以才要用心去保护，对不对?","我们会留在过去，而你将走向未来。然后，就去绽放出独属于你的，无瑕而美丽的光辉吧!"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":80,"backing_speed":25,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":false},"text_color":{"light":"#ffffff","dark":"#ff0000"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/ElysiaFollower","instagram":null,"zhihu":"https://www.zhihu.com/people/54-47-65-12-54","twitter":null,"email":"1615534978@qq.com","bilibili":"https://space.bilibili.com/86672293?spm_id_from=333.1007.0.0"},"qrs":{"weixin":"https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/wechat-QR.png"}}},"plugins":{"feed":{"enable":true},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"光へ (向着光)","artist":"フランシュシュ","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E5%85%89%E3%81%B8/光へ.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E5%85%89%E3%81%B8/光へ.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E5%85%89%E3%81%B8/光へ.lrc"},{"name":"輝いて","artist":"フランシュシュ","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E8%BC%9D%E3%81%84%E3%81%A6/輝いて.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E8%BC%9D%E3%81%84%E3%81%A6/輝いて.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E8%BC%9D%E3%81%84%E3%81%A6/輝いて.lrc"},{"name":"Dye the sky.","artist":"シャイニーカラーズ","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/Dye%20the%20sky./Dye the sky..mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/Dye%20the%20sky./Dye the sky..jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/Dye%20the%20sky./Dye the sky..lrc"},{"name":"限りなく灰色へ (feat. 宵崎奏&朝比奈まふゆ&東雲絵名&暁山瑞希&鏡音リン)","artist":"すりぃ, 25時、ナイトコードで。, 鏡音リン","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E9%99%90%E3%82%8A%E3%81%AA%E3%81%8F%E7%81%B0%E8%89%B2%E3%81%B8%20%28feat.%20%E5%AE%B5%E5%B4%8E%E5%A5%8F%26%E6%9C%9D%E6%AF%94%E5%A5%88%E3%81%BE%E3%81%B5%E3%82%86%26%E6%9D%B1%E9%9B%B2%E7%B5%B5%E5%90%8D%26%E6%9A%81%E5%B1%B1%E7%91%9E%E5%B8%8C%26%E9%8F%A1%E9%9F%B3%E3%83%AA%E3%83%B3%29/限りなく灰色へ (feat. 宵崎奏&朝比奈まふゆ&東雲絵名&暁山瑞希&鏡音リン).mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E9%99%90%E3%82%8A%E3%81%AA%E3%81%8F%E7%81%B0%E8%89%B2%E3%81%B8%20%28feat.%20%E5%AE%B5%E5%B4%8E%E5%A5%8F%26%E6%9C%9D%E6%AF%94%E5%A5%88%E3%81%BE%E3%81%B5%E3%82%86%26%E6%9D%B1%E9%9B%B2%E7%B5%B5%E5%90%8D%26%E6%9A%81%E5%B1%B1%E7%91%9E%E5%B8%8C%26%E9%8F%A1%E9%9F%B3%E3%83%AA%E3%83%B3%29/限りなく灰色へ (feat. 宵崎奏&朝比奈まふゆ&東雲絵名&暁山瑞希&鏡音リン).jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E9%99%90%E3%82%8A%E3%81%AA%E3%81%8F%E7%81%B0%E8%89%B2%E3%81%B8%20%28feat.%20%E5%AE%B5%E5%B4%8E%E5%A5%8F%26%E6%9C%9D%E6%AF%94%E5%A5%88%E3%81%BE%E3%81%B5%E3%82%86%26%E6%9D%B1%E9%9B%B2%E7%B5%B5%E5%90%8D%26%E6%9A%81%E5%B1%B1%E7%91%9E%E5%B8%8C%26%E9%8F%A1%E9%9F%B3%E3%83%AA%E3%83%B3%29/限りなく灰色へ (feat. 宵崎奏&朝比奈まふゆ&東雲絵名&暁山瑞希&鏡音リン).lrc"},{"name":"アンチユー (Anti You)","artist":"MORE MORE JUMP!","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E3%82%A2%E3%83%B3%E3%83%81%E3%83%A6%E3%83%BC/アンチユー.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E3%82%A2%E3%83%B3%E3%83%81%E3%83%A6%E3%83%BC/アンチユー.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E3%82%A2%E3%83%B3%E3%83%81%E3%83%A6%E3%83%BC/アンチユー.lrc"},{"name":"白昼梦","artist":"こぴ","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E7%99%BD%E6%98%BC%E6%A2%A6/白昼梦.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E7%99%BD%E6%98%BC%E6%A2%A6/白昼梦.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E7%99%BD%E6%98%BC%E6%A2%A6/白昼梦.lrc"},{"name":"罪の天使","artist":"TetraCalyx","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E7%BD%AA%E3%81%AE%E5%A4%A9%E4%BD%BF/罪の天使.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E7%BD%AA%E3%81%AE%E5%A4%A9%E4%BD%BF/罪の天使.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E7%BD%AA%E3%81%AE%E5%A4%A9%E4%BD%BF/罪の天使.lrc"},{"name":"Da Capo","artist":"HOYO-MiX","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/Da%20Capo/Da Capo.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/Da%20Capo/Da Capo.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/Da%20Capo/Da Capo.lrc"},{"name":"Moon Halo","artist":"茶理理, TetraCalyx, Hanser, HOYO-MiX","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/Moon%20Halo/Moon Halo.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/Moon%20Halo/Moon Halo.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/Moon%20Halo/Moon Halo.lrc"},{"name":"TruE","artist":"黄龄, HOYO-MiX","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/TruE/TruE.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/TruE/TruE.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/TruE/TruE.lrc"},{"name":"崩坏世界的歌姬 (Movie Ver.)","artist":"小林未郁","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E5%B4%A9%E5%9D%8F%E4%B8%96%E7%95%8C%E7%9A%84%E6%AD%8C%E5%A7%AC%20%28Movie%20Ver.%29/崩坏世界的歌姬 (Movie Ver.).mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E5%B4%A9%E5%9D%8F%E4%B8%96%E7%95%8C%E7%9A%84%E6%AD%8C%E5%A7%AC%20%28Movie%20Ver.%29/崩坏世界的歌姬 (Movie Ver.).jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E5%B4%A9%E5%9D%8F%E4%B8%96%E7%95%8C%E7%9A%84%E6%AD%8C%E5%A7%AC%20%28Movie%20Ver.%29/崩坏世界的歌姬 (Movie Ver.).lrc"},{"name":"Starfall","artist":"袁娅维TIA RAY","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/Starfall/Starfall.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/Starfall/Starfall.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/Starfall/Starfall.lrc"},{"name":"Cyberangel","artist":"Hanser","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/Cyberangel/Cyberangel.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/Cyberangel/Cyberangel.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/Cyberangel/Cyberangel.lrc"},{"name":"ノット・グッド・ワールド","artist":"あやぽんず*, あよ","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E3%83%8E%E3%83%83%E3%83%88%E3%83%BB%E3%82%B0%E3%83%83%E3%83%89%E3%83%BB%E3%83%AF%E3%83%BC%E3%83%AB%E3%83%89/ノット・グッド・ワールド.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E3%83%8E%E3%83%83%E3%83%88%E3%83%BB%E3%82%B0%E3%83%83%E3%83%89%E3%83%BB%E3%83%AF%E3%83%BC%E3%83%AB%E3%83%89/ノット・グッド・ワールド.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E3%83%8E%E3%83%83%E3%83%88%E3%83%BB%E3%82%B0%E3%83%83%E3%83%89%E3%83%BB%E3%83%AF%E3%83%BC%E3%83%AB%E3%83%89/ノット・グッド・ワールド.lrc"},{"name":"星になる (feat. 倚水)","artist":"Islet, 倚水","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E6%98%9F%E3%81%AB%E3%81%AA%E3%82%8B%20%28feat.%20%E5%80%9A%E6%B0%B4%29/星になる (feat. 倚水).mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E6%98%9F%E3%81%AB%E3%81%AA%E3%82%8B%20%28feat.%20%E5%80%9A%E6%B0%B4%29/星になる (feat. 倚水).jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E6%98%9F%E3%81%AB%E3%81%AA%E3%82%8B%20%28feat.%20%E5%80%9A%E6%B0%B4%29/星になる (feat. 倚水).lrc"},{"name":"REVENGE","artist":"フランシュシュ","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/REVENGE/REVENGE.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/REVENGE/REVENGE.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/REVENGE/REVENGE.lrc"},{"name":"拂晓 Proi Proi","artist":"HOYO-MiX, NIDA","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/拂晓 Proi Proi/拂晓 Proi Proi.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/拂晓 Proi Proi/拂晓 Proi Proi.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/拂晓 Proi Proi/拂晓 Proi Proi.lrc"},{"name":"何者","artist":"谭晶, HOYO-MiX","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E4%BD%95%E8%80%85/何者.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E4%BD%95%E8%80%85/何者.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E4%BD%95%E8%80%85/何者.lrc"},{"name":"アンノウン・マザーグース","artist":"wowaka, 初音ミク","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/wowaka%2C%20%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF/wowaka, 初音ミク.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/wowaka%2C%20%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF/wowaka, 初音ミク.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/wowaka%2C%20%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF/wowaka, 初音ミク.lrc"},{"name":"[囧菌] シニカルナイトプラン（翻自 初音ミク）","artist":"封茗囧菌","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%5B%E5%9B%A7%E8%8F%8C%5D%20%E3%82%B7%E3%83%8B%E3%82%AB%E3%83%AB%E3%83%8A%E3%82%A4%E3%83%88%E3%83%97%E3%83%A9%E3%83%B3/[囧菌] シニカルナイトプラン.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%5B%E5%9B%A7%E8%8F%8C%5D%20%E3%82%B7%E3%83%8B%E3%82%AB%E3%83%AB%E3%83%8A%E3%82%A4%E3%83%88%E3%83%97%E3%83%A9%E3%83%B3/[囧菌] シニカルナイトプラン.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%5B%E5%9B%A7%E8%8F%8C%5D%20%E3%82%B7%E3%83%8B%E3%82%AB%E3%83%AB%E3%83%8A%E3%82%A4%E3%83%88%E3%83%97%E3%83%A9%E3%83%B3/[囧菌] シニカルナイトプラン.lrc"},{"name":"ツバサ (羽翼)","artist":"若山詩音","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E3%83%84%E3%83%90%E3%82%B5/ツバサ.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E3%83%84%E3%83%90%E3%82%B5/ツバサ.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E3%83%84%E3%83%90%E3%82%B5/ツバサ.lrc"},{"name":"spiral","artist":"LONGMAN","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/spiral/spiral.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/spiral/spiral.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/spiral/spiral.lrc"},{"name":"Believe in you","artist":"nonoc","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/Believe%20in%20you/Believe in you.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/Believe%20in%20you/Believe in you.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/Believe%20in%20you/Believe in you.lrc"},{"name":"STYX HELIX","artist":"MYTH & ROID","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/STYX%20HELIX/STYX HELIX.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/STYX%20HELIX/STYX HELIX.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/STYX%20HELIX/STYX HELIX.lrc"},{"name":"忘れてやらない","artist":"結束バンド","url":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E5%BF%98%E3%82%8C%E3%81%A6%E3%82%84%E3%82%89%E3%81%AA%E3%81%84/忘れてやらない.mp3","cover":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E5%BF%98%E3%82%8C%E3%81%A6%E3%82%84%E3%82%89%E3%81%AA%E3%81%84/忘れてやらない.jpg","lrc":"https://pub-afcc413539f94c73959ec3d27d32e67d.r2.dev/%E5%BF%98%E3%82%8C%E3%81%A6%E3%82%84%E3%82%89%E3%81%AA%E3%81%84/忘れてやらない.lrc"}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"相册":{"path":"/masonry","icon":"fa-regular fa-image"},"Friends":{"path":"/links","icon":"fa-regular fa-link"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":3,"tags_style":"cloud"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"info","announcement":"技术力有限，如果文章中存在错误或不足之处，欢迎来联系博主~🫡<br><br>\n引用图片来自网络，能力有限，无法一一找出原作者orz😭<br>\n如需注明作者请联系博主,侵删🫶    \n","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2025/5/7 23:03:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Seele" type="application/atom+xml">
+</head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        少女祈祷中... (◕ᴗ◕✿)
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/Griseo.png" class="w-full h-full rounded-xs">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Null Pointer律者 😋
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    归档
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-regular fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags"
+                                        >
+                                    <i class="fa-regular fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/masonry"
+                                        >
+                                    <i class="fa-regular fa-image fa-fw"></i>
+                                    相册
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/links"
+                                        >
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    友情链接
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                归档
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/masonry"
+                        >
+                            <span>
+                                相册
+                            </span>
+                            
+                                <i class="fa-regular fa-image fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/links"
+                        >
+                            <span>
+                                友情链接
+                            </span>
+                            
+                                <i class="fa-regular fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">5</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">1</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			
+			
+			<img src="/images/gallery/v2v.png" alt="重读经典：Word2Vec如何通过“简化”撬动了整个NLP世界？" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
+			
+			<div class="w-full flex items-center absolute bottom-0 justify-start">
+				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">重读经典：Word2Vec如何通过“简化”撬动了整个NLP世界？</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/seele-cute-white-removebg.png">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Prometheus0017</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv6</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-08-07 22:22:36</span>
+        <span class="mobile">2025-08-07 22:22:36</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-08-25 21:41:23</span>
+            <span class="mobile">2025-08-25 21:41:23</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/AI/">AI</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/AI/basis/">basis</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/AI/">AI</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/basis/">basis</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Word2Vec/">Word2Vec</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/paper/">paper</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/impressive/">impressive</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>4.6k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>16 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p><strong>摘要</strong>: 2013年，一篇名为《Efficient Estimation of Word Representations in Vector Space》的论文横空出世，它提出的构成Word2Vec核心思想的CBOW和Skip-gram架构，彻底改变了我们让机器理解语言的方式。本文将带您重温这篇里程碑式的著作，探讨其核心思想：为何一个看似更“简单”的模型，反而能发现语言中令人惊叹的深层结构？</p>
+<p>原文链接：<a class="link" target="_blank" rel="noopener" href="https://arxiv.org/abs/1301.3781">https://arxiv.org/abs/1301.3781<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><del class="mask">注：为了无障碍理解这篇论文，阁下可能需要先理解文末 <a href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86">前置知识</a> 中提到的一些基本概念。</del></p>
+<h2 id="问题的根源：昂贵的“理解”"><a href="#问题的根源：昂贵的“理解”" class="headerlink" title="问题的根源：昂贵的“理解”"></a>问题的根源：昂贵的“理解”</h2><p>在Word2Vec出现之前，自然语言处理（NLP）领域长期面临一个难题：如何让计算机理解词语之间的关系？传统方法如One-hot编码，将每个词视为一个独立的符号，这使得“国王”和“女王”在模型眼中毫无关联。</p>
+<blockquote>
+<p>as these(notion of words) are represented as indices in a vocabulary</p>
+</blockquote>
+<p>虽然当时先进的神经网络语言模型（NNLM）已经可以通过“分布式表示”（Distributed Representation）将词语学习为低维、稠密的向量（即<strong>词向量</strong>），并在一定程度上捕捉到语义相似性。但这些模型通常包含一个或多个复杂的<strong>非线性隐藏层</strong>。这个隐藏层是模型强大表达能力的核心，却也成为了<strong>巨大的计算瓶颈</strong>。其复杂度，特别是Hidden Layer的计算<del class="mask">（N×D×H part）</del>，使得在数十亿词级别的海量数据集上训练模型变得不切实际。简单来说，当时的“理解”非常昂贵，以至于我们无法用足够多的数据去“喂养”它。</p>
+<blockquote>
+<p>The main observation from the previous section was that most of the complexity is caused by the non-linear hidden layer in the model</p>
+</blockquote>
+<h2 id="解决方案：-大道至简的两个模型"><a href="#解决方案：-大道至简的两个模型" class="headerlink" title="解决方案： 大道至简的两个模型"></a>解决方案： 大道至简的两个模型</h2><p>面对上述瓶颈，Mikolov和他的同事们提出了一个颠覆性的思路：<br><strong>能不能用一个更简单的模型，来换取在更大规模数据上训练的能力？</strong><br>于是，他们大胆地<strong>移除了计算成本高昂的非线性隐藏层</strong>，从而极大地降低了计算复杂度。<br>答案就是本文提出的两个核心架构：CBOW 和 Skip-gram。基本可以认为，这两个模型就是后来广为人知的<strong>Word2Vec</strong>。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/@mikolov2013EfficientEstimationWord/Model-architecture.png" alt="Model-architecture"></p>
+<ol>
+<li><strong>Continuous Bag-of-Words (CBOW)</strong></li>
+</ol>
+<ul>
+<li>任务：根据上下文（周围的词）来预测中心词。</li>
+<li>做法：将目标词周围N个词的向量从投影矩阵<del class="mask">(一个巨大的查询表，每一行即为一个词的向量)</del>中取出，然后直接对它们进行求和平均，形成一个汇总的上下文向量，并用这个向量去预测中心词 。因为忽略了上下文的词序，所以被称为“词袋”（Bag-of-Words）模型。</li>
+<li>特点：多对一的预测，训练速度更快，对高频词效果更好。</li>
+</ul>
+<ol start="2">
+<li><strong>Continuous Skip-gram</strong></li>
+</ol>
+<ul>
+<li>任务：与CBOW相反，它根据当前的中心词来预测其上下文。</li>
+<li>做法：将中心词的向量作为输入，去预测其前后一定范围（窗口C）内的多个上下文词语。并且通过将窗口的大小设计为固定范围的随机数，便可实现统计意义上的对远端词语进行更少采样，从而给予近处上下文更高的权重，这或许可以被看作是一种朴素的、非动态学习的“注意力”思想的雏形。</li>
+<li>特点：一对多的预测，训练时间更长，但能学习到更好的低频词表示，在大型语料上表现通常更优。论文的实验结果（如Table 3）也证实了这一点，Skip-gram在语义准确性上以55%对24%的巨大优势超过了CBOW。<br><del class="mask">和CBOW不同，Skip-gram的训练模式可能会有些难以理解，容易产生歧义，具体讲解可见 <a href="#Skip-gram%E8%AE%AD%E7%BB%83%E6%9C%BA%E7%90%86">Skip-gram训练机理</a></del></li>
+</ul>
+<p>这种简化带来的好处是惊人的。计算复杂度从NNLM的<code>Q = N×D + N×D×H + H×V</code> 急剧下降到CBOW的 <code>Q = N×D + N×log_2(V)</code> 和 Skip-gram的 <code>Q = Cx(D + D×log_2(V))</code>。正是这种效率上的巨大飞跃，使得在一天之内处理完16亿词的语料成为可能 ，也为接下来那个“魔法般”的发现奠定了基础。</p>
+<p>注：这里提到的<code>Q</code>基本上可以理解为模型一次预测所涉及的参数量; </p>
+<blockquote>
+<p>Similar to [18], to compare different model architectures we define first the computational complexity of a model as the number of parameters that need to be accessed to fully train the model.</p>
+</blockquote>
+<p>注：此外，V到log_2(V)的变化是通过使用词汇的二叉树表示实现的，也就是说这对于NNLM的复杂度优化也是有用的，但是优化完之后，性能瓶颈在<code>NxDxH</code>, 仍然没有消失。</p>
+<blockquote>
+<p>With binary tree representations of the vocabulary, the number of output units that need to be evaluated can go down to around log2(V ). Thus, most of the complexity is caused by the term N × D × H.</p>
+</blockquote>
+<h2 id="惊人的发现：向量空间中的线性关系"><a href="#惊人的发现：向量空间中的线性关系" class="headerlink" title="惊人的发现：向量空间中的线性关系"></a>惊人的发现：向量空间中的线性关系</h2><p>如果说高效的模型是这篇论文的“肌肉”，那么它揭示的向量线性关系就是其“灵魂”。论文最令人振奋的发现是，通过上述简单模型在海量数据上训练出的词向量，不仅仅是让“猫”和“狗”在空间中彼此靠近，更是捕捉到了词语之间丰富、可量化的<strong>类比关系</strong>（Analogy）。</p>
+<p>这种关系可以通过简单的向量代数运算来揭示。最经典的例子莫过于：<br><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="73.112ex" height="2.396ex" role="img" focusable="false" viewBox="0 -809 32315.7 1059"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path></g><g data-mml-node="mi" transform="translate(485,0)"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g><g data-mml-node="mi" transform="translate(951,0)"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g><g data-mml-node="mi" transform="translate(1384,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mi" transform="translate(1745,0)"><path data-c="1D45C" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"></path></g><g data-mml-node="mi" transform="translate(2230,0)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="msup" transform="translate(2681,0)"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mo" transform="translate(422,413) scale(0.707)"><g data-c="2033"><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z"></path><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z" transform="translate(275,0)"></path></g></g></g><g data-mml-node="mi" transform="translate(3541.9,0)"><path data-c="1D43E" d="M285 628Q285 635 228 637Q205 637 198 638T191 647Q191 649 193 661Q199 681 203 682Q205 683 214 683H219Q260 681 355 681Q389 681 418 681T463 682T483 682Q500 682 500 674Q500 669 497 660Q496 658 496 654T495 648T493 644T490 641T486 639T479 638T470 637T456 637Q416 636 405 634T387 623L306 305Q307 305 490 449T678 597Q692 611 692 620Q692 635 667 637Q651 637 651 648Q651 650 654 662T659 677Q662 682 676 682Q680 682 711 681T791 680Q814 680 839 681T869 682Q889 682 889 672Q889 650 881 642Q878 637 862 637Q787 632 726 586Q710 576 656 534T556 455L509 418L518 396Q527 374 546 329T581 244Q656 67 661 61Q663 59 666 57Q680 47 717 46H738Q744 38 744 37T741 19Q737 6 731 0H720Q680 3 625 3Q503 3 488 0H478Q472 6 472 9T474 27Q478 40 480 43T491 46H494Q544 46 544 71Q544 75 517 141T485 216L427 354L359 301L291 248L268 155Q245 63 245 58Q245 51 253 49T303 46H334Q340 37 340 35Q340 19 333 5Q328 0 317 0Q314 0 280 1T180 2Q118 2 85 2T49 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Z"></path></g><g data-mml-node="mi" transform="translate(4430.9,0)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(4775.9,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="msup" transform="translate(5375.9,0)"><g data-mml-node="mi"><path data-c="1D454" d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z"></path></g><g data-mml-node="mo" transform="translate(510,413) scale(0.707)"><g data-c="2033"><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z"></path><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z" transform="translate(275,0)"></path></g></g></g><g data-mml-node="mo" transform="translate(6324.8,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(6936,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mi" transform="translate(7936.3,0)"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path></g><g data-mml-node="mi" transform="translate(8421.3,0)"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g><g data-mml-node="mi" transform="translate(8887.3,0)"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g><g data-mml-node="mi" transform="translate(9320.3,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mi" transform="translate(9681.3,0)"><path data-c="1D45C" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"></path></g><g data-mml-node="mi" transform="translate(10166.3,0)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="msup" transform="translate(10617.3,0)"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mo" transform="translate(422,413) scale(0.707)"><g data-c="2033"><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z"></path><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z" transform="translate(275,0)"></path></g></g></g><g data-mml-node="mi" transform="translate(11478.2,0)"><path data-c="1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"></path></g><g data-mml-node="mi" transform="translate(12529.2,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="msup" transform="translate(13058.2,0)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(633,413) scale(0.707)"><g data-c="2033"><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z"></path><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z" transform="translate(275,0)"></path></g></g></g><g data-mml-node="mo" transform="translate(14130.1,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(14741.3,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mi" transform="translate(15741.5,0)"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path></g><g data-mml-node="mi" transform="translate(16226.5,0)"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g><g data-mml-node="mi" transform="translate(16692.5,0)"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g><g data-mml-node="mi" transform="translate(17125.5,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mi" transform="translate(17486.5,0)"><path data-c="1D45C" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"></path></g><g data-mml-node="mi" transform="translate(17971.5,0)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="msup" transform="translate(18422.5,0)"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mo" transform="translate(422,413) scale(0.707)"><g data-c="2033"><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z"></path><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z" transform="translate(275,0)"></path></g></g></g><g data-mml-node="mi" transform="translate(19283.4,0)"><path data-c="1D44A" d="M436 683Q450 683 486 682T553 680Q604 680 638 681T677 682Q695 682 695 674Q695 670 692 659Q687 641 683 639T661 637Q636 636 621 632T600 624T597 615Q597 603 613 377T629 138L631 141Q633 144 637 151T649 170T666 200T690 241T720 295T759 362Q863 546 877 572T892 604Q892 619 873 628T831 637Q817 637 817 647Q817 650 819 660Q823 676 825 679T839 682Q842 682 856 682T895 682T949 681Q1015 681 1034 683Q1048 683 1048 672Q1048 666 1045 655T1038 640T1028 637Q1006 637 988 631T958 617T939 600T927 584L923 578L754 282Q586 -14 585 -15Q579 -22 561 -22Q546 -22 542 -17Q539 -14 523 229T506 480L494 462Q472 425 366 239Q222 -13 220 -15T215 -19Q210 -22 197 -22Q178 -22 176 -15Q176 -12 154 304T131 622Q129 631 121 633T82 637H58Q51 644 51 648Q52 671 64 683H76Q118 680 176 680Q301 680 313 683H323Q329 677 329 674T327 656Q322 641 318 637H297Q236 634 232 620Q262 160 266 136L501 550L499 587Q496 629 489 632Q483 636 447 637Q428 637 422 639T416 648Q416 650 418 660Q419 664 420 669T421 676T424 680T428 682T436 683Z"></path></g><g data-mml-node="mi" transform="translate(20331.4,0)"><path data-c="1D45C" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"></path></g><g data-mml-node="mi" transform="translate(20816.4,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(21694.4,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="msup" transform="translate(22223.4,0)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(633,413) scale(0.707)"><g data-c="2033"><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z"></path><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z" transform="translate(275,0)"></path></g></g></g><g data-mml-node="mo" transform="translate(23295.3,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(23962.1,0)"><path data-c="2248" d="M55 319Q55 360 72 393T114 444T163 472T205 482Q207 482 213 482T223 483Q262 483 296 468T393 413L443 381Q502 346 553 346Q609 346 649 375T694 454Q694 465 698 474T708 483Q722 483 722 452Q722 386 675 338T555 289Q514 289 468 310T388 357T308 404T224 426Q164 426 125 393T83 318Q81 289 69 289Q55 289 55 319ZM55 85Q55 126 72 159T114 210T163 238T205 248Q207 248 213 248T223 249Q262 249 296 234T393 179L443 147Q502 112 553 112Q609 112 649 141T694 220Q694 249 708 249T722 217Q722 153 675 104T555 55Q514 55 468 76T388 123T308 170T224 192Q164 192 125 159T83 84Q80 55 69 55Q55 55 55 85Z"></path></g><g data-mml-node="mi" transform="translate(25017.9,0)"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path></g><g data-mml-node="mi" transform="translate(25502.9,0)"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g><g data-mml-node="mi" transform="translate(25968.9,0)"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g><g data-mml-node="mi" transform="translate(26401.9,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mi" transform="translate(26762.9,0)"><path data-c="1D45C" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"></path></g><g data-mml-node="mi" transform="translate(27247.9,0)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="msup" transform="translate(27698.9,0)"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mo" transform="translate(422,413) scale(0.707)"><g data-c="2033"><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z"></path><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z" transform="translate(275,0)"></path></g></g></g><g data-mml-node="mi" transform="translate(28559.8,0)"><path data-c="1D444" d="M399 -80Q399 -47 400 -30T402 -11V-7L387 -11Q341 -22 303 -22Q208 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435Q740 255 592 107Q529 47 461 16L444 8V3Q444 2 449 -24T470 -66T516 -82Q551 -82 583 -60T625 -3Q631 11 638 11Q647 11 649 2Q649 -6 639 -34T611 -100T557 -165T481 -194Q399 -194 399 -87V-80ZM636 468Q636 523 621 564T580 625T530 655T477 665Q429 665 379 640Q277 591 215 464T153 216Q153 110 207 59Q231 38 236 38V46Q236 86 269 120T347 155Q372 155 390 144T417 114T429 82T435 55L448 64Q512 108 557 185T619 334T636 468ZM314 18Q362 18 404 39L403 49Q399 104 366 115Q354 117 347 117Q344 117 341 117T337 118Q317 118 296 98T274 52Q274 18 314 18Z"></path></g><g data-mml-node="mi" transform="translate(29350.8,0)"><path data-c="1D462" d="M21 287Q21 295 30 318T55 370T99 420T158 442Q204 442 227 417T250 358Q250 340 216 246T182 105Q182 62 196 45T238 27T291 44T328 78L339 95Q341 99 377 247Q407 367 413 387T427 416Q444 431 463 431Q480 431 488 421T496 402L420 84Q419 79 419 68Q419 43 426 35T447 26Q469 29 482 57T512 145Q514 153 532 153Q551 153 551 144Q550 139 549 130T540 98T523 55T498 17T462 -8Q454 -10 438 -10Q372 -10 347 46Q345 45 336 36T318 21T296 6T267 -6T233 -11Q189 -11 155 7Q103 38 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(29922.8,0)"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g><g data-mml-node="mi" transform="translate(30388.8,0)"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g><g data-mml-node="msup" transform="translate(30854.8,0)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(633,413) scale(0.707)"><g data-c="2033"><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z"></path><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z" transform="translate(275,0)"></path></g></g></g><g data-mml-node="mo" transform="translate(31926.7,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container><br>这个等式石破天惊，<strong>它表明词向量空间中蕴含着抽象的语义维度</strong>，例如“性别”、“皇室”等。从“国王”的向量中减去“男人”的向量，相当于抽离出“男性”这个概念，保留了“皇室权威”等特征；再加上“女人”的向量，就将这个“皇室权威”的特征赋予了女性，最终得到的向量在空间中将接近“女王”对应的向量。<del class="mask">在这个空间中，词向量的距离可以表示语义的相似度。</del></p>
+<p>为了系统性地验证这一发现，作者团队专门构建了一个包含<strong>语义(Semantic)和语法(Syntactic)类比问题</strong>的综合测试集<del class="mask">Semantic-Syntactic Word Relationship test set</del>。示例：<br><img lazyload="" src="/images/loading.svg" data-src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/@mikolov2013EfficientEstimationWord/Semantic-Syntacic-test-set-example.png" alt="Semantic-Syntacic-test-set-example"></p>
+<ul>
+<li>语义类比: <em>Athens</em> is to <em>Greece</em> as <em>Oslo</em> is to? (<em>Norway</em>)</li>
+<li>语法类比: <em>apparent</em> is to <em>apparently</em> as <em>rapid</em> is to? (<em>rapidly</em>)</li>
+</ul>
+<p>注: 在实操上，可以通过上述向量运算得到结果向量，最后在整个词汇表的向量中，寻找与这个结果向量距离最近的词向量，这个词就是模型的答案——论文中使用的距离度量为“余弦距离”。<br>在下以为，若所有词向量都预先进行归一化（使其长度为1），那么计算成本高昂的余弦距离就可以被简单的“向量点积”所替代。在单位球面上，按点积大小排序等同于按欧氏距离排序，但计算效率更高。ps: 单位球面上，<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="22.454ex" height="3.048ex" role="img" focusable="false" viewBox="0 -1097 9924.7 1347"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="2016" d="M133 736Q138 750 153 750Q164 750 170 739Q172 735 172 250T170 -239Q164 -250 152 -250Q144 -250 138 -244L137 -243Q133 -241 133 -179T132 250Q132 731 133 736ZM329 739Q334 750 346 750Q353 750 361 744L362 743Q366 741 366 679T367 250T367 -178T362 -243L361 -244Q355 -250 347 -250Q335 -250 329 -239Q327 -235 327 250T329 739Z"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(500,0)"><g data-mml-node="mover"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mo" transform="translate(264.5,31) translate(-250 0)"><path data-c="20D7" d="M377 694Q377 702 382 708T397 714Q404 714 409 709Q414 705 419 690Q429 653 460 633Q471 626 471 615Q471 606 468 603T454 594Q411 572 379 531Q377 529 374 525T369 519T364 517T357 516Q350 516 344 521T337 536Q337 555 384 595H213L42 596Q29 605 29 615Q29 622 42 635H401Q377 673 377 694Z"></path></g></g></g><g data-mml-node="mo" transform="translate(1251.2,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(2251.4,0)"><g data-mml-node="mover"><g data-mml-node="mi"><path data-c="1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path></g><g data-mml-node="mo" transform="translate(214.5,283) translate(-250 0)"><path data-c="20D7" d="M377 694Q377 702 382 708T397 714Q404 714 409 709Q414 705 419 690Q429 653 460 633Q471 626 471 615Q471 606 468 603T454 594Q411 572 379 531Q377 529 374 525T369 519T364 517T357 516Q350 516 344 521T337 536Q337 555 384 595H213L42 596Q29 605 29 615Q29 622 42 635H401Q377 673 377 694Z"></path></g></g></g><g data-mml-node="msup" transform="translate(2680.4,0)"><g data-mml-node="mo"><path data-c="2016" d="M133 736Q138 750 153 750Q164 750 170 739Q172 735 172 250T170 -239Q164 -250 152 -250Q144 -250 138 -244L137 -243Q133 -241 133 -179T132 250Q132 731 133 736ZM329 739Q334 750 346 750Q353 750 361 744L362 743Q366 741 366 679T367 250T367 -178T362 -243L361 -244Q355 -250 347 -250Q335 -250 329 -239Q327 -235 327 250T329 739Z"></path></g><g data-mml-node="mn" transform="translate(533,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(3894.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mn" transform="translate(4950.6,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mo" transform="translate(5672.8,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(6673,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(7339.7,0)"><path data-c="63" d="M370 305T349 305T313 320T297 358Q297 381 312 396Q317 401 317 402T307 404Q281 408 258 408Q209 408 178 376Q131 329 131 219Q131 137 162 90Q203 29 272 29Q313 29 338 55T374 117Q376 125 379 127T395 129H409Q415 123 415 120Q415 116 411 104T395 71T366 33T318 2T249 -11Q163 -11 99 53T34 214Q34 318 99 383T250 448T370 421T404 357Q404 334 387 320Z"></path><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(444,0)"></path><path data-c="73" d="M295 316Q295 356 268 385T190 414Q154 414 128 401Q98 382 98 349Q97 344 98 336T114 312T157 287Q175 282 201 278T245 269T277 256Q294 248 310 236T342 195T359 133Q359 71 321 31T198 -10H190Q138 -10 94 26L86 19L77 10Q71 4 65 -1L54 -11H46H42Q39 -11 33 -5V74V132Q33 153 35 157T45 162H54Q66 162 70 158T75 146T82 119T101 77Q136 26 198 26Q295 26 295 104Q295 133 277 151Q257 175 194 187T111 210Q75 227 54 256T33 318Q33 357 50 384T93 424T143 442T187 447H198Q238 447 268 432L283 424L292 431Q302 440 314 448H322H326Q329 448 335 442V310L329 304H301Q295 310 295 316Z" transform="translate(944,0)"></path></g><g data-mml-node="mo" transform="translate(8677.7,0)"><path data-c="2061" d=""></path></g><g data-mml-node="mo" transform="translate(8677.7,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(9066.7,0)"><path data-c="1D703" d="M35 200Q35 302 74 415T180 610T319 704Q320 704 327 704T339 705Q393 701 423 656Q462 596 462 495Q462 380 417 261T302 66T168 -10H161Q125 -10 99 10T60 63T41 130T35 200ZM383 566Q383 668 330 668Q294 668 260 623T204 521T170 421T157 371Q206 370 254 370L351 371Q352 372 359 404T375 484T383 566ZM113 132Q113 26 166 26Q181 26 198 36T239 74T287 161T335 307L340 324H145Q145 321 136 286T120 208T113 132Z"></path></g><g data-mml-node="mo" transform="translate(9535.7,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></p>
+<p>实验结果（论文中的Table 3, 4; 6）雄辩地证明，CBOW和尤其是Skip-gram模型，在这类任务上的准确率远超当时更复杂的NNLM和RNNLM模型，同时训练成本大幅降低 。<br><strong>准确率：</strong><br><img lazyload="" src="/images/loading.svg" data-src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/@mikolov2013EfficientEstimationWord/Table3.png" alt="Table3"><br><img lazyload="" src="/images/loading.svg" data-src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/@mikolov2013EfficientEstimationWord/Table4.png" alt="Table4"><br><strong>训练成本：</strong><br><img lazyload="" src="/images/loading.svg" data-src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/@mikolov2013EfficientEstimationWord/Table6.png" alt="Table6"></p>
+<h2 id="历史回响：前沿性"><a href="#历史回响：前沿性" class="headerlink" title="历史回响：前沿性"></a>历史回响：前沿性</h2><h3 id="它被推翻了吗？"><a href="#它被推翻了吗？" class="headerlink" title="它被推翻了吗？"></a>它被推翻了吗？</h3><ul>
+<li>思想从未被推翻，反而成为了基石。 “<strong>将词语映射到稠密向量空间中，通过无监督学习捕捉其语义</strong>”这一核心思想，已经成为整个现代NLP的奠基性观念之一。</li>
+</ul>
+<h3 id="它还是最前沿吗？"><a href="#它还是最前沿吗？" class="headerlink" title="它还是最前沿吗？"></a>它还是最前沿吗？</h3><p>具体技术已演进，但思想永存。</p>
+<ul>
+<li><p>Word2Vec的局限在于它生成的是静态词向量<del class="mask">(训练得到一个固定的词向量查询表)</del>，对于一个token只有一个表示，<strong>无法处理一词多义问题</strong>（例如”bank”的“银行”和“河岸”两个含义共享同一个向量）。而当代的SOTA（State-of-the-Art）技术，如BERT、GPT等基于Transformer的模型，生成的是<strong>动态的、上下文相关的词向量</strong>。它们能根据句子语境为同一个词生成不同的表示，极大地提升了语义捕捉的精度。<del class="mask">大体上应该可以理解成：输入句子之后，句子中的所有词首先经过一层类似于Word2Vec的初始嵌入，然后在经过注意力机制处理后，再输出每个词最终的词向量</del></p>
+</li>
+<li><p>同时，CBOW由于其BOW的模型，缺乏对位置的建模； Skip-gram的位置概念也非常模糊，并未显式建模。</p>
+</li>
+<li><p>此外，word2vec模型本身并未提供直接获取整个句子向量的有效方法，通常采用的“词向量平均”策略会丢失重要的语序和语法信息。</p>
+</li>
+<li><p>然而，即便在今天，Word2Vec因其高效、轻量的特性，仍在学术研究和工业界中扮演着重要角色，甚至就连它被诟病的无法应对一词多义的问题有时也是一种优势——因为它可以得到一个稳定的向量训练结果，若要知晓某个词的向量，在向量表<del class="mask">(投影矩阵)</del>中直接查询即得。</p>
+</li>
+</ul>
+<h2 id="杂谈"><a href="#杂谈" class="headerlink" title="杂谈"></a>杂谈</h2><p>《Efficient Estimation of Word Representations in Vector Space》是一篇充满“反直觉”智慧的论文。它告诉我们，<strong>有时最优雅的解决方案并非来自更复杂的模型</strong>，而是来自对问题本质的深刻洞察。通过极致的简化，Word2Vec将计算力从复杂的模型结构中解放出来，投入到对海量数据的学习中，最终发现了语言本身蕴含的、令人着迷的数学之美。这不仅是一次技术的胜利，更是一次思想的胜利。</p>
+<h3 id="一些可能容易迷惑的点："><a href="#一些可能容易迷惑的点：" class="headerlink" title="一些可能容易迷惑的点："></a>一些可能容易迷惑的点：</h3><h4 id="最终产物"><a href="#最终产物" class="headerlink" title="最终产物"></a>最终产物</h4><p>虽然Word2Vec在训练时的确利用了上下文，但请注意，训练的最终产物是一个固定的查询表（即投影矩阵 <code>W</code>）。训练结束后，无论“bank”出现在什么新的句子中，我们去使用它的词向量时，做的动作仅仅是<strong>查表</strong>——从矩阵<code>W</code>中把“bank”对应的那一行向量取出来。这个向量是<strong>一次性生成、全局固定</strong>的，所以它是“静态”的、“上下文无关”的。上下文信息在训练时被“蒸馏”进了这个固定的向量里，但在使用时，新的上下文不起作用。</p>
+<p>实际上这种方式训练出来的是一个既能进行嵌入又能进行预测的模型——正是因为有预测的能力，所以才能计算损失进行反向传播，从而不断调试投影矩阵，进而得到较好的词向量表示，也就得到了一个较好的嵌入模型。这或许也算是这类自监督学习（Self-supervised Learning）模型的训练哲学吧。我们并不真正关心模型预测得有多准，这个“预测任务”只是一个“借口”。我们真正的目标是，在完成这个任务的过程中，<strong>强迫模型学习到有意义的中间表示</strong>——也就是那个高质量的“投影矩阵”（词向量）</p>
+<h4 id="共享投影层的说法"><a href="#共享投影层的说法" class="headerlink" title="共享投影层的说法"></a>共享投影层的说法</h4><p>论文在介绍模型架构时提到的<strong>共享投影层</strong>(using a shared projection matrix)可能会让人感到困惑。在下认为，这里的<strong>共享</strong>主要指的是对于上下文窗口的不同位置，使用是同一个投影矩阵进行映射；对比的是上下文窗口的每个位置分别维护不同的投影矩阵。除此之外，在<strong>CBOW</strong>中，作者还做了一个更激进的共享——投影后所处的空间位置也进行共享：输入的N个词向量在查找到之后，将被直接平均（Average）成一个单独的D维向量，空间位置信息被彻底抹除；对比在<strong>NNLM</strong>中，查到的向量会被拼接成<code>N*D</code>维的长向量</p>
+<blockquote>
+<p>Note that the weight matrix between the input and the projection layer <strong>is shared for all word positions in the same way</strong> as in the NNLM.</p>
+</blockquote>
+<h4 id="Skip-gram训练机理"><a href="#Skip-gram训练机理" class="headerlink" title="Skip-gram训练机理"></a>Skip-gram训练机理</h4><p>要理解Skip-gram，首先需要明确其核心精髓——它<strong>不追求单个预测的精准度</strong> <del class="mask">预测任务只是一个“借口”，我们真正的目标是在这个过程中“锤炼”出优秀的词向量</del></p>
+<p>CBOW是将多个上下文单词加起来，然后用聚合后的向量一次性去预测中心词，每次训练就聚焦一次：目标词和使用聚合向量预测目标词的概率<br>而Skip-gram, 则从中心词出发，和上下文窗口<code>C</code>中的所有词分别组成一个独立的训练样本对，每次训练就聚焦<code>C</code>次：这一次的目标词和使用中心词向量预测该目标词的概率<br>例如：假设我们的句子是<code>I am a fool</code>, 窗口大小<code>C=1</code>, 当前处理的中心词是<code>a</code><br>则形成两个<strong>独立的</strong>训练样本对：</p>
+<ol>
+<li><code>a</code> -&gt; <code>am</code></li>
+<li><code>a</code> -&gt; <code>fool</code><br>所以模型会训练两次，一次输入<code>a</code>，使用预测出<code>am</code>的概率计算损失；一次输入<code>a</code>，使用预测出<code>fool</code>的概率计算损失<del class="mask">在使用层级Softmax的时候损失计算可能没有这么简单，但本质不变</del><br>在反向传播的时候，不仅会调整输出层的权重，更重要的是也会<strong>调整<code>a</code>的词向量</strong>，从而不断拉扯<code>a</code>的词向量，让它更符合上下文语境</li>
+</ol>
+<h4 id="计算复杂度"><a href="#计算复杂度" class="headerlink" title="计算复杂度"></a>计算复杂度</h4><p>论文中给出的计算复杂度公式乍一看可能有些吓人。但根据论文定义，它估算的主要是训练时需要访问的参数数量，理解起来并不复杂。下面我们进行简要拆解：</p>
+<ol>
+<li><strong>NNLM</strong>: <code>Q = N×D + N×D×H + H×V</code></li>
+</ol>
+<ul>
+<li><code>N×D</code>：这部分代表从输入层到投影层的计算。将N个上下文单词（通常是one-hot）通过投影矩阵映射为N个D维向量，再拼接成一个N×D维的向量。因为涉及到了投影矩阵中的N行，所以对应参数量为<code>N×D</code></li>
+<li><code>N×D×H</code>：这是计算瓶颈，代表从投影层（N×D维）到非线性隐藏层（H维）的全连接计算。<del class="mask">在这篇论文的语境下，应该是默认其所对比的NNLM为仅拥有<strong>单层</strong>非线性隐藏层的经典模型</del></li>
+<li><code>H×V</code>：代表从隐藏层（H维）到巨大无比的输出层（V维，V是词汇表大小）的全连接计算。</li>
+</ul>
+<ol start="2">
+<li><strong>CBOW</strong>: <code>Q = N×D + D×log₂(V)</code></li>
+</ol>
+<ul>
+<li><code>N×D</code>：与NNLM类似，查询N个上下文单词的D维向量。</li>
+<li><code>D×log₂(V)</code>：模型移除了N×D×H的隐藏层。将N个词向量平均后得到仅仅一个D维向量，直接用它来预测输出。同时，输出层使用<strong>层序Softmax</strong>（Hierarchical Softmax）这种技巧，将原本D×V的计算量降维打击至D×log₂(V)，因为它只需要在一个二叉树（深度约log₂(V)）上做一系列二分类判断，而不是在全部V个词上计算概率。所以这个技术对于NNLM同样适用，理论上上面NNLM的复杂度也可以优化，但是不影响CBOW和Skip-gram仍然远比它快。</li>
+</ul>
+<ol start="3">
+<li><strong>Skip-gram</strong>: <code>Q = C×(D + D×log₂(V))</code></li>
+</ol>
+<ul>
+<li><code>D</code>：输入只有一个词，查询其D维向量。</li>
+<li><code>D×log₂(V)</code>：用这个D维输入向量，去预测一个上下文单词。与CBOW一样，也用了层序Softmax优化。</li>
+<li><code>C×(...)</code>：因为Skip-gram模型需要对一个输入词，预测其周围的C个上下文单词，所以上述过程需要重复C次。</li>
+</ul>
+<p><strong>一言以蔽之：Word2Vec的效率革命，主要来自（1）砍掉N×D×H的隐藏层 和（2）用log₂(V)复杂度的层序Softmax替换V复杂度的普通Softmax。</strong></p>
+<p>关于层序Softmax的使用，感兴趣的话可以作者参考引用的这几篇论文</p>
+<ul>
+<li>T. Mikolov, A. Deoras, D. Povey, L. Burget, J. Cˇ ernocky ́. Strategies for Training Large Scale Neural Network Language Models, In: Proc. Automatic Speech Recognition and Understanding, 2011.</li>
+<li>A. Mnih, G. Hinton. A Scalable Hierarchical Distributed Language Model. Advances in Neural Information Processing Systems 21, MIT Press, 2009.</li>
+<li>F. Morin, Y. Bengio. Hierarchical Probabilistic Neural Network Language Model. AISTATS, 2005.</li>
+</ul>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><ul>
+<li><p><strong>词的表示方法：从One-hot到分布式表示</strong></p>
+<ul>
+<li><strong>One-hot</strong>：想象一个词典有10万个词，那么“apple”这个词可能被表示成一个10万维的向量，其中只有对应“apple”的位置是1，其余全是0。这种方式无法体现词与词之间的关系 。</li>
+<li><strong>分布式表示 (Distributed Representation)</strong>：与One-hot不同，它用一个稠密的、低维度的向量（例如300维）来表示一个词。向量中的每一个维度都代表了词语的某种潜在特征。<strong>这篇论文的核心就是如何高效地学习这种表示</strong>。</li>
+</ul>
+</li>
+<li><p><strong>全连接层</strong></p>
+<ul>
+<li>一个全连接层包含一个权重矩阵<code>W</code>和一个偏置向量<code>b</code>。当输入一个向量<code>x</code>时，输出为<code>y = Wx + b</code>。</li>
+</ul>
+</li>
+<li><p><strong>神经网络语言模型 (NNLM) 的基本结构</strong></p>
+<ul>
+<li>阁下只需要大致了解它通常包含输入层、投影层、隐藏层和输出层。</li>
+<li>其中<strong>投影层</strong>的概念可能会让人有点陌生，但对于理解本文思路又至关重要，所以这里在下简要介绍基本原理<ul>
+<li>您可以把它想象成一个巨大的查询表。输入层的一个词就像一个开关，正好选中表中的某一行。这一行，就是一个低维、稠密的向量，它就是那个词的分布式表示。因此，这个投影层矩阵本身，在训练结束后，就成为了我们最终想要的“词向量词典”。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>向量空间与相似度</strong></p>
+<ul>
+<li>当词语被表示为向量后，我们就可以在多维空间中计算它们之间的距离（如余弦距离）。距离越近，代表这两个词语的语义或用法越相似 。</li>
+</ul>
+</li>
+</ul>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] T. Mikolov, K. Chen, G. Corrado, and J. Dean. <a class="link" target="_blank" rel="noopener" href="https://arxiv.org/abs/1301.3781">Efficient estimation of word representations in vector space<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. <em>arXiv preprint arXiv:1301.3781</em>, 2013.</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 重读经典：Word2Vec如何通过“简化”撬动了整个NLP世界？</li>
+        <li><strong>作者:</strong> Prometheus0017</li>
+        <li><strong>创建于
+                :</strong> 2025-08-07 22:22:36</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2025-08-25 21:41:23
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://blog-seeles-secret-garden.vercel.app/2025/08/07/@mikolov2013EfficientEstimationWord/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/AI/">#AI</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/basis/">#basis</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Word2Vec/">#Word2Vec</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/paper/">#paper</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/impressive/">#impressive</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+  <div class="recommended-article px-2 sm:px-6 md:px-8">
+   <div class="recommended-desktop">
+    <div class="recommended-article-header text-xl md:text-3xl font-bold mt-10">
+     <i aria-hidden="true"></i><span>推荐阅读</span>
+    </div>
+    <div class="recommended-article-group"></div>
+   </div>
+   <div class="recommended-mobile">
+   <div class="recommended-article-header text-xl md:text-3xl font-bold mt-10">
+     <i aria-hidden="true"></i><span>推荐阅读</span>
+   </div>
+   <div class="recommended-article-group"></div>
+   </div>
+  </div>
+
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        async function loadGiscus() {
+            const giscusConfig = {
+                'src': 'https://giscus.app/client.js',
+                'data-repo': 'ElysiaFollower/ElysiaFollower.github.io',
+                'data-repo-id': 'R_kgDOOlwzaQ',
+                'data-category': 'Announcements',
+                'data-category-id': 'DIC_kwDOOlwzac4Ct0-D',
+                'data-mapping': 'pathname',
+                'data-strict': '0',
+                'data-reactions-enabled': '1',
+                'data-emit-metadata': '1',
+                'data-theme': 'preferred_color_scheme',
+                'data-lang': 'zh-CN',
+                'data-input-position': 'bottom',
+                'data-loading': 'lazy',
+                'crossorigin': 'anonymous',
+                'async': true
+            }
+            const giscusScript = document.createElement('script');
+            for (const key in giscusConfig) {
+                giscusScript.setAttribute(key, giscusConfig[key]);
+            }
+            document.getElementById('giscus-container').appendChild(giscusScript);
+        }
+        if ('true') {
+            let loadGiscusTimeout = setTimeout(() => {
+                loadGiscus();
+                clearTimeout(loadGiscusTimeout);
+            }, 1000);
+        } else {
+            document.addEventListener('DOMContentLoaded', loadGiscus);
+        }
+    </script>
+
+
+        
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">重读经典：Word2Vec如何通过“简化”撬动了整个NLP世界？</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E7%9A%84%E6%A0%B9%E6%BA%90%EF%BC%9A%E6%98%82%E8%B4%B5%E7%9A%84%E2%80%9C%E7%90%86%E8%A7%A3%E2%80%9D"><span class="nav-text">问题的根源：昂贵的“理解”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9A-%E5%A4%A7%E9%81%93%E8%87%B3%E7%AE%80%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%A8%A1%E5%9E%8B"><span class="nav-text">解决方案： 大道至简的两个模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%83%8A%E4%BA%BA%E7%9A%84%E5%8F%91%E7%8E%B0%EF%BC%9A%E5%90%91%E9%87%8F%E7%A9%BA%E9%97%B4%E4%B8%AD%E7%9A%84%E7%BA%BF%E6%80%A7%E5%85%B3%E7%B3%BB"><span class="nav-text">惊人的发现：向量空间中的线性关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%86%E5%8F%B2%E5%9B%9E%E5%93%8D%EF%BC%9A%E5%89%8D%E6%B2%BF%E6%80%A7"><span class="nav-text">历史回响：前沿性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%83%E8%A2%AB%E6%8E%A8%E7%BF%BB%E4%BA%86%E5%90%97%EF%BC%9F"><span class="nav-text">它被推翻了吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%83%E8%BF%98%E6%98%AF%E6%9C%80%E5%89%8D%E6%B2%BF%E5%90%97%EF%BC%9F"><span class="nav-text">它还是最前沿吗？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%82%E8%B0%88"><span class="nav-text">杂谈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%8F%AF%E8%83%BD%E5%AE%B9%E6%98%93%E8%BF%B7%E6%83%91%E7%9A%84%E7%82%B9%EF%BC%9A"><span class="nav-text">一些可能容易迷惑的点：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E4%BA%A7%E7%89%A9"><span class="nav-text">最终产物</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E6%8A%95%E5%BD%B1%E5%B1%82%E7%9A%84%E8%AF%B4%E6%B3%95"><span class="nav-text">共享投影层的说法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Skip-gram%E8%AE%AD%E7%BB%83%E6%9C%BA%E7%90%86"><span class="nav-text">Skip-gram训练机理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-text">计算复杂度</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-text">前置知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-text">参考文献</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+            <div class="customize-info my-1">从二次元到二进制 (From ACG to Binary)</div>
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2025</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Prometheus0017</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 1 篇文章
+                    </span>
+                    
+                        <span>
+                            共 4.6k 字
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+		<li class="right-bottom-tools rss flex justify-center items-center">
+			<a class="flex justify-center items-center" href="/atom.xml" target="_blank">
+				<i class="fa-regular fa-rss"></i>
+			</a>
+		</li>
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+    
+        
+<script src="/js/build/libs/mermaid.min.js"></script>
+
+    
+    
+<script src="/js/build/plugins/mermaid.js"></script>
+
+
+
+
+    
+<script src="/js/build/libs/minimasonry.min.js"></script>
+
+    
+<script src="/js/build/libs/lazysizes.min.js"></script>
+
+    
+<script src="/js/build/plugins/masonry.js" type="module"></script>
+
+
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+    
+<script src="/js/build/libs/pangu.min.js"></script>
+
+<script src="/js/build/plugins/pangu.js"></script>
+
+
+
+
+	
+	<div id="aplayer"></div>
+
+<script src="/js/build/libs/APlayer.min.js"></script>
+
+
+<script src="/js/build/plugins/aplayer.js"></script>
+
+
+	
+</body>
+
+</html>
