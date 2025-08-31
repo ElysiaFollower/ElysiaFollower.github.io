@@ -1,0 +1,2 @@
+!function(){const e={};window.footnote_rememberSource=function rememberSource(o,t){e[o]=t},window.footnote_returnToSource=function returnToSource(o){if(targetId=e[o],targetId){targetId="fnref:"+targetId;const e=document.getElementById(targetId);if(e)return void e.scrollIntoView({block:"center"})}const t=`fnref:${o}_0`,n=document.getElementById(t);n&&n.scrollIntoView({block:"center"})},window.footnote_jumpToAnchor=function jumpToAnchor(e){const o=document.getElementById(e);o&&o.scrollIntoView({block:"center"})}}();
+//# sourceMappingURL=footnote.js.map

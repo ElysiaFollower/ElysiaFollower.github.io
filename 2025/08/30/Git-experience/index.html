@@ -123,7 +123,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/tags/ai/"/>
+    <link rel="canonical" href="http://example.com/2025/08/30/git-experience/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -132,14 +132,19 @@
     
         
         <meta name="description" content="分享技术路上的所学所思，也拾掇些钟情角色的记忆碎片💖。一个不成体系的小破站 (〃∀〃)ゞ 希望能遇见兴趣相投的你~ ✨">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Seele">
-<meta property="og:url" content="http://example.com/tags/AI/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Git进行代码管理的经验谈">
+<meta property="og:url" content="http://example.com/2025/08/30/Git-experience/index.html">
 <meta property="og:site_name" content="Seele">
 <meta property="og:description" content="分享技术路上的所学所思，也拾掇些钟情角色的记忆碎片💖。一个不成体系的小破站 (〃∀〃)ゞ 希望能遇见兴趣相投的你~ ✨">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/open_graph.png">
+<meta property="article:published_time" content="2025-08-30T14:08:03.000Z">
+<meta property="article:modified_time" content="2025-08-31T17:38:46.074Z">
 <meta property="article:author" content="Prometheus17">
+<meta property="article:tag" content="Git">
+<meta property="article:tag" content="manual">
+<meta property="article:tag" content="code management">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/open_graph.png">
     
@@ -153,7 +158,7 @@
     
     <title>
         
-            标签: AI | Null Pointer律者 😋
+            使用Git进行代码管理的经验谈 | Null Pointer律者 😋
         
     </title>
 
@@ -225,7 +230,119 @@
     
     
     
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Seele" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="Seele" type="application/atom+xml">
 </head>
 
 
@@ -471,7 +588,7 @@
 
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="active"
+                                <a class=""
                                    href="/tags"
                                         >
                                     <i class="fa-regular fa-tags fa-fw"></i>
@@ -606,7 +723,7 @@
 
                     <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
                         
-                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
                            href="/tags"
                         >
                             <span>
@@ -698,58 +815,363 @@
 			
 
 			<div class="main-content">
-				<div class="page-template-container">
-	
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
 
-	
-	<div class="tag-name">
-    <i class="fa-solid fa-tag"></i>&nbsp;AI
-</div>
-<div class="tag-post-list">
+		<div class="article-title relative w-full">
+			
+			
+			
+			<img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/Git-experience/希猫猫-裁.png" alt="使用Git进行代码管理的经验谈" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
+			
+			<div class="w-full flex items-center absolute bottom-0 justify-start">
+				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">使用Git进行代码管理的经验谈</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/seele-cute-white-removebg.png">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Prometheus0017</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv6</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-08-30 22:08:03</span>
+        <span class="mobile">2025-08-30 22:08:03</span>
+        <span class="hover-info">创建</span>
+    </span>
     
-<div class="archive-list-container">
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-09-01 01:38:46</span>
+            <span class="mobile">2025-09-01 01:38:46</span>
+            <span class="hover-info">更新</span>
+        </span>
     
-        <section class="archive-item mb-spacing-unit last:mb-0">
-            <div class="archive-item-header flex flex-row items-center mb-2">
-                <span class="archive-year font-semibold text-3xl mr-2">2025</span>
-                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">1</span>
-            </div>
-            
-            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
                 
                     
+                        
+                        <li>
+                            <a href="/categories/Tools/">Tools</a>&nbsp;
+                        </li>
                     
-                         <!-- Close the previous LI if not the first item -->
-                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='08-25'>
-                    
-                    <a href="/2025/08/25/@mikolov2013EfficientEstimationWord/" class="block w-fit">
-                        <span class="article-title my-0.5 text-2xl">重读经典：Word2Vec如何通过“简化”撬动了整个NLP世界？</span>
-                    </a>
                     
                 
-                </li> <!-- Ensure the last item is properly closed -->
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/Tools/code/">code</a>&nbsp;
+                        </li>
+                    
+                    
+                
             </ul>
-        </section>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Git/">Git</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/manual/">manual</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/code-management/">code management</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.3k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>12 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
     
 </div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>这篇文章主要记录一些Git工具的使用方式，因为Git提供了很强大的功能，但是大部分功能在大多数情况下都不会用到，故在此简要记录方便未来作为速查表使用(使用ctrl+F可在浏览器快速查找关键词)。<br>除此之外也记录一些在基于Git的开源社区如GitHub上观察到的一些<strong>社区规范</strong>或者说暗语, 在进行项目代码管理或参与开源贡献的时候可以作为参考。<br>本文属于是不完全的梳理，所谓”经验谈”的意思其实就是当咱遇到了再进行相关的整理啦XD<br>会持续更新的orz<br>如有不恰当的地方或者想要补充的，欢迎在评论区交流 (^_−)☆</p>
+<h2 id="使用Git"><a href="#使用Git" class="headerlink" title="使用Git"></a>使用Git</h2><h3 id="拉取和推送"><a href="#拉取和推送" class="headerlink" title="拉取和推送"></a>拉取和推送</h3><p>最常见的自然是<code>git pull</code>和<code>git fetch</code>，但是个人更喜欢先<code>fetch</code>, 再<code>merge</code>。因为事实上，<code>git pull</code>其实是一个组合件，它会先调用<code>git fetch</code>, 然后再根据情况选择调用<code>git rebase</code>或者<code>git merge</code><sup id="fnref:4_0"><a class="link" href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('4', '4_0'); footnote_jumpToAnchor('fn:4')">[4]<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></sup><sup id="fnref:5_0"><a class="link" href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('5', '5_0'); footnote_jumpToAnchor('fn:5')">[5]<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></sup> <del class="mask">(或许大多数时候，它调用的是merge，基本可以认为它会调用merge，但只要咱把它拆开来用，把一切的掌控权拿在自己手中，不就不用纠结这个问题了喵(￣▽￣)~*)</del></p>
+<p>推荐流程:</p>
+<ol>
+<li><code>git fetch &lt;远程仓库别名&gt; &lt;分支名&gt;</code> 拉取远程仓库的指定分支的最新内容到本地，但<strong>不会直接合并</strong>, 先看看都发生了什么新的更改, 让自己拥有充分决策权</li>
+<li><code>git merge &lt;远程仓库别名&gt;/&lt;分支名&gt;</code> 将您看中的分支合并到<strong>当前分支</strong>，若出现冲突，则需要解决冲突，并提交</li>
+<li><code>git push &lt;远程仓库别名&gt; &lt;分支名&gt;</code> 将本地指定的分支上传到远端并<strong>和同名分支进行合并</strong></li>
+</ol>
+<ul>
+<li>客观地说，最后一个部分可以改为<code>&lt;本地分支名&gt;:&lt;远程分支名&gt;</code>, 从而和指定分支进行合并，但是这真的有必要吗？中肯地说，<strong>在每次push之前，都应该先fetch远端所有必要的更改并在本地merge解决冲突之后，再进行push</strong>，所以最终分支名大抵是相同的。</li>
+</ul>
+<hr>
+<h3 id="管理远程仓库"><a href="#管理远程仓库" class="headerlink" title="管理远程仓库"></a>管理远程仓库</h3><p><code>git remote</code>系命令可用于管理与当前仓库链接的远程仓库，具体用法如下：</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git remote add &lt;别名&gt; &lt;仓库URL&gt;</span></span><br></pre></td></tr></table></figure></div>
+<p>该命令可以添加一个远程仓库，其中’仓库URL’替换为目标仓库的URL，即xxx.git, ‘别名’替换为任意名称，如’origin’/‘upstream’<br>eg: <code>git remote add upstream https://github.com/ElysiaFollower/ElysiaFollower.github.io.git</code><br>在下认为这是这个分支<strong>最重要的一个命令</strong></p>
+<p>至于添加远程仓库以后？那就基本可以完全抛却负担，像正常使用git一样进行使用啦。因为当我们平时git clone一个仓库的时候，实际上只是git clone自动帮我们添加了一个远程仓库, 本质是一样的<sup id="fnref:2_0"><a class="link" href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('2', '2_0'); footnote_jumpToAnchor('fn:2')">[2]<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></sup>。<br>关于这个问题，其实下面这条命令正好可以进行一定程度的佐证:<br><code>git remote -v</code><br>可以查看当前仓库的远程仓库<br>举个例子:</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(base) PS D:\myblog\blog_in_develop\themes\redefine&gt; git remote -v</span><br><span class="line">origin  https://github.com/ElysiaFollower/hexo-theme-redefine.git (fetch)</span><br><span class="line">origin  https://github.com/ElysiaFollower/hexo-theme-redefine.git (push)</span><br><span class="line">upstream        https://github.com/EvanNotFound/hexo-theme-redefine.git (fetch)</span><br><span class="line">upstream        https://github.com/EvanNotFound/hexo-theme-redefine.git (push)</span><br></pre></td></tr></table></figure></div>
+<p>这是在下fork的一个仓库，这里的origin仓库就是git clone时自动产生的，而upstream仓库则是在下手动添加的。可以看到，在<code>git remote -v</code>眼里，他俩是同一回事。<br>理解到此为止，所以添加之后只需要像正常一样使用<code>git push</code>和<code>git fetch</code>进行代码管理即可。<br>不过需要注意的是，git fetch命令的’完整版’其实应该是<sup id="fnref:2_1"><a class="link" href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('2', '2_1'); footnote_jumpToAnchor('fn:2')">[2]<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></sup><sup id="fnref:3_0"><a class="link" href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('3', '3_0'); footnote_jumpToAnchor('fn:3')">[3]<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></sup> :<br><code>git fetch &lt;远程仓库别名&gt; &lt;分支名&gt;</code><br>只是git clone的时候，同时生成了一些缺省时的默认配置，但是在管理多个远程仓库的时候还是<strong>全部显式声明更加所见即所得</strong>。</p>
+<blockquote>
+<p>When git fetch is run without specifying what branches and/or tags to fetch on the command line, e.g. git fetch origin or git fetch, remote.<repository>.fetch values are used as the refspecs—​they specify which refs to fetch and which local refs to update<sup id="fnref:3_1"><a class="link" href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('3', '3_1'); footnote_jumpToAnchor('fn:3')">[3]<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></sup>.</repository></p>
+</blockquote>
+<p>fetch如此，push也是同理的:<br><code>git push &lt;remote别名&gt; &lt;branch&gt;</code></p>
+<p>查看远程仓库相关信息:<br><code>git remote show &lt;remote别名&gt;</code></p>
+<p>删除远程仓库：<br><code>git remote remove &lt;remote别名&gt;</code></p>
+<h2 id="社区暗语"><a href="#社区暗语" class="headerlink" title="社区暗语"></a>社区暗语</h2><h3 id="从Fork到Pull-Request-PR"><a href="#从Fork到Pull-Request-PR" class="headerlink" title="从Fork到Pull Request(PR)"></a>从Fork到Pull Request(PR)</h3><p>不知道大家是否会经常听到PR这个词呀，在下第一次听到这个词的时候，还以为是peer review的缩写<del class="mask">(死去的fds和ads课程回忆突然开始攻击我)</del>, 但是代入上下文语境总觉得有些违和。后来了解之后才知道在开源共享或者项目管理中，<strong>PR</strong>往往指的实际上是<strong>Pull Request</strong>，即<strong>拉取请求</strong> —— <strong>您向原项目/仓库的维护者提交请求，建议他们合并你所做的修改</strong><br>在我的观察中，PR实际上可以理解为: 存在一个仓库A，而我们的手里有一个仓库B，这是基于A的延伸，或者基于A的修改，我们在仓库B的git历史中存在某一个分支，就像正常分支合并一样，我们可以<strong>通过Pull Request将这个分支合并/merge到仓库A的指定分支上中</strong>。 </p>
+<h4 id="PR的好处都有啥"><a href="#PR的好处都有啥" class="headerlink" title="PR的好处都有啥"></a>PR的好处都有啥</h4><p>PR的意义尤其在于<strong>开源贡献</strong>。<br>请设想这样一个场景: 阁下在网上冲浪的时候发现了一份写得很好的代码，或者自己在使用某个开源工具的过程中体验到了一些难处，作者一直没有解决这个问题于是你决定自己动手。但是当您兴致满满地git clone完原仓库，幸苦完成了修改之后，自信满满地键入<code>git push origin xxx-new-feature</code>，您发现这个操作失败了，然后您意识到——您根本没有这个仓库的提交权限！若阁下尝试去直接联系仓库的维护者，且不说对方是否能够及时回复，就算回复了，对方可能也会出于<em>不想有人把代码搞得一团糟</em>甚至<em>删库跑路</em>等顾忌而不愿轻易提供写权限。<br>那么难道这就死局了吗？非也非也，聪明的程序员们发明了PR机制来解决这个问题。它有以下几个特点(根据在<em>GitHub</em>上的观察):</p>
+<ol>
+<li><strong>即便是对仓库没有写权限的人也可以发起PR</strong></li>
+<li><strong>当阁下发起PR的时候，阁下可以为您的修改写一份声色俱茂的小作文，包括目的、动机、实现方法、效果和测试结果等</strong></li>
+<li><strong>仓库的维护者可以直接查看您的修改<del class="mask">(diff形式)</del>，如果认为合适就可以合并到原仓库中，完成合并则等效于真的在原仓库中开了这么一条分支，在开发后合并到特定分支</strong></li>
+<li><strong>PR拥有评论区，您可以和仓库的维护者或者其他人在这里展开充满激情的辩论。如果您认为他人说的有道理，您可以回到自己的分支中修改代码<del class="mask">(GitHub的PR会自动更新最新提交内容-2025/8/19)</del>，然后您就会惊奇发现，当时那条PR的commit记录自动延长了，阁下可以马上附上更新说明，在一个连续的历史上下文中完善您的这一次贡献</strong></li>
+</ol>
+<p>考虑到PR拥有的这些强大的能力——特别是“小作文”和评论区的设计——实际上为代码审查提供了很大的方便。所以在下肤浅的认为，对于一些大型项目的大型改动来说，即便是对于拥有写权限的开发者来说，学习使用PR也是非常有意义的！<br>虽然网上能搜到的一些协作开发的范式大都是<strong>不同人负责不同的分支</strong>，开发完了合并。或许这对于较为小型的项目来说更为方便，但是试想那位进行merge的人需要承担多大的心里负担呐。<strong>擅自</strong>将自己开发完的分支<strong>合并</strong>到别人的分支或者main分支上，说不定过段时间就会有一位悲惨的程序员发现自己原来能跑的代码跑不了了，于是悄悄地破防了(；´д｀)ゞ。如果联系项目负责人，让Ta进行<strong>审查合并</strong>，且不说联系过程怪麻烦的，而且整个审查并不是<strong>公开透明</strong>的，未来出现了问题也增加了维护的难度。<br>看，这些问题通过PR机制都能得到很好的解决ヽ(￣▽￣)ﾉ</p>
+<h4 id="Fork实乃何物"><a href="#Fork实乃何物" class="headerlink" title="Fork实乃何物"></a>Fork实乃何物</h4><p>PR这么有用，那么怎么PR呢。这时候就不得不提Fork了。在下以为<strong>Fork+PR</strong>的组合拳，已经是进行PR的一种<strong>社区规范</strong>了。</p>
+<p><strong>Fork</strong>实际上就是将一个仓库复制到自己的账号下，形成一个复制仓库，这样您就有了这个项目的副本，<strong>可以随意进行修改，而不会影响到主项目</strong>。</p>
+<ul>
+<li>也就是说，除了要发起PR的分支，阁下甚至可以开几条属于自己的<strong>草稿分支</strong>，并且不用担心遭到同伴亲切的问候“ <em>您在做神魔(O_o)??</em> ”</li>
+</ul>
+<p>至于怎么发起PR，则只需要在GitHub web端进入Fork形成的仓库副本，在Pull Request栏发起PR请求即可。事实上于在下的印象之中，当已经commit了几条之后，Fork的仓库首页就会贴心地提示您”Compare &amp; pull request”<sup id="fnref:1_0"><a class="link" href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('1', '1_0'); footnote_jumpToAnchor('fn:1')">[1]<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></sup></p>
+<h4 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h4><p>在Fork的仓库中，阁下可以通过<code>git remote add upstream &lt;原仓库URL&gt;</code>来添加一个<strong>上游仓库</strong><del class="mask">(<a href="#%E7%AE%A1%E7%90%86%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93">对应的git操作请参考</a>)</del>，这样您就可以通过<code>git fetch upstream</code>来将原仓库的最新代码拉取到自己的仓库中并通过<code>git merge upstream/branch_name</code>合并了！(￣▽￣)~*<br>这样的话，就算是团队内部进行开发或者修改自己使用中的工具，使用<strong>Fork仓库也完全无负担</strong>，反而更方便，自由度更高</p>
+<ul>
+<li>不仅可以无缝追踪原仓库进度</li>
+<li>还有自己的草稿区</li>
+</ul>
+<p>注: 一般使用upstream作为原仓库的别名</p>
+<hr>
+<h3 id="Commit-Message规范"><a href="#Commit-Message规范" class="headerlink" title="Commit Message规范"></a>Commit Message规范</h3><p>网上很有多关于commits规范的说法，有的显得很复杂。在下以为，重要的还是<strong>能不能把事情说清楚</strong><del class="mask">(看到阿里在文章中说”建议使用中文（感觉中国人用中文描述问题能更清楚一些）”, 笑罢觉得还是有些事情值得反思的，形式主义没有意义)</del>，所以这里摘些个人最认可也认为是最重要的部分充当一下互联网的记忆叭(￣^￣) <sup id="fnref:6_0"><a class="link" href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('6', '6_0'); footnote_jumpToAnchor('fn:6')">[6]<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></sup><sup id="fnref:7_0"><a class="link" href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('7', '7_0'); footnote_jumpToAnchor('fn:7')">[7]<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></sup></p>
+<p>最值得参考的大抵还是<strong>Angular规范</strong><sup id="fnref:8_0"><a class="link" href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('8', '8_0'); footnote_jumpToAnchor('fn:8')">[8]<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></sup>和后来在它的基础上发展出来的<strong>Conventional Commits</strong>叭<sup id="fnref:6_1"><a class="link" href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('6', '6_1'); footnote_jumpToAnchor('fn:6')">[6]<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></sup><br><strong>Angular范式</strong>：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;footer&gt;</span><br></pre></td></tr></table></figure></div>
+<p>作用域scope，body和footer都是可选的；前面几个都挺有用的，相对而言footer的可有可无性略高</p>
+<p>然后类型这边在下稍微糅合了一下，但都是接受度比较高的类型:</p>
+<ul>
+<li><strong>feat</strong>: 新功能</li>
+<li><strong>fix</strong>: 修复bug</li>
+<li>docs: 文档</li>
+<li>style: 样式修改 —— 主要是代码样式修改，不影响运行的那种<sup id="fnref:6_2"><a class="link" href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('6', '6_2'); footnote_jumpToAnchor('fn:6')">[6]<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></sup></li>
+<li><strong>refactor</strong>: 重构，代码重构，逻辑重构</li>
+<li><strong>test</strong>: 测试, 例如添加、删除、修改代码的测试用例等。</li>
+<li>chore: 用于对非业务性代码进行修改，例如修改构建流程或者工具配置等</li>
+<li>build: 用于修改项目构建系统，例如修改依赖库、外部接口或者升级 Node 版本等</li>
+<li>ci: 用于修改持续集成流程，例如修改 Travis、Jenkins 等工作流配置；</li>
+<li><strong>perf</strong>: 用于优化性能，例如提升代码的性能、减少内存占用等；</li>
+<li>revert: 用于回滚版本</li>
+</ul>
+<p>footer里面的’<strong>BREAKING CHANGE</strong>‘是什么？—— 简单来说就是<strong>不兼容修改</strong>, 本次提交修改后将不兼容之前版本的API或者环境变量。建议写上<strong>Before</strong>和<strong>After</strong>，分别表示修改前的和修改后的版本。</p>
+<p>关于怎么写，学理论不如看几个例子感受一下(。-`ω´-) ;取自<sup id="fnref:8_1"><a class="link" href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('8', '8_1'); footnote_jumpToAnchor('fn:8')">[8]<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></sup> :<br><img lazyload="" src="/images/loading.svg" data-src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/Git-experience/commit-example2.png" alt="example2"><br><img lazyload="" src="/images/loading.svg" data-src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/Git-experience/commit-example1.png" alt="example1"></p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><ol class="footnotes-list"><li id="fn:1">Coding Is Fun. <a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/u010295555/article/details/144091180">开源贡献：从 Fork 到 Pull Request（PR）<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. CSDN, 2024<a class="link" href="javascript:void(0);" onclick="footnote_returnToSource('1')"> ↩<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li><li id="fn:2">Git. <a class="link" target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/Git-%e5%9f%ba%e7%a1%80-%e8%bf%9c%e7%a8%8b%e4%bb%93%e5%ba%93%e7%9a%84%e4%bd%bf%e7%94%a8">2.5 Git 基础 - 远程仓库的使用<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. git-scm,<a class="link" href="javascript:void(0);" onclick="footnote_returnToSource('2')"> ↩<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li><li id="fn:3">Git. <a class="link" target="_blank" rel="noopener" href="https://git-scm.com/docs/git-fetch">git-fetch - Download objects and refs from another repository<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. git-scm, 2025<a class="link" href="javascript:void(0);" onclick="footnote_returnToSource('3')"> ↩<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li><li id="fn:4">Runner_Jack. <a class="link" target="_blank" rel="noopener" href="https://www.cnblogs.com/runnerjack/p/9342362.html">git fetch &amp; pull详解<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. 博客园, 2018<a class="link" href="javascript:void(0);" onclick="footnote_returnToSource('4')"> ↩<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li><li id="fn:5">Git. <a class="link" target="_blank" rel="noopener" href="https://git-scm.com/docs/git-pull">git-pull - Fetch from and integrate with another repository or a local branch<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. git-scm, 2025<a class="link" href="javascript:void(0);" onclick="footnote_returnToSource('5')"> ↩<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li><li id="fn:6">. <a class="link" target="_blank" rel="noopener" href="https://www.conventionalcommits.org/zh-hans/v1.0.0/#%e7%ba%a6%e5%ae%9a%e5%bc%8f%e6%8f%90%e4%ba%a4%e8%a7%84%e8%8c%83">convertionalcommits<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. ,<a class="link" href="javascript:void(0);" onclick="footnote_returnToSource('6')"> ↩<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li><li id="fn:7">阿里云开发者​. <a class="link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/182553920">如何规范你的Git Commit?<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. 知乎, 2025<a class="link" href="javascript:void(0);" onclick="footnote_returnToSource('7')"> ↩<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li><li id="fn:8">angular. <a class="link" target="_blank" rel="noopener" href="https://github.com/angular/components/blob/main/CONTRIBUTING.md">AngularJS Git Commit Message Conventions<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> <a class="link" target="_blank" rel="noopener" href="https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/preview?tab=t.0#heading=h.uyo6cb12dt6w">document<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. github,<a class="link" href="javascript:void(0);" onclick="footnote_returnToSource('8')"> ↩<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li></ol></section>
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 使用Git进行代码管理的经验谈</li>
+        <li><strong>作者:</strong> Prometheus0017</li>
+        <li><strong>创建于
+                :</strong> 2025-08-30 22:08:03</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2025-09-01 01:38:46
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://blog-seeles-secret-garden.vercel.app/2025/08/30/Git-experience/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
 </div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Git/">#Git</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/manual/">#manual</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/code-management/">#code management</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+  <div class="recommended-article px-2 sm:px-6 md:px-8">
+   <div class="recommended-desktop">
+    <div class="recommended-article-header text-xl md:text-3xl font-bold mt-10">
+     <i aria-hidden="true"></i><span>推荐阅读</span>
+    </div>
+    <div class="recommended-article-group"><a class="recommended-article-item" href="/2025/08/25/@mikolov2013EfficientEstimationWord/" title="重读经典：Word2Vec如何通过“简化”撬动了整个NLP世界？" rel="bookmark">
+  <img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/gallery/昔涟-十指相扣.png" alt="重读经典：Word2Vec如何通过“简化”撬动了整个NLP世界？" class="!max-w-none">
+  <span class="title">重读经典：Word2Vec如何通过“简化”撬动了整个NLP世界？</span>
+</a><a class="recommended-article-item" href="/2025/05/09/announcement/" title="公告(说明)" rel="bookmark">
+  <img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/open_graph.png" alt="公告(说明)" class="!max-w-none">
+  <span class="title">公告(说明)</span>
+</a></div>
+   </div>
+   <div class="recommended-mobile">
+   <div class="recommended-article-header text-xl md:text-3xl font-bold mt-10">
+     <i aria-hidden="true"></i><span>推荐阅读</span>
+   </div>
+   <div class="recommended-article-group"><a class="recommended-article-item" href="/2025/08/25/@mikolov2013EfficientEstimationWord/" title="重读经典：Word2Vec如何通过“简化”撬动了整个NLP世界？" rel="bookmark">
+  <img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/gallery/昔涟-十指相扣.png" alt="重读经典：Word2Vec如何通过“简化”撬动了整个NLP世界？" class="!max-w-none">
+  <span class="title">重读经典：Word2Vec如何通过“简化”撬动了整个NLP世界？</span>
+</a><a class="recommended-article-item" href="/2025/05/09/announcement/" title="公告(说明)" rel="bookmark">
+  <img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/open_graph.png" alt="公告(说明)" class="!max-w-none">
+  <span class="title">公告(说明)</span>
+</a></div>
+   </div>
+  </div>
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/08/25/@mikolov2013EfficientEstimationWord/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">重读经典：Word2Vec如何通过“简化”撬动了整个NLP世界？</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        async function loadGiscus() {
+            const giscusConfig = {
+                'src': 'https://giscus.app/client.js',
+                'data-repo': 'ElysiaFollower/ElysiaFollower.github.io',
+                'data-repo-id': 'R_kgDOOlwzaQ',
+                'data-category': 'Announcements',
+                'data-category-id': 'DIC_kwDOOlwzac4Ct0-D',
+                'data-mapping': 'pathname',
+                'data-strict': '0',
+                'data-reactions-enabled': '1',
+                'data-emit-metadata': '1',
+                'data-theme': 'preferred_color_scheme',
+                'data-lang': 'zh-CN',
+                'data-input-position': 'bottom',
+                'data-loading': 'lazy',
+                'crossorigin': 'anonymous',
+                'async': true
+            }
+            const giscusScript = document.createElement('script');
+            for (const key in giscusConfig) {
+                giscusScript.setAttribute(key, giscusConfig[key]);
+            }
+            document.getElementById('giscus-container').appendChild(giscusScript);
+        }
+        if ('true') {
+            let loadGiscusTimeout = setTimeout(() => {
+                loadGiscus();
+                clearTimeout(loadGiscusTimeout);
+            }, 1000);
+        } else {
+            document.addEventListener('DOMContentLoaded', loadGiscus);
+        }
+    </script>
+
+
+        
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
 	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">使用Git进行代码管理的经验谈</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Git"><span class="nav-text">使用Git</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%89%E5%8F%96%E5%92%8C%E6%8E%A8%E9%80%81"><span class="nav-text">拉取和推送</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%A1%E7%90%86%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="nav-text">管理远程仓库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BE%E5%8C%BA%E6%9A%97%E8%AF%AD"><span class="nav-text">社区暗语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8EFork%E5%88%B0Pull-Request-PR"><span class="nav-text">从Fork到Pull Request(PR)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PR%E7%9A%84%E5%A5%BD%E5%A4%84%E9%83%BD%E6%9C%89%E5%95%A5"><span class="nav-text">PR的好处都有啥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fork%E5%AE%9E%E4%B9%83%E4%BD%95%E7%89%A9"><span class="nav-text">Fork实乃何物</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="nav-text">小技巧</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Commit-Message%E8%A7%84%E8%8C%83"><span class="nav-text">Commit Message规范</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-text">References</span></a></li></ol>
 
-	<div class="page-template-content markdown-body">
-		
-
-		
-	</div>
-
-	<div class="page-template-comments">
-		
 	</div>
 </div>
-
-<div class="paginator">
-	<span class="page-number current">1</span>
+	</div>
+	
 </div>
-  
 			</div>
 
 			
@@ -838,6 +1260,26 @@
 		</div>
 	</div>
 
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
 	
 
 	<div class="right-side-tools-container">
@@ -947,6 +1389,7 @@
         containers: ["#swup"],
     });
 </script>
+
 
 
 
