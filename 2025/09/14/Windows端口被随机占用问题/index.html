@@ -133,14 +133,14 @@
         
         <meta name="description" content="分享技术路上的所学所思，也拾掇些钟情角色的记忆碎片💖。一个不成体系的小破站 (〃∀〃)ゞ 希望能遇见兴趣相投的你~ ✨">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解决Windows端口被系统随机保留: &#96;netstat&#96;显示未使用，但是无法使用端口">
+<meta property="og:title" content="解决Windows端口被系统随机保留: &#96;netstat&#96;显示端口空闲，但是无法使用端口">
 <meta property="og:url" content="http://example.com/2025/09/14/Windows%E7%AB%AF%E5%8F%A3%E8%A2%AB%E9%9A%8F%E6%9C%BA%E5%8D%A0%E7%94%A8%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="Seele">
 <meta property="og:description" content="分享技术路上的所学所思，也拾掇些钟情角色的记忆碎片💖。一个不成体系的小破站 (〃∀〃)ゞ 希望能遇见兴趣相投的你~ ✨">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/open_graph.png">
 <meta property="article:published_time" content="2025-09-14T07:47:43.000Z">
-<meta property="article:modified_time" content="2025-09-14T09:21:47.139Z">
+<meta property="article:modified_time" content="2025-09-14T09:33:09.072Z">
 <meta property="article:author" content="Prometheus17">
 <meta property="article:tag" content="Windows">
 <meta property="article:tag" content="port">
@@ -158,7 +158,7 @@
     
     <title>
         
-            解决Windows端口被系统随机保留: `netstat`显示未使用，但是无法使用端口 | Null Pointer律者 😋
+            解决Windows端口被系统随机保留: `netstat`显示端口空闲，但是无法使用端口 | Null Pointer律者 😋
         
     </title>
 
@@ -822,10 +822,10 @@ mjx-container[display="true"] + br {
 			
 			
 			
-			<img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/gallery/2025/09/14/霍霍.png" alt="解决Windows端口被系统随机保留: `netstat`显示未使用，但是无法使用端口" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
+			<img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/gallery/2025/09/14/霍霍.png" alt="解决Windows端口被系统随机保留: `netstat`显示端口空闲，但是无法使用端口" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
 			
 			<div class="w-full flex items-center absolute bottom-0 justify-start">
-				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">解决Windows端口被系统随机保留: `netstat`显示未使用，但是无法使用端口</h1>
+				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">解决Windows端口被系统随机保留: `netstat`显示端口空闲，但是无法使用端口</h1>
 			</div>
 			
 		</div>
@@ -853,8 +853,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-09-14 17:21:47</span>
-            <span class="mobile">2025-09-14 17:21:47</span>
+            <span class="desktop">2025-09-14 17:33:09</span>
+            <span class="mobile">2025-09-14 17:33:09</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -930,10 +930,10 @@ mjx-container[display="true"] + br {
 </ul>
 <h2 id="碎碎念"><a href="#碎碎念" class="headerlink" title="碎碎念"></a>碎碎念</h2><p><a href="#%E7%8E%B0%E8%B1%A1">跳过碎碎念</a></p>
 <p>在大约一年之前，17号的室友曾遇到过一个clash代理无法生效的问题。17号尝试了很多手段，都没定位到问题的原因，但最后却是通过更换代理端口意外地解决了这个问题。当时推测是对应端口被占用，但是不明所以，于是不了了之。</p>
-<p>在前段时间17号在进行web开发的时候，又遇到了相似的问题，即端口被占用，无法使用。然而即便17号使用<code>netstat -ano</code>命令查看系统上所有的网络连接和端口状态，也没有发现占用对应端口的进程。通过搜索，17号发现这个问题可能是因为Window系统会为Hyper-V服务保留一些端口，导致用户无法使用这些端口。虽然很无语，但是毕竟虚拟化服务还用得到，所以也没有去尝试从根本上解决这个问题。</p>
+<p>在前段时间17号在进行web开发的时候，又遇到了相似的问题，即端口被占用，无法使用。然而即便17号使用<code>netstat -ano</code>命令查看系统上所有的网络连接和端口状态，也没有发现绑定对应端口的进程。通过搜索，17号发现这个问题可能是因为Window系统会为Hyper-V服务保留一些端口，导致用户无法使用这些端口。虽然很无语，但是毕竟虚拟化服务还用得到，所以也没有去尝试从根本上解决这个问题。</p>
 <p>直到现在…昨天在为一个项目录制demo视频的时候，发现8000端口被占用，无法使用，导致demo录制到一半被迫中断，还被迫修改默认配置。而今天更是直接将17号clash代理http的端口，同时也是git的代理端口给封印了，害得17号连push和fetch都做不了！！！<br>忍无可忍无需再忍，今天在下稍微深入一点地研究了这个问题，结果发现，这个问题有一半可以说是系统bug！它完全可以无痛解决而且很好解决！</p>
 <p>解决之后顺便写篇文章分享一下叭~<br>如果哪里写得不恰当的，还请不吝赐教o(╥﹏╥)o</p>
-<h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p><code>netstat -ano | findstr 'port'</code> (命令中的port替换为真实要查找的端口) 无输出。结果显示<strong>没有任何进程在监听此端口</strong>，然而，<strong>任何试图使用该端口的尝试均以失败告终</strong>。</p>
+<h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p><code>netstat -ano | findstr 'port'</code> (命令中的port替换为真实要查找的端口) 无输出。结果显示<strong>没有任何进程绑定了此端口</strong>，然而，<strong>任何试图使用该端口的尝试均以失败告终</strong>。</p>
 <p>无法使用的端口非常<strong>随机</strong>，让人无迹可寻。比如几天前可能可以使用某端口，但过两天可能突然不能用了。而且重启电脑还有概率解决这个问题。</p>
 <h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>Windows有一个“<strong>TCP动态端口范围</strong>”，这个范围内的端口有时候可能会被系统<strong>随机占用</strong>。例如Hyper-V虚拟化服务，因为虚拟机也是需要支持网络服务的，故而虚拟机会需要真实的网络端口。所以Windows系统会为它预先保留一些端口以确保虚拟机能够正常使用。</p>
 <p><strong>动态端口</strong>是指那些不固定分配给特定服务，而由系统动态分配给需要网络通信的应用程序的端口。</p>
@@ -971,14 +971,14 @@ mjx-container[display="true"] + br {
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> 解决Windows端口被系统随机保留: `netstat`显示未使用，但是无法使用端口</li>
+        <li><strong>标题:</strong> 解决Windows端口被系统随机保留: `netstat`显示端口空闲，但是无法使用端口</li>
         <li><strong>作者:</strong> Prometheus0017</li>
         <li><strong>创建于
                 :</strong> 2025-09-14 15:47:43</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2025-09-14 17:21:47
+                    :</strong> 2025-09-14 17:33:09
             </li>
         
         <li>
@@ -1131,7 +1131,7 @@ mjx-container[display="true"] + br {
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
-		<div class="page-title">解决Windows端口被系统随机保留: `netstat`显示未使用，但是无法使用端口</div>
+		<div class="page-title">解决Windows端口被系统随机保留: `netstat`显示端口空闲，但是无法使用端口</div>
 		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A2%8E%E7%A2%8E%E5%BF%B5"><span class="nav-text">碎碎念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%B0%E8%B1%A1"><span class="nav-text">现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%9B%A0"><span class="nav-text">原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%8A%E6%96%AD%E6%96%B9%E5%BC%8F"><span class="nav-text">诊断方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-text">解决方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-text">参考文献</span></a></li></ol>
 
 	</div>
