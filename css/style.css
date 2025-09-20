@@ -4876,3 +4876,34 @@ html.is-animating .transition-fade-down {
   color: var(--second-text-color);
   text-align: center;
 }
+:root {
+  --banner-title-glow: 0 0 10px #0bf, 0 0 25px #00c3ff;
+  --banner-subtitle-glow: 0 0 5px #04f;
+}
+.light-mode {
+  --banner-title-glow: 0 0 10px #0bf, 0 0 25px #00c3ff;
+  --banner-subtitle-glow: 0 0 5px #04f;
+}
+.dark-mode {
+  --banner-title-glow: 0 0 10px #fff, 0 0 25px #f00;
+  --banner-subtitle-glow: 0 0 5px #915a5a;
+}
+.home-banner-container .description {
+  text-shadow: var(--banner-title-glow);
+}
+.home-banner-container #subtitle {
+  text-shadow: var(--banner-subtitle-glow);
+}
+.main-content-footer footer.footer {
+  background-color: transparent !important; /* 使用 transparent 并保留 !important */
+/*移除边框线 */
+  border: none;
+/*调整一下字体大小*/
+  font-size: 0.8rem;
+/*调整一下padding内边距, 外部容器是main-content-footer，免得过分往下内容没了*/
+  padding: 0px;
+}
+.main-content-footer {
+/*调整一下padding*/
+  padding-bottom: 3px;
+}

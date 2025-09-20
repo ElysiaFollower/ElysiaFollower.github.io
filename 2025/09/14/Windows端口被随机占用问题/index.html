@@ -937,7 +937,7 @@ mjx-container[display="true"] + br {
 <p>无法使用的端口非常<strong>随机</strong>，让人无迹可寻。比如几天前可能可以使用某端口，但过两天可能突然不能用了。而且重启电脑还有概率解决这个问题。</p>
 <h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>Windows有一个“<strong>TCP动态端口范围</strong>”，这个范围内的端口有时候可能会被系统<strong>随机占用</strong>。例如Hyper-V虚拟化服务，因为虚拟机也是需要支持网络服务的，故而虚拟机会需要真实的网络端口。所以Windows系统会为它预先保留一些端口以确保虚拟机能够正常使用。</p>
 <p><strong>动态端口</strong>是指那些不固定分配给特定服务，而由系统动态分配给需要网络通信的应用程序的端口。</p>
-<p>在 Windows Vista（或 Windows Server 2008）之前，动态端口范围是 1025 到 5000；在 Windows Vista（或 Windows Server 2008）之后，<strong>新的默认起始端口为 49152，新的默认结束端口为 65535</strong>。[^1][^2]</p>
+<p>在 Windows Vista（或 Windows Server 2008）之前，动态端口范围是 1025 到 5000；在 Windows Vista（或 Windows Server 2008）之后，<strong>新的默认起始端口为 49152，新的默认结束端口为 65535</strong>。<sup id="fnref:1_0"><a href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('1', '1_0'); footnote_jumpToAnchor('fn:1')">[1]</a></sup><sup id="fnref:2_0"><a href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('2', '2_0'); footnote_jumpToAnchor('fn:2')">[2]</a></sup></p>
 <p>注意到新的默认起始端口为49152，这非常大，基本上不会保留我们平时常用的那些端口。但是！<strong>Windows的自动更新有时会出错，导致这个范围的起始端口被重置为1024</strong>，就有可能导致我们常用的8000等端口被占用。</p>
 <h2 id="诊断方式"><a href="#诊断方式" class="headerlink" title="诊断方式"></a>诊断方式</h2><p><code>netsh int ipv4 show dynamicport tcp</code><br>该命令可以查看当前Windows计算机的TCP动态端口范围</p>
 <blockquote>
@@ -960,11 +960,11 @@ mjx-container[display="true"] + br {
 <p><code>netsh int ipv6 set dynamicport tcp start=49152 num=16384</code><br>该命令和上条相同，只不过修改的是ipv6不是ipv4，建议一起执行。</p>
 <p>执行完上述命令之后只需要重启电脑即可。不过实测发现，实际上只需要重启winnat即可, 即：<br><code>net stop winnat</code><br><code>net start winnat</code></p>
 <ul>
-<li>注：<code>winnat</code>是Windows网络地址转换服务，重启它可以强制系统重新评估网络配置并释放被错误保留的端口[^4]</li>
+<li>注：<code>winnat</code>是Windows网络地址转换服务，重启它可以强制系统重新评估网络配置并释放被错误保留的端口<sup id="fnref:4_0"><a href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('4', '4_0'); footnote_jumpToAnchor('fn:4')">[4]</a></sup></li>
 </ul>
 <p>不放心的话可以再使用上一节“诊断方式”中给出的两种方法重新进行一次诊断。如果阁下要使用的端口已不在保留的端口范围中，则这方面的问题就已经解决啦~ <del class="mask">(注: 若此时形如clash代理的服务仍无法使用，则大概率只需要重启clash就可以解决, 不重启或许它不会主动尝试再申请对应端口)</del></p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[^1]: 爱丽丝基. <a class="link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/474392069">解决 Windows 10 端口被 Hyper-V 随机保留（占用）的问题<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. 知乎, 2022-03-01<br>[^2]: 感谢地心引力. <a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43764974/article/details/143241715">【Windows】电脑端口明明没有进程占用但显示端口被占用（动态端口）<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. CSDN, 2024-10-25<br>[^3]: 安浩阳. <a class="link" target="_blank" rel="noopener" href="https://www.cnblogs.com/anhaoyang/p/the-port-is-not-occupied-but-it-is-prompted-that-the-port-cannot-be-used-z2e8urz.html">端口未被占用，但是却提示端口无法使用<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. 博客园, 2023-07-24<br>[^4]: scooley (microsoft). <a class="link" target="_blank" rel="noopener" href="https://techcommunity.microsoft.com/blog/virtualization/windows-nat-winnat----capabilities-and-limitations/382303">Windows NAT (WinNAT) – Capabilities and limitations<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. Microsoft Community Hub, 2016-5-25</p>
-
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><br><br><br></p>
+<section class="footnotes"><ol class="footnotes-list"><li id="fn:1">爱丽丝基. <a class="link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/474392069">解决 Windows 10 端口被 Hyper-V 随机保留（占用）的问题<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. 知乎, 2022-03-01<a href="javascript:void(0);" onclick="footnote_returnToSource('1')"> ↩</a></li><li id="fn:2">感谢地心引力. <a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43764974/article/details/143241715">【Windows】电脑端口明明没有进程占用但显示端口被占用（动态端口）<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. CSDN, 2024-10-25<a href="javascript:void(0);" onclick="footnote_returnToSource('2')"> ↩</a></li><li id="fn:3">安浩阳. <a class="link" target="_blank" rel="noopener" href="https://www.cnblogs.com/anhaoyang/p/the-port-is-not-occupied-but-it-is-prompted-that-the-port-cannot-be-used-z2e8urz.html">端口未被占用，但是却提示端口无法使用<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. 博客园, 2023-07-24<a href="javascript:void(0);" onclick="footnote_returnToSource('3')"> ↩</a></li><li id="fn:4">scooley (microsoft). <a class="link" target="_blank" rel="noopener" href="https://techcommunity.microsoft.com/blog/virtualization/windows-nat-winnat----capabilities-and-limitations/382303">Windows NAT (WinNAT) – Capabilities and limitations<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. Microsoft Community Hub, 2016-5-25<a href="javascript:void(0);" onclick="footnote_returnToSource('4')"> ↩</a></li></ol></section>
 		</div>
 
 		
@@ -1177,7 +1177,7 @@ mjx-container[display="true"] + br {
                     </span>
                     
                         <span>
-                            共 18.3k 字
+                            共 20.9k 字
                         </span>
                     
                 </p>
