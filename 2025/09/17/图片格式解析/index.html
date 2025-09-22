@@ -133,19 +133,20 @@
         
         <meta name="description" content="分享技术路上的所学所思，也拾掇些钟情角色的记忆碎片💖。一个不成体系的小破站 (〃∀〃)ゞ 希望能遇见兴趣相投的你~ ✨">
 <meta property="og:type" content="article">
-<meta property="og:title" content="图片格式解析">
+<meta property="og:title" content="手撕主流图像(PNG&#x2F;JPEG)：从理解文件数据结构到图像尺寸解析的实战">
 <meta property="og:url" content="http://example.com/2025/09/17/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/index.html">
 <meta property="og:site_name" content="Seele">
 <meta property="og:description" content="分享技术路上的所学所思，也拾掇些钟情角色的记忆碎片💖。一个不成体系的小破站 (〃∀〃)ゞ 希望能遇见兴趣相投的你~ ✨">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/open_graph.png">
 <meta property="article:published_time" content="2025-09-17T08:40:04.000Z">
-<meta property="article:modified_time" content="2025-09-20T10:06:37.777Z">
+<meta property="article:modified_time" content="2025-09-22T08:25:48.404Z">
 <meta property="article:author" content="Prometheus17">
 <meta property="article:tag" content="PNG">
+<meta property="article:tag" content="JPEG">
 <meta property="article:tag" content="image">
 <meta property="article:tag" content="protocol">
-<meta property="article:tag" content="parser">
+<meta property="article:tag" content="learning">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/assets/open_graph.png">
     
@@ -159,7 +160,7 @@
     
     <title>
         
-            图片格式解析 | Null Pointer律者 😋
+            手撕主流图像(PNG/JPEG)：从理解文件数据结构到图像尺寸解析的实战 | Null Pointer律者 😋
         
     </title>
 
@@ -791,7 +792,7 @@ mjx-container[display="true"] + br {
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">28</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -823,10 +824,10 @@ mjx-container[display="true"] + br {
 			
 			
 			
-			<img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/gallery/2025/09/17/miku2.png" alt="图片格式解析" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
+			<img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/gallery/2025/09/17/miku2.png" alt="手撕主流图像(PNG/JPEG)：从理解文件数据结构到图像尺寸解析的实战" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
 			
 			<div class="w-full flex items-center absolute bottom-0 justify-start">
-				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">图片格式解析</h1>
+				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">手撕主流图像(PNG/JPEG)：从理解文件数据结构到图像尺寸解析的实战</h1>
 			</div>
 			
 		</div>
@@ -854,8 +855,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-09-20 18:06:37</span>
-            <span class="mobile">2025-09-20 18:06:37</span>
+            <span class="desktop">2025-09-22 16:25:48</span>
+            <span class="mobile">2025-09-22 16:25:48</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -897,6 +898,10 @@ mjx-container[display="true"] + br {
                     </li>
                 
                     <li>
+                        | <a href="/tags/JPEG/">JPEG</a>&nbsp;
+                    </li>
+                
+                    <li>
                         | <a href="/tags/image/">image</a>&nbsp;
                     </li>
                 
@@ -905,7 +910,7 @@ mjx-container[display="true"] + br {
                     </li>
                 
                     <li>
-                        | <a href="/tags/parser/">parser</a>&nbsp;
+                        | <a href="/tags/learning/">learning</a>&nbsp;
                     </li>
                 
             </ul>
@@ -915,12 +920,12 @@ mjx-container[display="true"] + br {
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>4.2k 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>4.9k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>17 分钟</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>19 分钟</span>
         </span>
     
     
@@ -939,43 +944,59 @@ mjx-container[display="true"] + br {
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<p>简记一些常见图片格式的解析，属于随笔笔记性质，并非详解。</p>
-<p>目标是作为一个用户对最常见的几种图片格式建立基本的认知模型，同时理解如何从图像数据流中提取出图像的分辨率，即宽高属性。</p>
-<h2 id="PNG"><a href="#PNG" class="headerlink" title="PNG"></a>PNG</h2><p>主要参考2025年6月25日发布的第三版PNG规范<sup id="fnref:1_0"><a href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('1', '1_0'); footnote_jumpToAnchor('fn:1')">[1]</a></sup></p>
+			<p>本文将从底层开始剖析当前主流图像格式的文件格式，但并不对其中压缩算法展开深入的研究。故而在下更愿意称本文探讨的重心为——图像的数据结构，即不同类型的数据在存储设备中如何排布。同时我们作为一个用户，如何能从图像中准确的取出我们所需要的某一部分数据 —— 一张图像文件除了图像本体，还留存有许多元信息。</p>
+<p>本文将对几种常见图片格式建立基本的认知模型，同时以 <em>从图像数据流中提取出图像的分辨率，即宽高属性</em> 作为实战案例。</p>
+<h2 id="PNG"><a href="#PNG" class="headerlink" title="PNG"></a>PNG</h2><p>参考2025年6月25日发布的第三版PNG规范<sup id="fnref:1_0"><a href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('1', '1_0'); footnote_jumpToAnchor('fn:1')">[1]</a></sup></p>
 <ul>
-<li>关于PNG存储格式，具体官方说明请参考官方说明的第五节<a class="link" target="_blank" rel="noopener" href="https://www.w3.org/TR/png-3/#5DataRep">Datastream structure<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li>关于PNG存储格式，主要参考官方说明的第五节<a class="link" target="_blank" rel="noopener" href="https://www.w3.org/TR/png-3/#5DataRep">Datastream structure<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
 </ul>
-<p>PNG图像由<strong>文件署名</strong>和<strong>数据块</strong>两种类型的结构组成。</p>
-<h3 id="文件署名域"><a href="#文件署名域" class="headerlink" title="文件署名域"></a>文件署名域</h3><p>其中文件署名域用于确认一个文件是否是PNG文件</p>
+<p>PNG图像的格式其实相对来说非常的清晰易懂。它由**文件署名(PNG signature)<strong>和</strong>数据块(chunks)**两种类型的结构组成，而且从宏观上看，它就是 —— <strong>一个署名后面跟着很多个数据块</strong>。不同类型的数据块存储不同的数据。</p>
+<h3 id="文件署名域-PNG-signature"><a href="#文件署名域-PNG-signature" class="headerlink" title="文件署名域(PNG signature)"></a>文件署名域(PNG signature)</h3><p><strong>署名用于确认一个文件是否是PNG文件</strong>，是永远出现在PNG数据流最头部的八字节常量。</p>
 <p>用16进制打开任意PNG文件, 会发现前八个字节总是这几个十六进制数 <code>89 50 4E 47 0D 0A 1A 0A</code> </p>
-<p>这八个字节就是PNG的文件署名。出现这个签名则表明剩下的内容包含单个PNG图像，该图像由一系列<strong>以’IHDR’开头、以’IEND’的数据块组成</strong>。</p>
-<p>注：根据PNG官方的说法，一张PNG图像可能由多张动画序列帧组成(类似GIF)。所以通俗的理解，出现一个PNG签名，意味着现在得到的数据是一个PNG数据。不管后面存储的是一张静态的图像，或是多张动画序列帧(感觉上像是多张图像)，它在技术上都属于单张PNG图像。因为存储方式上是完全类似的，单张静态图像是签名后面跟了几个数据块，而多张动画序列帧也是签名后面跟了几个数据块，只不过数据块的类型和数量不同罢了。</p>
+<p>这八个字节就是PNG的文件署名。出现这个签名则表明剩下的内容包含<strong>单个PNG图像</strong>，该图像由一系列<strong>以’IHDR’开头、以’IEND’的数据块组成</strong>。</p>
 <ul>
-<li>ps: 推荐使用VScode的Hex Editer插件，可以方便地使用十六进制查看文件，同时也能显示解码后的文本<ul>
-<li><img lazyload="" src="/images/loading.svg" data-src="/2025/09/17/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/PixPin_2025-09-17_16-49-30.png" alt="PixPin_2025-09-17_16-49-30"></li>
+<li><p>为什么是“单张PNG图像”呢？实际上能播放动画的APNG也是这个署名开头：</p>
+<ul>
+<li><p>因为从技术上讲，<strong>APNG也属于’a single PNG image’</strong>。在下认为这并不只是一个无趣的文字游戏，因为APNG诞生在PNG之后，为了实现向下兼容，<strong>它只是在原基础上增添了几种新的数据块类型</strong>，如果忽略新增的数据块类型，那么剩下来的部分，就是<strong>像存储正常的PNG一样存储APNG的第一帧</strong>，所以即便是不支持APNG的老旧浏览器，只要对无法解析的数据块类型进行抛弃，就能够回退到“显示第一帧”的状态。<sup id="fnref:4_0"><a href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('4', '4_0'); footnote_jumpToAnchor('fn:4')">[4]</a></sup><br>在理解了静态PNG格式之后再来看下面这张图，就能很容易理解APNG到底是怎么对原有的PNG进行拓展的了。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/2025/09/17/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/720px-Apng_assembling.svg.png" alt="img"></p>
+<p>这里从Wikipedia上借来一张APNG示例图，感兴趣可以用十六进制工具看看。在下的观察结果是完美符合上图的：<img lazyload="" src="/images/loading.svg" data-src="/2025/09/17/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/Animated_PNG_example_bouncing_beach_ball.png" alt="Animated_PNG_example_bouncing_beach_ball"></p>
+</li>
 </ul>
 </li>
 </ul>
-<p><img lazyload="" src="/images/loading.svg" data-src="/2025/09/17/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/PixPin_2025-09-17_17-10-12.png" alt="文件署名域"></p>
-<p>如图所示，文件署名域对应一张PNG图像的前八个字节，而且里面还偷藏了一个”PNG”</p>
-<h3 id="数据块"><a href="#数据块" class="headerlink" title="数据块"></a>数据块</h3><p>除了署名，剩下的应该就都是数据块了。很多的个数据块堆叠用来存储数据。其结构如下：<br><img lazyload="" src="/images/loading.svg" data-src="/2025/09/17/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/PixPin_2025-09-17_22-06-54.png" alt="PixPin_2025-09-17_22-06-54"></p>
-<p>其实非常简单，个人认为只需要建立上面那个 <strong>四个Field</strong> 的认知模型即可，每个Field分别代表(按顺序排布)</p>
+<p>这里使用VScode的Hex Editer插件，对一张普通的静态的PNG照片的十六进制数据进行观察：</p>
 <ul>
-<li>length: <strong>四字节</strong>无符号整数，用于指定 实际数据CHUNK DATA 的长度 —— 所以长度为0的时候CHUNK DATA域等效于不存在</li>
-<li>chunk type: <strong>四字节</strong>，每个字节可以理解为一个ASCII码，<em>Each byte of a chunk type is restricted to the hexadecimal values 41 to 5A and 61 to 7A</em>，熟悉的话其实会发现，这其实就是约束了每个字节对应的ASCII字符就是’A’-‘Z’ 或 ‘a’-‘z’, 也就是说是直接人类可读的英文字母编码</li>
-<li>chunk data：实际的数据内容。长度由length域约束，可为0</li>
-<li>CRC： <strong>四字节</strong>， 仅根据CHUNK TYPE和CHUNK DATA计算出来的值，应该是<strong>校验码</strong>，这里不用太在意其中细节。</li>
+<li><img lazyload="" src="/images/loading.svg" data-src="/2025/09/17/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/PixPin_2025-09-17_16-49-30.png" alt="PixPin_2025-09-17_16-49-30"></li>
 </ul>
-<p>至此，数据块的基本结构就已经结束了。整个PNG存储的模型也就出来了，剩下的就只需要在用得到的时候补全对于<strong>不同类型数据块结构</strong>的认知即可。</p>
-<p><strong>就是说，接下来去翻官网的#11. Chunk specifications 就可以啦~</strong>， 这里列出几种常用的</p>
-<h3 id="必须存在的数据块类型"><a href="#必须存在的数据块类型" class="headerlink" title="必须存在的数据块类型"></a>必须存在的数据块类型</h3><p>有些类型的数据块必须存在于一张PNG图像中，称为<strong>Critical Chunk</strong>， 以下几种都是</p>
-<h4 id="开头与结尾-IHDR-IEND"><a href="#开头与结尾-IHDR-IEND" class="headerlink" title="开头与结尾 IHDR-IEND"></a>开头与结尾 IHDR-IEND</h4><p>类型一个是<strong>IHDR</strong>，一个是<strong>IEND</strong>， 没必要记16进制码，直接记字母就行。</p>
-<p><strong>IHDR</strong>是非常特殊的块，它和<strong>IEND</strong>一起框定了一串数据的范围。应该可以理解为，一段有效的数据，比如一帧，它会是很多数据块，解析的时候遇到<strong>IHDR</strong>就知道这段数据开始了，遇到<strong>IEND</strong>意味着这段数据结束了。 甚至还有人发现可以在IEND后面藏数据而不影响图像显示<sup id="fnref:2_0"><a href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('2', '2_0'); footnote_jumpToAnchor('fn:2')">[2]</a></sup>	</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/2025/09/17/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/PixPin_2025-09-17_17-10-12.png" alt="文件署名域"></p>
+<p>如图所示，文件署名域对应一张PNG图像的前八个字节，可以发现里面还偷藏了一个”PNG”。理论符合预期，当我们要处理图像时，若解析到前八个字节为PNG的署名，那么就可以认为，我们将要解析一张PNG图像了。</p>
+<h3 id="数据块"><a href="#数据块" class="headerlink" title="数据块"></a>数据块</h3><p>在署名之后，剩下的就都是一连串的数据块了。单个数据块的结构如下：<br><img lazyload="" src="/images/loading.svg" data-src="/2025/09/17/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/PixPin_2025-09-17_22-06-54.png" alt="PixPin_2025-09-17_22-06-54"></p>
+<p>其实非常简单，只需要建立 <strong>四个Field</strong> 的认知模型即可，每个Field分别代表(按顺序排布)</p>
+<ul>
+<li><p>length: <strong>四字节</strong>无符号整数，用于指定 实际数据CHUNK DATA 的长度 —— 所以长度为0的时候CHUNK DATA域等效于不存在，就回退到了图中所示的三个Field的情况了。</p>
+</li>
+<li><p>chunk type: <strong>四字节</strong>，每个字节可以理解为一个ASCII码</p>
 <blockquote>
-<p>出现在签名章节: This signature indicates that the remainder of the datastream contains a single PNG image, consisting of <strong>a series of chunks beginning with an <a class="link" target="_blank" rel="noopener" href="https://www.w3.org/TR/png-3/#11IHDR">IHDR<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> chunk and ending with an <a class="link" target="_blank" rel="noopener" href="https://www.w3.org/TR/png-3/#11IEND">IEND<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> chunk.</strong></p>
+<p><em>Each byte of a chunk type is restricted to the hexadecimal values 41 to 5A and 61 to 7A</em></p>
 </blockquote>
-<h4 id="IHDR-Image-header"><a href="#IHDR-Image-header" class="headerlink" title="IHDR Image header"></a>IHDR Image header</h4><p><strong>IEND</strong>没必要讲，就是一个结束标志。但是<strong>IHDR</strong>类型对应的数据块还存储了一些有用的信息。(必须是PNG datastream的第一个chunk)</p>
-<p>注：这里的总长度是固定的13bytes</p>
+<p>​    熟悉的话其实会发现，这其实就是约束了每个字节对应的ASCII字符就是’A’-‘Z’ 或 ‘a’-‘z’, 也就是说是直接人类可读的英文字母编码</p>
+</li>
+<li><p>chunk data：实际的数据内容。<strong>长度由length域约束</strong>，可为0</p>
+</li>
+<li><p>CRC： <strong>四字节</strong>， 仅根据CHUNK TYPE和CHUNK DATA计算出来的值，属于<strong>校验码</strong>，这里不用太在意其中细节。</p>
+</li>
+</ul>
+<p>至此，数据块基本结构的理解就已经完成了。整个PNG存储的模型也就出来了。再之后就只需要在用得到的时候补全对于<strong>不同类型数据块结构</strong>的认知即可。</p>
+<p><strong>就是说，接下来去翻官网的<a class="link" target="_blank" rel="noopener" href="https://www.w3.org/TR/png-3/#11Chunks">#11. Chunk specifications<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 就可以啦~</strong>  </p>
+<p>注：APNG增加的acTL、fcTL、fdAT类型在第三版的PNG规范中已经收录，也就是说都能在这份官方文档中查到。</p>
+<h3 id="关键数据块"><a href="#关键数据块" class="headerlink" title="关键数据块"></a>关键数据块</h3><p>有些类型的数据块基本上必须存在于一张PNG图像中，称为<strong>Critical Chunk</strong>。</p>
+<p>以下为四种Critical Chunk，其中只有PLTE是可选的，<strong>其它都必须出现，而且必须以以下顺序出现</strong></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/2025/09/17/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/PixPin_2025-09-22_15-16-02.png" alt="PixPin_2025-09-22_15-16-02"></p>
+<h4 id="开头与结尾-IHDR-IEND"><a href="#开头与结尾-IHDR-IEND" class="headerlink" title="开头与结尾 IHDR-IEND"></a>开头与结尾 IHDR-IEND</h4><p>类型一个是<strong>IHDR</strong>，一个是<strong>IEND</strong>， 没必要记16进制码，直接记字母就行。</p>
+<p><strong>IHDR</strong>是非常特殊的块，它和<strong>IEND</strong>一起框定了一串数据的范围。可以理解为，一段有效的数据，比如一帧，它会是很多数据块，解析的时候遇到<strong>IHDR</strong>就知道这段数据开始了，遇到<strong>IEND</strong>意味着这段数据结束了。 前者<strong>必须是第一个数据块</strong>，而后者<strong>必须是最后一个数据块</strong>。</p>
+<p>甚至还有人发现可以在IEND后面藏数据而不影响图像显示<sup id="fnref:2_0"><a href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('2', '2_0'); footnote_jumpToAnchor('fn:2')">[2]</a></sup>。</p>
+<p>其中<strong>IEND</strong>就是一个结束标志，其长度域为0，之后不再提，但<strong>IHDR</strong>类型对应的数据块还存储了一些有用的信息，图像的宽高属性就存储在这里，下一节详细解析。</p>
+<h4 id="IHDR-Image-header"><a href="#IHDR-Image-header" class="headerlink" title="IHDR Image header"></a>IHDR Image header</h4><p><strong>IHDR</strong>总长度是固定的13bytes，内部数据排布如下:</p>
 <table>
 <thead>
 <tr>
@@ -1012,33 +1033,42 @@ mjx-container[display="true"] + br {
 <td>1 byte</td>
 </tr>
 </tbody></table>
-<p>一般用户感觉只需要关注前4个属性即可，分别代表<strong>图像的宽</strong>、<strong>图像的高</strong>、<strong>图像位深</strong>、<strong>颜色类型</strong></p>
-<p>宽高以像素为单位。这里的位深指的是<strong>每个颜色通道的位深，而不是整个像素的位深</strong>，即记录的是每个颜色通道使用多少比特进行编码。</p>
-<p>颜色类型：</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="/2025/09/17/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/PixPin_2025-09-17_22-41-20.png" alt="PixPin_2025-09-17_22-41-20"></p>
-<p>虽然没有找到明确说明这些属性是顺序排布的，不过基于“协议本身是稳定的”的解释，可以找一张PNG图像拆开来验证一样——结论：至少前四个属性是按顺序存储的。</p>
+<p>一般用户只需要关注前4个属性即可，分别代表<strong>图像的宽</strong>、<strong>图像的高</strong>、<strong>图像位深</strong>、<strong>颜色类型</strong></p>
+<p>宽高以像素为单位；位深指的是<strong>每个颜色通道的位深，而不是整个像素的位深</strong>，即记录的是每个颜色通道使用多少比特进行编码。</p>
+<p>颜色类型(注意颜色类型和位深只有关系的)：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/2025/09/17/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/PixPin_2025-09-22_15-27-19.png" alt="PixPin_2025-09-22_15-27-19"></p>
+<p>即便官方文档暗示了这些属性是顺序排列的，但严谨地讲它似乎并没有<strong>明确指出</strong>排列顺序。不过基于“<strong>协议本身是稳定的，市面上流传的PNG图像的这几个属性的排列顺序是稳定的</strong>”的假设，可以找一张PNG图像拆开来验证这一点——结论：<strong>至少前四个属性是按顺序存储的</strong>。</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="/2025/09/17/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/PixPin_2025-09-17_22-47-35.png" alt="PixPin_2025-09-17_22-47-35"></p>
-<p>这里宽是0x500，对应十进制1280，长为0x8E3，对应十进制2275，这正好就是在下这张测试图像分辨率中的宽高，通过测试。</p>
-<p>08对应颜色位深8，02对应真彩色图像，RGB三色通道各使用8位编码，所以每个像素使用<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="10.308ex" height="1.717ex" role="img" focusable="false" viewBox="0 -677 4556 759"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><g data-mml-node="mo" transform="translate(722.2,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="mn" transform="translate(1722.4,0)"><path data-c="38" d="M70 417T70 494T124 618T248 666Q319 666 374 624T429 515Q429 485 418 459T392 417T361 389T335 371T324 363L338 354Q352 344 366 334T382 323Q457 264 457 174Q457 95 399 37T249 -22Q159 -22 101 29T43 155Q43 263 172 335L154 348Q133 361 127 368Q70 417 70 494ZM286 386L292 390Q298 394 301 396T311 403T323 413T334 425T345 438T355 454T364 471T369 491T371 513Q371 556 342 586T275 624Q268 625 242 625Q201 625 165 599T128 534Q128 511 141 492T167 463T217 431Q224 426 228 424L286 386ZM250 21Q308 21 350 55T392 137Q392 154 387 169T375 194T353 216T330 234T301 253T274 270Q260 279 244 289T218 306L210 311Q204 311 181 294T133 239T107 157Q107 98 150 60T250 21Z"></path></g><g data-mml-node="mo" transform="translate(2500.2,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mn" transform="translate(3556,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path data-c="34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z" transform="translate(500,0)"></path></g></g></g></svg></mjx-container>位编码，而在下通过图像属性观测到的数据完美符合预期，通过测试。</p>
+<p>这里宽是<strong>0x500</strong>，对应十进制<strong>1280</strong>，长为<strong>0x8E3</strong>，对应十进制<strong>2275</strong>，这正好就是在下这张测试图像分辨率中的宽高，通过测试。</p>
+<p><strong>0x08</strong>对应颜色位深8，<strong>0x02</strong>对应真彩色图像，RGB三色通道各使用8位编码，所以每个像素使用<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="10.308ex" height="1.717ex" role="img" focusable="false" viewBox="0 -677 4556 759"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><g data-mml-node="mo" transform="translate(722.2,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="mn" transform="translate(1722.4,0)"><path data-c="38" d="M70 417T70 494T124 618T248 666Q319 666 374 624T429 515Q429 485 418 459T392 417T361 389T335 371T324 363L338 354Q352 344 366 334T382 323Q457 264 457 174Q457 95 399 37T249 -22Q159 -22 101 29T43 155Q43 263 172 335L154 348Q133 361 127 368Q70 417 70 494ZM286 386L292 390Q298 394 301 396T311 403T323 413T334 425T345 438T355 454T364 471T369 491T371 513Q371 556 342 586T275 624Q268 625 242 625Q201 625 165 599T128 534Q128 511 141 492T167 463T217 431Q224 426 228 424L286 386ZM250 21Q308 21 350 55T392 137Q392 154 387 169T375 194T353 216T330 234T301 253T274 270Q260 279 244 289T218 306L210 311Q204 311 181 294T133 239T107 157Q107 98 150 60T250 21Z"></path></g><g data-mml-node="mo" transform="translate(2500.2,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mn" transform="translate(3556,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path data-c="34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z" transform="translate(500,0)"></path></g></g></g></svg></mjx-container>位编码，对应图像位深度24，通过测试。</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="/2025/09/17/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/PixPin_2025-09-17_22-52-30.png" alt="PixPin_2025-09-17_22-52-30"></p>
 <ul>
 <li>注: <strong>数据大端对齐</strong>，即高字节对应低地址</li>
 </ul>
 <h4 id="PLTE"><a href="#PLTE" class="headerlink" title="PLTE"></a>PLTE</h4><p>Palette，调色盘。</p>
 <p>含1-256个entries，每个entry三个字节，每个字节分别对应红绿蓝。</p>
-<p>感觉主要是用于压缩等用途的元信息，不用太在意。</p>
+<p>似乎主要是用于压缩等用途的元信息，也不是必须的数据块，非PNG图像的最小组成部分之一，这里跳过。</p>
 <h4 id="IDAT"><a href="#IDAT" class="headerlink" title="IDAT"></a>IDAT</h4><p><strong>Image Data</strong>， 图像真实的数据</p>
-<p>注：不是将每个像素的RGB存储的原始数据，而是压缩算法的输出结果</p>
-<hr>
+<p>注：不是将每个像素的RGB存储的原始数据，而<strong>是压缩算法的输出结果</strong></p>
 <p>必须的数据块类型就上述四种，其它感兴趣可以去文档中了解。</p>
-<h2 id="JPEG"><a href="#JPEG" class="headerlink" title="JPEG"></a>JPEG</h2><p>特别注意，JPEG和PNG不同，并非一个单一独立的规范，而存在很多不同的标准——不同的文件格式。<strong>这里参考的是T.81标准</strong><sup id="fnref:3_0"><a href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('3', '3_0'); footnote_jumpToAnchor('fn:3')">[3]</a></sup>, 又称<strong>ISO/IEC 10918-1 标准</strong>,  算是JPEG压缩技术最权威最官方的一个技术标准了，应该能够解释绝大部分JPEG文件的格式，如JFIF和Exif。文献很长，这里只关注JPEG的数据结构，基本可以从31页的<strong>Compressed data formats</strong>章节开始看。这里我不打算做很详细地解读，主要目标是解析到“能够得到图像的尺寸”的程度<del class="mask">(因为真实的数据反正也要过压缩算法，费劲搞清楚了感觉一般也用不到)</del>。</p>
-<h3 id="宏观设计"><a href="#宏观设计" class="headerlink" title="宏观设计"></a>宏观设计</h3><p>从最高层次看，JPEG文件有点像之前的PNG，但不完全一样。JPEG文件的数据流由一系列 “参数、标记段、数据段”(参数并不作为独立的实体存在，主要关注maker segment和data segment)的有序集合构成。</p>
+<h3 id="如何获得图像尺寸"><a href="#如何获得图像尺寸" class="headerlink" title="如何获得图像尺寸"></a>如何获得图像尺寸</h3><p>基于上述观察，实际上只需要越过PNG的文件署名，直接进入IHDR头中的固定偏移位置取出对应数据即可。</p>
+<hr>
+<h2 id="JPEG"><a href="#JPEG" class="headerlink" title="JPEG"></a>JPEG</h2><p>特别注意，JPEG和PNG不同，并非一个单一独立的规范，而存在很多不同的标准——不同的文件格式。<strong>这里参考T.81标准</strong><sup id="fnref:3_0"><a href="javascript:void(0);" rel="footnote" onclick="footnote_rememberSource('3', '3_0'); footnote_jumpToAnchor('fn:3')">[3]</a></sup>, 又称<strong>ISO/IEC 10918-1 标准</strong>,  算是JPEG压缩技术最权威最官方的一个技术标准了，能够解释现在流行的绝大部分JPEG文件的格式，如JFIF和Exif。文献很长，这里只关注JPEG的数据结构，基本可以从31页的<strong>Compressed data formats</strong>章节开始看。</p>
+<p>由于JPEG格式与PNG不同，相对而言要复杂许多，所以这里不做非常详细地解读，搞清楚宏观的结构并理解如何获取图像尺寸就结束了。 <del class="mask">(因为真实的数据反正也要过压缩算法，费劲搞清楚了感觉一般也用不到)</del>。</p>
+<h3 id="宏观设计"><a href="#宏观设计" class="headerlink" title="宏观设计"></a>宏观设计</h3><p>从最高层次看，JPEG文件有点像之前的PNG，但不完全一样。PNG由一个署名打头，后面跟着很多数据块(chunk)，而JPEG则直接由一系列的<strong>段(Segment)<strong>组成。而段又分</strong>标记段(Marker Segment)<strong>和</strong>熵编码数据段(Entropy-coded data segments)</strong>，前者作为标记和引导，存储着大量元信息，而后者则是图像本体在压缩后的结果载体。</p>
+<p>虽然文档中提到了“参数”，但在下认为这里提到的参数不过是“段”的组成部分，不需要单独拎出来理解。</p>
 <blockquote>
-<p>Structurally, the compressed data formats consist of an ordered collection of parameters, markers, and entropy-coded data<br>segments. Parameters and markers in turn are often organized into marker segments. Because all of these constituent parts<br>are represented with byte-aligned codes, each compressed data format consists of an ordered sequence of 8-bit bytes. For<br>each byte, a most significant bit (MSB) and a least significant bit (LSB) are defined</p>
+<p>Structurally, the compressed data formats consist of <strong>an ordered collection of parameters, markers, and entropy-coded data segments</strong>. Parameters and markers in turn are often organized into marker segments. Because all of these constituent parts are represented with byte-aligned codes, each compressed data format consists of an ordered sequence of 8-bit bytes. For each byte, a most significant bit (MSB) and a least significant bit (LSB) are defined</p>
 </blockquote>
-<p>可以想象我们是一个流式的数据解析器，我们顺序地读入JPEG数据，会读到一个个数据段，在真实数据段之前会读到标记段(Marker Segement)，这些标记就告诉了我们接下来会遇到什么数据，有点像PNG数据块的数据类型字段。而我们可以利用这些像“路标”一样的标记，快速跳过不需要的信息。</p>
-<p>整体上来看，JPEG文件的数据流就是一连串的标记段和穿插的几个数据段</p>
-<p>所以对我们来说现在最重要的就是如何辨识<strong>标记(Marker)</strong></p>
+<p>可以想象我们是一个流式的数据解析器，我们顺序地读入JPEG数据，会读到一个个<strong>段</strong>，在熵编码数据段之前会读到<strong>标记段(Marker Segement)</strong>，其由一个<strong>标记Marker</strong>和若干跟随的<strong>参数</strong>(长度可为0)组成。我们可以利用这些像“路标”一样的<strong>标记Marker</strong>，识别后续内容，快速跳过不需要的信息，也可以从跟随其的参数中提取出一些需要的元信息。</p>
+<p>整体上来看，JPEG文件的数据流就是<strong>很多的标记段和穿插的‘几个’熵编码数据段</strong></p>
+<ul>
+<li>对于Baseline JPEG，图像数据是一个完整的连续的熵编码数据段 (相当于一次扫描)</li>
+<li>但是对于Progressive JPEG，每次扫描不断填充细节和色彩精度，熵编码数据段就不是连续的</li>
+<li>不过从下图看，无论是基线还是渐进JPEG，都可以插入重启标记RST, 以增加容错性。</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="/2025/09/17/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/PixPin_2025-09-19_21-38-38.png" alt="PixPin_2025-09-19_21-38-38"></p>
+<p>我们不关注具体被压缩后的数据长什么样，所以对我们来说现在最重要的就是如何辨识<strong>标记(Marker)</strong></p>
 <h3 id="标记Marker"><a href="#标记Marker" class="headerlink" title="标记Marker"></a>标记Marker</h3><p><strong>总结，找到字节0xFF，并且后面不是0x00</strong>, 就找到了Marker，0xFF后面跟的字节就决定了类型。</p>
 <h4 id="Marker的格式"><a href="#Marker的格式" class="headerlink" title="Marker的格式"></a>Marker的格式</h4><p><strong>长两个字节</strong></p>
 <ul>
@@ -1061,8 +1091,7 @@ mjx-container[display="true"] + br {
 </li>
 </ul>
 <p>特别说明：文档中提到的，<strong>Marker中存储的两字节长度参数，特指该Marker段的长度(不包含开头的‘两’个字节，但是包含记录长度的两个字节)</strong>，并不代表后面可能跟着的数据段的长度。这个参数用于快速跳过该Marker段达到下一个Marker段。</p>
-<h3 id="具体数据构造"><a href="#具体数据构造" class="headerlink" title="具体数据构造"></a>具体数据构造</h3><p><img lazyload="" src="/images/loading.svg" data-src="/2025/09/17/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/PixPin_2025-09-19_21-38-38.png" alt="PixPin_2025-09-19_21-38-38"></p>
-<p>让我们结合例子逐步剖析。这里使用<a class="link" target="_blank" rel="noopener" href="https://www.onlinehexeditor.com/">onlinehexeditor<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>作为十六进制查看器，因为它还能提供对jpeg结构的部分信息的解析与提取，有助于辅助我们构建认知模型。</p>
+<h3 id="具体数据构造"><a href="#具体数据构造" class="headerlink" title="具体数据构造"></a>具体数据构造</h3><p>让我们结合例子逐步剖析。这里使用<a class="link" target="_blank" rel="noopener" href="https://www.onlinehexeditor.com/">onlinehexeditor<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>作为十六进制查看器，因为它还能提供对jpeg结构的部分信息的解析与提取，有助于辅助我们构建认知模型。</p>
 <p>注：建议将Marker表钉在屏幕的某个位置，方便确认Marker类型。</p>
 <p>可以看到JPEG其实是一个多层级结构，把Frame视为主体，则两侧分别有SOI和EOI，这里我上传了一张jpeg图像作为示例</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="/2025/09/17/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/PixPin_2025-09-19_22-12-40.png" alt="PixPin_2025-09-19_22-12-40"></p>
@@ -1111,22 +1140,22 @@ mjx-container[display="true"] + br {
 
 
 
-<p><br><br></p>
-<section class="footnotes"><ol class="footnotes-list"><li id="fn:1">W3C. <a class="link" target="_blank" rel="noopener" href="https://www.w3.org/TR/png-3/#5DataRep">Portable Network Graphics (PNG) Specification (Third Edition)<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. W3C, 2025-06-25<a href="javascript:void(0);" onclick="footnote_returnToSource('1')"> ↩</a></li><li id="fn:2"><a class="link" target="_blank" rel="noopener" href="https://www.cnblogs.com/senior-engineer">maxiongying<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. <a class="link" target="_blank" rel="noopener" href="https://www.cnblogs.com/senior-engineer/p/9548347.html">PNG文件格式详解 <i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. 博客园, 2018-08-25<a href="javascript:void(0);" onclick="footnote_returnToSource('2')"> ↩</a></li><li id="fn:3">CCITT (The International Telegraph and Telephone Consultative Committee) / ITU (International Telecommunication Union). <a class="link" target="_blank" rel="noopener" href="https://www.w3.org/Graphics/JPEG/itu-t81.pdf">Recommendation T.81: Information Technology - Digital Compression and Coding of Continuous-tone Still Images - Requirements and Guidelines<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. ITU (International Telecommunication Union), 1992-9-18<a href="javascript:void(0);" onclick="footnote_returnToSource('3')"> ↩</a></li></ol></section>
+<p><br><br><br></p>
+<section class="footnotes"><ol class="footnotes-list"><li id="fn:1">W3C. <a class="link" target="_blank" rel="noopener" href="https://www.w3.org/TR/png-3/#5DataRep">Portable Network Graphics (PNG) Specification (Third Edition)<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. W3C, 2025-06-25<a href="javascript:void(0);" onclick="footnote_returnToSource('1')"> ↩</a></li><li id="fn:2"><a class="link" target="_blank" rel="noopener" href="https://www.cnblogs.com/senior-engineer">maxiongying<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. <a class="link" target="_blank" rel="noopener" href="https://www.cnblogs.com/senior-engineer/p/9548347.html">PNG文件格式详解 <i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. 博客园, 2018-08-25<a href="javascript:void(0);" onclick="footnote_returnToSource('2')"> ↩</a></li><li id="fn:3">CCITT (The International Telegraph and Telephone Consultative Committee) / ITU (International Telecommunication Union). <a class="link" target="_blank" rel="noopener" href="https://www.w3.org/Graphics/JPEG/itu-t81.pdf">Recommendation T.81: Information Technology - Digital Compression and Coding of Continuous-tone Still Images - Requirements and Guidelines<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. ITU (International Telecommunication Union), 1992-9-18<a href="javascript:void(0);" onclick="footnote_returnToSource('3')"> ↩</a></li><li id="fn:4">. <a class="link" target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/APNG">APNG<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. wikipedia, 2025-9-10<a href="javascript:void(0);" onclick="footnote_returnToSource('4')"> ↩</a></li></ol></section>
 		</div>
 
 		
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> 图片格式解析</li>
+        <li><strong>标题:</strong> 手撕主流图像(PNG/JPEG)：从理解文件数据结构到图像尺寸解析的实战</li>
         <li><strong>作者:</strong> Prometheus0017</li>
         <li><strong>创建于
                 :</strong> 2025-09-17 16:40:04</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2025-09-20 18:06:37
+                    :</strong> 2025-09-22 16:25:48
             </li>
         
         <li>
@@ -1156,6 +1185,10 @@ mjx-container[display="true"] + br {
 			</li>
 			
 			<li class="tag-item mx-0.5">
+				<a href="/tags/JPEG/">#JPEG</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
 				<a href="/tags/image/">#image</a>&nbsp;
 			</li>
 			
@@ -1164,7 +1197,7 @@ mjx-container[display="true"] + br {
 			</li>
 			
 			<li class="tag-item mx-0.5">
-				<a href="/tags/parser/">#parser</a>&nbsp;
+				<a href="/tags/learning/">#learning</a>&nbsp;
 			</li>
 			
 		</ul>
@@ -1283,8 +1316,8 @@ mjx-container[display="true"] + br {
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
-		<div class="page-title">图片格式解析</div>
-		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PNG"><span class="nav-text">PNG</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%BD%B2%E5%90%8D%E5%9F%9F"><span class="nav-text">文件署名域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%9D%97"><span class="nav-text">数据块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%85%E9%A1%BB%E5%AD%98%E5%9C%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%9D%97%E7%B1%BB%E5%9E%8B"><span class="nav-text">必须存在的数据块类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A4%B4%E4%B8%8E%E7%BB%93%E5%B0%BE-IHDR-IEND"><span class="nav-text">开头与结尾 IHDR-IEND</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IHDR-Image-header"><span class="nav-text">IHDR Image header</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PLTE"><span class="nav-text">PLTE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IDAT"><span class="nav-text">IDAT</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JPEG"><span class="nav-text">JPEG</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8F%E8%A7%82%E8%AE%BE%E8%AE%A1"><span class="nav-text">宏观设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0Marker"><span class="nav-text">标记Marker</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Marker%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="nav-text">Marker的格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E6%95%B0%E6%8D%AE%E6%9E%84%E9%80%A0"><span class="nav-text">具体数据构造</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Get-Image-Size"><span class="nav-text">Get Image Size</span></a></li></ol>
+		<div class="page-title">手撕主流图像(PNG/JPEG)：从理解文件数据结构到图像尺寸解析的实战</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PNG"><span class="nav-text">PNG</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%BD%B2%E5%90%8D%E5%9F%9F-PNG-signature"><span class="nav-text">文件署名域(PNG signature)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%9D%97"><span class="nav-text">数据块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%95%B0%E6%8D%AE%E5%9D%97"><span class="nav-text">关键数据块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A4%B4%E4%B8%8E%E7%BB%93%E5%B0%BE-IHDR-IEND"><span class="nav-text">开头与结尾 IHDR-IEND</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IHDR-Image-header"><span class="nav-text">IHDR Image header</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PLTE"><span class="nav-text">PLTE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IDAT"><span class="nav-text">IDAT</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%8E%B7%E5%BE%97%E5%9B%BE%E5%83%8F%E5%B0%BA%E5%AF%B8"><span class="nav-text">如何获得图像尺寸</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JPEG"><span class="nav-text">JPEG</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8F%E8%A7%82%E8%AE%BE%E8%AE%A1"><span class="nav-text">宏观设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0Marker"><span class="nav-text">标记Marker</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Marker%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="nav-text">Marker的格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E6%95%B0%E6%8D%AE%E6%9E%84%E9%80%A0"><span class="nav-text">具体数据构造</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Get-Image-Size"><span class="nav-text">Get Image Size</span></a></li></ol>
 
 	</div>
 </div>
@@ -1317,7 +1350,7 @@ mjx-container[display="true"] + br {
                     </span>
                     
                         <span>
-                            共 20.9k 字
+                            共 21.7k 字
                         </span>
                     
                 </p>
