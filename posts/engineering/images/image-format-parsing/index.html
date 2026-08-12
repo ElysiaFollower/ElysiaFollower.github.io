@@ -1,0 +1,456 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro v7.1.5"><meta name="description" content="从文件结构解析 PNG 与 JPEG，并实现一个仅读取图像尺寸的解析器。"><meta name="theme-color" content="#fafafd" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#17151a" media="(prefers-color-scheme: dark)"><link rel="canonical" href="https://elysiafollower.github.io/posts/engineering/images/image-format-parsing/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="17号的航行日志 RSS" href="/rss.xml"><meta property="og:site_name" content="17号的航行日志"><meta property="og:locale" content="zh_CN"><meta property="og:type" content="article"><meta property="og:title" content="手撕主流图像（PNG/JPEG）：从文件结构到图像尺寸解析 · 17号的航行日志"><meta property="og:description" content="从文件结构解析 PNG 与 JPEG，并实现一个仅读取图像尺寸的解析器。"><meta property="og:url" content="https://elysiafollower.github.io/posts/engineering/images/image-format-parsing/"><meta property="og:image" content="https://elysiafollower.github.io/_astro/cover.2QQTAmnW_1SxEdJ.webp"><meta property="og:image:alt" content="蓝紫色调的初音未来插画"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="article:published_time" content="2025-09-17T00:00:00.000Z"><meta property="article:modified_time" content="2025-09-23T00:00:00.000Z"><meta property="article:tag" content="PNG"><meta property="article:tag" content="JPEG"><meta property="article:tag" content="Image"><meta property="article:tag" content="Protocol"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="手撕主流图像（PNG/JPEG）：从文件结构到图像尺寸解析 · 17号的航行日志"><meta name="twitter:description" content="从文件结构解析 PNG 与 JPEG，并实现一个仅读取图像尺寸的解析器。"><meta name="twitter:image" content="https://elysiafollower.github.io/_astro/cover.2QQTAmnW_1SxEdJ.webp"><meta name="twitter:image:alt" content="蓝紫色调的初音未来插画"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"手撕主流图像（PNG/JPEG）：从文件结构到图像尺寸解析","description":"从文件结构解析 PNG 与 JPEG，并实现一个仅读取图像尺寸的解析器。","datePublished":"2025-09-17T00:00:00.000Z","dateModified":"2025-09-23T00:00:00.000Z","author":{"@type":"Person","name":"Prometheus0017","url":"https://elysiafollower.github.io/about/"},"mainEntityOfPage":"https://elysiafollower.github.io/posts/engineering/images/image-format-parsing/","image":"https://elysiafollower.github.io/_astro/cover.2QQTAmnW_1SxEdJ.webp","keywords":["PNG","JPEG","Image","Protocol"]}</script><title>手撕主流图像（PNG/JPEG）：从文件结构到图像尺寸解析 · 17号的航行日志</title><script>
+      (() => {
+        document.documentElement.classList.add("js");
+        if (sessionStorage.getItem("opening-seen")) {
+          document.documentElement.classList.add("opening-seen");
+        }
+        const stored = localStorage.getItem("theme");
+        const preferred = matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+        document.documentElement.dataset.theme = stored || preferred;
+      })();
+    </script><link rel="stylesheet" href="/_astro/_..55ul92Ac.css"><link rel="stylesheet" href="/_astro/BaseLayout.BmR2T00w.css"><style>.site-footer[data-astro-cid-nns7i3if]{color:#f8f3f6;background:#17151a;padding:68px 0 28px;position:relative;overflow:hidden}.site-footer[data-astro-cid-nns7i3if]:before{top:0;left:var(--page-inline);content:"";background:#75d4d2;width:38px;height:5px;position:absolute;box-shadow:38px 0 #ff78a5,76px 0 #efbd43}.site-footer__main[data-astro-cid-nns7i3if]{grid-template-columns:minmax(0,1fr) auto;gap:64px;display:grid}.site-footer__brand[data-astro-cid-nns7i3if]{align-items:center;gap:10px;text-decoration:none;display:inline-flex}.site-footer__brand[data-astro-cid-nns7i3if] svg{color:#ff78a5}.site-footer__brand[data-astro-cid-nns7i3if] strong[data-astro-cid-nns7i3if]{font-family:var(--font-reading);font-size:1.25rem}.site-footer__main[data-astro-cid-nns7i3if] p[data-astro-cid-nns7i3if]{color:#bcb3b9;max-width:520px;margin:12px 0 0;font-size:.82rem}.site-footer[data-astro-cid-nns7i3if] nav[data-astro-cid-nns7i3if]{border-top:1px solid #ffffff38;grid-template-columns:repeat(2,minmax(0,1fr));min-width:330px;display:grid}.site-footer[data-astro-cid-nns7i3if] nav[data-astro-cid-nns7i3if] a[data-astro-cid-nns7i3if]{color:#d8d0d5;border-bottom:1px solid #ffffff38;align-items:center;gap:7px;min-height:46px;font-size:.78rem;text-decoration:none;display:flex}.site-footer[data-astro-cid-nns7i3if] nav[data-astro-cid-nns7i3if] a[data-astro-cid-nns7i3if]:nth-child(2n){border-left:1px solid #ffffff38;padding-left:18px}.site-footer[data-astro-cid-nns7i3if] nav[data-astro-cid-nns7i3if] a[data-astro-cid-nns7i3if]:hover{color:#75d4d2}.site-footer__meta[data-astro-cid-nns7i3if]{color:#9f959c;font-family:var(--font-mono);grid-template-columns:1fr auto auto;align-items:center;gap:24px;padding-top:64px;font-size:.62rem;display:grid}.site-footer__meta[data-astro-cid-nns7i3if] a[data-astro-cid-nns7i3if]{color:#fff;border:1px solid #ffffff4a;border-radius:50%;place-items:center;width:38px;height:38px;display:grid}.site-footer__meta[data-astro-cid-nns7i3if] a[data-astro-cid-nns7i3if]:hover{color:#ff78a5;border-color:#ff78a5}@media (width<=700px){.site-footer[data-astro-cid-nns7i3if]{padding-top:56px}.site-footer__main[data-astro-cid-nns7i3if]{grid-template-columns:1fr;gap:38px}.site-footer[data-astro-cid-nns7i3if] nav[data-astro-cid-nns7i3if]{min-width:0}.site-footer__meta[data-astro-cid-nns7i3if]{grid-template-columns:1fr auto;padding-top:52px}.site-footer__meta[data-astro-cid-nns7i3if]>span[data-astro-cid-nns7i3if]:nth-child(2){display:none}}
+</style></head><body id="top" class="reading-page"><a class="skip-link" href="#main-content">跳到正文</a><header class="site-header" data-variant="reading" data-astro-cid-fzpbxy5g><div class="site-header__inner" data-astro-cid-fzpbxy5g><a class="site-brand" href="/" aria-label="17号的航行日志首页" data-astro-cid-fzpbxy5g><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-fzpbxy5g="true" class="lucide lucide-sparkles"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path><path d="M20 2v4"></path><path d="M22 4h-4"></path><circle cx="4" cy="20" r="2"></circle></svg><span data-astro-cid-fzpbxy5g>LOG 0017</span></a><nav class="site-nav" aria-label="主导航" data-astro-cid-fzpbxy5g><a class="site-nav__link" href="/" title="首页" data-astro-cid-fzpbxy5g><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-fzpbxy5g="true" class="lucide lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg><span data-astro-cid-fzpbxy5g>首页</span></a><a class="site-nav__link is-active" href="/posts/" aria-current="page" title="文章" data-astro-cid-fzpbxy5g><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-fzpbxy5g="true" class="lucide lucide-book-open-text"><path d="M12 5v16"></path><path d="M16 13h2"></path><path d="M16 9h2"></path><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"></path><path d="M6 13h2"></path><path d="M6 9h2"></path></svg><span data-astro-cid-fzpbxy5g>文章</span></a><a class="site-nav__link" href="/gallery/" title="画廊" data-astro-cid-fzpbxy5g><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-fzpbxy5g="true" class="lucide lucide-images"><path d="m22 11-1.296-1.296a2.4 2.4 0 0 0-3.408 0L11 16"></path><path d="M4 8a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2"></path><circle cx="13" cy="7" r="1" fill="currentColor"></circle><rect x="8" y="2" width="14" height="14" rx="2"></rect></svg><span data-astro-cid-fzpbxy5g>画廊</span></a><a class="site-nav__link" href="/about/" title="关于" data-astro-cid-fzpbxy5g><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-fzpbxy5g="true" class="lucide lucide-circle-user-round"><path d="M17.925 20.056a6 6 0 0 0-11.851.001"></path><circle cx="12" cy="11" r="4"></circle><circle cx="12" cy="12" r="10"></circle></svg><span data-astro-cid-fzpbxy5g>关于</span></a><a class="site-nav__link" href="/friends/" title="友链" data-astro-cid-fzpbxy5g><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-fzpbxy5g="true" class="lucide lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2"></path><path d="M15 7h2a5 5 0 1 1 0 10h-2"></path><line x1="8" x2="16" y1="12" y2="12"></line></svg><span data-astro-cid-fzpbxy5g>友链</span></a></nav><div class="site-header__actions" data-astro-cid-fzpbxy5g><button class="theme-toggle" type="button" data-theme-toggle aria-label="切换昼夜模式" title="切换昼夜模式" data-astro-cid-l6lhmie6><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-l6lhmie6="true" class="lucide lucide-sun theme-toggle__sun"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-l6lhmie6="true" class="lucide lucide-moon theme-toggle__moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></button><script type="module">var e=()=>{let e=document.documentElement.dataset.theme===`dark`;document.querySelectorAll(`[data-theme-toggle]`).forEach(t=>{t.setAttribute(`aria-pressed`,String(e))})};document.querySelectorAll(`[data-theme-toggle]`).forEach(t=>{t.addEventListener(`click`,()=>{let t=document.documentElement.dataset.theme===`dark`?`light`:`dark`;document.documentElement.dataset.theme=t,localStorage.setItem(`theme`,t),e()})}),e();</script></div></div></header><main id="main-content" class="post-shell"><article data-pagefind-body><div class="search-catalog-index" aria-hidden="true" data-pagefind-ignore><span data-pagefind-meta="title" data-pagefind-sort="title">手撕主流图像（PNG/JPEG）：从文件结构到图像尺寸解析</span><span data-pagefind-meta="catalog">工程 / Images</span><span data-pagefind-meta="source">src/content/posts/engineering/images/image-format-parsing/index.mdx</span><img src="/_astro/cover.2QQTAmnW_1lshw7.webp" alt loading="lazy" data-pagefind-meta="cover[src]" decoding="async" width="320" height="206"><span data-pagefind-meta="cover-position">50% 38%</span><span data-pagefind-filter="directory">engineering</span><span data-pagefind-filter="directory">engineering/images</span><span data-pagefind-filter="tag">PNG</span><span data-pagefind-filter="tag">JPEG</span><span data-pagefind-filter="tag">Image</span><span data-pagefind-filter="tag">Protocol</span></div><header class="post-header"><nav class="post-catalog-path" aria-label="文章目录位置" data-pagefind-ignore><a href="/posts/catalog/?path=engineering">工程</a><span aria-hidden="true">/</span><a href="/posts/catalog/?path=engineering%2Fimages">Images</a></nav><div class="post-header__eyebrow" data-pagefind-ignore><span>工程</span><time datetime="2025-09-17T00:00:00.000Z" data-pagefind-meta="date[datetime]" data-pagefind-sort="date[datetime]">2025年9月17日</time><span>约 20 分钟阅读</span><span>更新于 <time datetime="2025-09-23T00:00:00.000Z">2025年9月23日</time></span></div><h1 data-pagefind-ignore>手撕主流图像（PNG/JPEG）：从文件结构到图像尺寸解析</h1><p class="post-header__description" data-pagefind-meta="description">从文件结构解析 PNG 与 JPEG，并实现一个仅读取图像尺寸的解析器。</p><ul class="post-header__tags" aria-label="标签" data-pagefind-ignore><li><a href="/posts/catalog/?tag=PNG" data-pagefind-filter="tag">#PNG</a></li><li><a href="/posts/catalog/?tag=JPEG" data-pagefind-filter="tag">#JPEG</a></li><li><a href="/posts/catalog/?tag=Image" data-pagefind-filter="tag">#Image</a></li><li><a href="/posts/catalog/?tag=Protocol" data-pagefind-filter="tag">#Protocol</a></li></ul><code class="post-source-path" data-pagefind-ignore>src/content/posts/engineering/images/image-format-parsing/index.mdx</code></header><div class="post-cover" data-pagefind-ignore><img src="/_astro/cover.2QQTAmnW_Z1Et0vM.webp" srcset="/_astro/cover.2QQTAmnW_ZvfIgK.webp 720w, /_astro/cover.2QQTAmnW_Z1zjWzq.webp 960w, /_astro/cover.2QQTAmnW_Z1Et0vM.webp 1280w" alt="蓝紫色调的初音未来插画" sizes="(max-width: 650px) 100vw, 1120px" loading="eager" data-critical-image="true" style="object-position: 50% 38%" decoding="async" width="1280" height="825"></div><div class="reading-grid"><nav class="post-toc" aria-label="文章目录" data-pagefind-ignore><span class="post-toc__label">Contents</span><ol><li data-depth="2"><a href="#png">PNG</a></li><li data-depth="3"><a href="#文件署名域png-signature">文件署名域(PNG signature)</a></li><li data-depth="3"><a href="#数据块">数据块</a></li><li data-depth="3"><a href="#关键数据块">关键数据块</a></li><li data-depth="3"><a href="#如何获得图像尺寸">如何获得图像尺寸</a></li><li data-depth="2"><a href="#jpeg">JPEG</a></li><li data-depth="3"><a href="#宏观设计">宏观设计</a></li><li data-depth="3"><a href="#标记marker">标记Marker</a></li><li data-depth="3"><a href="#具体数据构造">具体数据构造</a></li><li data-depth="3"><a href="#如何获得图像尺寸-1">如何获得图像尺寸</a></li><li data-depth="2"><a href="#get-image-size">Get Image Size</a></li></ol></nav><div class="prose"><p>本文将从底层开始剖析当前主流图像格式的文件格式，但并不对其中压缩算法展开深入的研究。故而在下更愿意称本文探讨的重心为——图像的数据结构，即不同类型的数据在存储设备中如何排布。同时我们作为一个用户，如何能从图像中准确的取出我们所需要的某一部分数据 —— 一张图像文件除了图像本体，还留存有许多元信息。</p>
+<p>本文将对几种常见图片格式建立基本的认知模型，同时以 <em>从图像数据流中提取出图像的分辨率，即宽高属性</em> 作为实战案例。</p>
+<h2 id="png">PNG</h2>
+<p>参考2025年6月25日发布的第三版PNG规范<sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup></p>
+<ul>
+<li>关于PNG存储格式，主要参考官方说明的第五节<a href="https://www.w3.org/TR/png-3/#5DataRep">Datastream structure</a></li>
+</ul>
+<p>PNG图像的格式其实相对来说非常的清晰易懂。它由 <strong>文件署名(PNG signature)</strong> 和 <strong>数据块(chunks)</strong> 两种类型的结构组成，而且从宏观上看，它就是 —— <strong>一个署名后面跟着很多个数据块</strong>。不同类型的数据块存储不同的数据。</p>
+<h3 id="文件署名域png-signature">文件署名域(PNG signature)</h3>
+<p><strong>署名用于确认一个文件是否是PNG文件</strong>，是永远出现在PNG数据流最头部的八字节常量。</p>
+<p>用16进制打开任意PNG文件, 会发现前八个字节总是这几个十六进制数 <code>89 50 4E 47 0D 0A 1A 0A</code></p>
+<p>这八个字节就是PNG的文件署名。出现这个签名则表明剩下的内容包含<strong>单个PNG图像</strong>，该图像由一系列<strong>以’IHDR’开头、以’IEND’的数据块组成</strong>。</p>
+<ul>
+<li>
+<p>为什么是“单张PNG图像”呢？实际上能播放动画的APNG也是这个署名开头：</p>
+<ul>
+<li>
+<p>因为从技术上讲，<strong>APNG也属于’a single PNG image’</strong>。在下认为这并不只是一个无趣的文字游戏，因为APNG诞生在PNG之后，为了实现向下兼容，<strong>它只是在原基础上增添了几种新的数据块类型</strong>，如果忽略新增的数据块类型，那么剩下来的部分，就是<strong>像存储正常的PNG一样存储APNG的第一帧</strong>，所以即便是不支持APNG的老旧浏览器，只要对无法解析的数据块类型进行抛弃，就能够回退到“显示第一帧”的状态。<sup><a href="#user-content-fn-4" id="user-content-fnref-4" data-footnote-ref aria-describedby="footnote-label">2</a></sup>
+在理解了静态PNG格式之后再来看下面这张图，就能很容易理解APNG到底是怎么对原有的PNG进行拓展的了。</p>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/720px-Apng_assembling.svg.png" alt="720px-Apng_assembling" loading="lazy" decoding="async"/></p>
+<p>这里从Wikipedia上借来一张APNG示例图，感兴趣可以用十六进制工具看看。在下的观察结果是完美符合上图的：<img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/Animated_PNG_example_bouncing_beach_ball.png" alt="Animated_PNG_example_bouncing_beach_ball" loading="lazy" decoding="async"/></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>这里使用VScode的Hex Editer插件，对一张普通的静态的PNG照片的十六进制数据进行观察：</p>
+<ul>
+<li><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/PixPin_2025-09-17_16-49-30.png" alt="PixPin_2025-09-17_16-49-30" loading="lazy" decoding="async"/></li>
+</ul>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/PixPin_2025-09-17_17-10-12.png" alt="文件署名域" loading="lazy" decoding="async"/></p>
+<p>如图所示，文件署名域对应一张PNG图像的前八个字节，可以发现里面还偷藏了一个”PNG”。理论符合预期，当我们要处理图像时，若解析到前八个字节为PNG的署名，那么就可以认为，我们将要解析一张PNG图像了。</p>
+<h3 id="数据块">数据块</h3>
+<p>在署名之后，剩下的就都是一连串的数据块了。单个数据块的结构如下：
+<img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/PNGdataChunkStructure.png" alt="PNGdataChunkStructure" loading="lazy" decoding="async"/></p>
+<p>其实非常简单，只需要建立 <strong>四个Field</strong> 的认知模型即可，每个Field分别代表(按顺序排布)</p>
+<ul>
+<li>
+<p>length: <strong>四字节</strong>无符号整数，用于指定 实际数据CHUNK DATA 的长度 —— 所以长度为0的时候CHUNK DATA域等效于不存在，就回退到了图中所示的三个Field的情况了。</p>
+</li>
+<li>
+<p>chunk type: <strong>四字节</strong>，每个字节可以理解为一个ASCII码</p>
+<blockquote>
+<p><em>Each byte of a chunk type is restricted to the hexadecimal values 41 to 5A and 61 to 7A</em></p>
+</blockquote>
+<p>​ 熟悉的话其实会发现，这其实就是约束了每个字节对应的ASCII字符就是’A’-‘Z’ 或 ‘a’-‘z’, 也就是说是直接人类可读的英文字母编码</p>
+</li>
+<li>
+<p>chunk data：实际的数据内容。<strong>长度由length域约束</strong>，可为0</p>
+</li>
+<li>
+<p>CRC： <strong>四字节</strong>， 仅根据CHUNK TYPE和CHUNK DATA计算出来的值，属于<strong>校验码</strong>，这里不用太在意其中细节。</p>
+</li>
+</ul>
+<p>至此，数据块基本结构的理解就已经完成了。整个PNG存储的模型也就出来了。再之后就只需要在用得到的时候补全对于<strong>不同类型数据块结构</strong>的认知即可。</p>
+<p><strong>就是说，接下来去翻官网的<a href="https://www.w3.org/TR/png-3/#11Chunks">#11. Chunk specifications</a> 就可以啦~</strong></p>
+<p>注：APNG增加的acTL、fcTL、fdAT类型在第三版的PNG规范中已经收录，也就是说都能在这份官方文档中查到。</p>
+<h3 id="关键数据块">关键数据块</h3>
+<p>有些类型的数据块基本上必须存在于一张PNG图像中，称为<strong>Critical Chunk</strong>。</p>
+<p>以下为四种Critical Chunk，其中只有PLTE是可选的，<strong>其它都必须出现，而且必须以以下顺序出现</strong></p>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/CriticalChunks.png" alt="CriticalChunks" loading="lazy" decoding="async"/></p>
+<h4 id="开头与结尾-ihdr-iend">开头与结尾 IHDR-IEND</h4>
+<p>类型一个是<strong>IHDR</strong>，一个是<strong>IEND</strong>， 没必要记16进制码，直接记字母就行。</p>
+<p><strong>IHDR</strong>是非常特殊的块，它和<strong>IEND</strong>一起框定了一串数据的范围。可以理解为，一段有效的数据，比如一帧，它会是很多数据块，解析的时候遇到<strong>IHDR</strong>就知道这段数据开始了，遇到<strong>IEND</strong>意味着这段数据结束了。 前者<strong>必须是第一个数据块</strong>，而后者<strong>必须是最后一个数据块</strong>。</p>
+<p>甚至还有人发现可以在IEND后面藏数据而不影响图像显示<sup><a href="#user-content-fn-2" id="user-content-fnref-2" data-footnote-ref aria-describedby="footnote-label">3</a></sup>。</p>
+<p>其中<strong>IEND</strong>就是一个结束标志，其长度域为0，之后不再提，但<strong>IHDR</strong>类型对应的数据块还存储了一些有用的信息，图像的宽高属性就存储在这里，下一节详细解析。</p>
+<h4 id="ihdr-image-header">IHDR Image header</h4>
+<p><strong>IHDR</strong>总长度是固定的13bytes，内部数据排布如下:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><strong>Width</strong></td><td>4 bytes</td></tr><tr><td><strong>Height</strong></td><td>4 bytes</td></tr><tr><td><strong>Bit depth</strong></td><td>1 byte</td></tr><tr><td><strong>Color type</strong></td><td>1 byte</td></tr><tr><td><strong>Compression method</strong></td><td>1 byte</td></tr><tr><td><strong>Filter method</strong></td><td>1 byte</td></tr><tr><td><strong>Interlace method</strong></td><td>1 byte</td></tr></tbody></table>
+<p>一般用户只需要关注前4个属性即可，分别代表<strong>图像的宽</strong>、<strong>图像的高</strong>、<strong>图像位深</strong>、<strong>颜色类型</strong></p>
+<p>宽高以像素为单位；位深指的是<strong>每个颜色通道的位深，而不是整个像素的位深</strong>，即记录的是每个颜色通道使用多少比特进行编码。</p>
+<p>颜色类型(注意颜色类型和位深只有关系的)：</p>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/PixPin_2025-09-22_15-27-19.png" alt="PixPin_2025-09-22_15-27-19" loading="lazy" decoding="async"/></p>
+<p>官方文档通过有序列表暗示了这些IHDR属性是顺序排列的。不过更进一步，我们可以基于“<strong>协议本身是稳定的，市面上流传的PNG图像的这几个属性的排列顺序是稳定的</strong>”的假设，可以找一张PNG图像拆解开来<strong>验证</strong>这一点——结论：<strong>至少前四个属性是按顺序存储的</strong>。</p>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/PixPin_2025-09-17_22-47-35.png" alt="PixPin_2025-09-17_22-47-35" loading="lazy" decoding="async"/></p>
+<p>这里宽是<strong>0x500</strong>，对应十进制<strong>1280</strong>，长为<strong>0x8E3</strong>，对应十进制<strong>2275</strong>，这正好就是在下这张测试图像分辨率中的宽高，通过测试。</p>
+<p><strong>0x08</strong>对应颜色位深8，<strong>0x02</strong>对应真彩色图像，RGB三色通道各使用8位编码，所以每个像素使用<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>×</mo><mn>8</mn><mo>=</mo><mn>24</mn></mrow><annotation encoding="application/x-tex">3\times 8=24</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">8</span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">24</span></span></span></span>位编码，对应图像位深度24，通过测试。</p>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/PixPin_2025-09-17_22-52-30.png" alt="PixPin_2025-09-17_22-52-30" loading="lazy" decoding="async"/></p>
+<ul>
+<li>注: <strong>数据大端对齐</strong>，即高字节对应低地址</li>
+</ul>
+<h4 id="plte">PLTE</h4>
+<p>Palette，调色盘。</p>
+<p>含1-256个entries，每个entry三个字节，每个字节分别对应红绿蓝。</p>
+<p>似乎主要是用于压缩等用途的元信息，也不是必须的数据块，非PNG图像的最小组成部分之一，这里跳过。</p>
+<h4 id="idat">IDAT</h4>
+<p><strong>Image Data</strong>， 图像真实的数据</p>
+<p>注：不是将每个像素的RGB存储的原始数据，而<strong>是压缩算法的输出结果</strong></p>
+<p>必须的数据块类型就上述四种，其它感兴趣可以去文档中了解。</p>
+<h3 id="如何获得图像尺寸">如何获得图像尺寸</h3>
+<p>基于上述观察，实际上只需要越过PNG的文件署名，直接进入IHDR头中的固定偏移位置取出对应数据即可。</p>
+<hr/>
+<h2 id="jpeg">JPEG</h2>
+<p>特别注意，JPEG和PNG不同，并非一个单一独立的规范，而存在很多不同的标准——不同的文件格式。<strong>这里参考T.81标准</strong><sup><a href="#user-content-fn-3" id="user-content-fnref-3" data-footnote-ref aria-describedby="footnote-label">4</a></sup>, 又称<strong>ISO/IEC 10918-1 标准</strong>, 算是JPEG压缩技术最权威最官方的一个技术标准了，能够解释现在流行的绝大部分JPEG文件的格式，如JFIF和Exif。文献很长，这里只关注JPEG的数据结构，基本可以从31页的<strong>Compressed data formats</strong>章节开始看。</p>
+<p>由于JPEG格式与PNG不同，相对而言要复杂许多，所以这里不做非常详细地解读，搞清楚宏观的结构并理解如何获取图像尺寸就结束了。 <del>(因为真实的数据反正也要过压缩算法，费劲搞清楚了感觉一般也用不到)</del>。</p>
+<h3 id="宏观设计">宏观设计</h3>
+<p>从最高层次看，JPEG文件有点像之前的PNG，但不完全一样。PNG由一个署名打头，后面跟着很多数据块(chunk)，而JPEG则直接由一系列的<strong>段(Segment)<strong>组成。而段又分</strong>标记段(Marker Segment)<strong>和</strong>熵编码数据段(Entropy-coded data segments)</strong>，前者作为标记和引导，存储着大量元信息，而后者则是图像本体在压缩后的结果载体。</p>
+<p>虽然文档中提到了“参数”，但在下认为这里提到的参数不过是“段”的组成部分，不需要单独拎出来理解。</p>
+<blockquote>
+<p>Structurally, the compressed data formats consist of <strong>an ordered collection of parameters, markers, and entropy-coded data segments</strong>. Parameters and markers in turn are often organized into marker segments. Because all of these constituent parts are represented with byte-aligned codes, each compressed data format consists of an ordered sequence of 8-bit bytes. For each byte, a most significant bit (MSB) and a least significant bit (LSB) are defined</p>
+</blockquote>
+<p>可以想象我们是一个流式的数据解析器，我们顺序地读入JPEG数据，会读到一个个<strong>段</strong>，在熵编码数据段之前会读到<strong>标记段(Marker Segement)</strong>，其由一个<strong>标记Marker</strong>和若干跟随的<strong>参数</strong>(长度可为0)组成。我们可以利用这些像“路标”一样的<strong>标记Marker</strong>，识别后续内容，快速跳过不需要的信息，也可以从跟随其的参数中提取出一些需要的元信息。</p>
+<p>整体上来看，JPEG文件的数据流就是<strong>很多的标记段和穿插的‘几个’熵编码数据段</strong></p>
+<ul>
+<li>对于Baseline JPEG，图像数据是一个完整的连续的熵编码数据段 (相当于一次扫描)</li>
+<li>但是对于Progressive JPEG，每次扫描不断填充细节和色彩精度，熵编码数据段就不是连续的</li>
+<li>不过从下图看，无论是基线还是渐进JPEG，都可以插入重启标记RST(同样会让数据段被分割开来), 以增加容错性。</li>
+</ul>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/JPEG-Structure.png" alt="JPEG-Structure" loading="lazy" decoding="async"/></p>
+<p>我们不关注具体被压缩后的数据长什么样，所以对我们来说现在最重要的就是如何辨识<strong>标记(Marker)</strong></p>
+<h3 id="标记marker">标记Marker</h3>
+<p>在JPEG数据流中，<strong>找到字节0xFF，并且后面不是0x00</strong>, 就找到了Marker，<strong>0xFF</strong>后面跟的字节就决定了类型。</p>
+<h4 id="marker的格式">Marker的格式</h4>
+<p>一个Marker<strong>长两个字节</strong></p>
+<ul>
+<li>
+<p>第一个字节：一定是 <strong>0xFF</strong>。 这个特别的值应该就是专门保留出来标识Marker的</p>
+</li>
+<li>
+<p>第二个字节：</p>
+<ul>
+<li>
+<p>特殊情况</p>
+<ul>
+<li>不能是<strong>0x00</strong>： 为了防止在数据段出现<strong>0xFF</strong>被误认为Marker，所有 ‘数据中的<strong>0xFF</strong>‘ 后面都会跟上<strong>0x00</strong>， 表明这是数据而非标记。</li>
+<li>如果是<strong>0xFF</strong>: 被称为填充字节(<strong>fill bytes</strong>), 并不代表Marker的类型，仅做填充。可能是出于数据对齐的考量而设计，总之解析到<strong>0xFF</strong>的话，就继续往下看一字节，先前读到的第一个<strong>0xFF</strong>直接丢弃</li>
+</ul>
+</li>
+<li>
+<p>正常情况，第二个字节标识了Marker的类型，标识了接下来的数据是什么类型的数据，具体匹配关系可以参见下表</p>
+<blockquote>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/JPEG-marker-symbol-table.png" alt="JPEG-marker-symbol-table" loading="lazy" decoding="async"/></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p>特别说明：<strong>在Marker之后</strong>，即在整个标记段的剩余部分，可能还有其它数据。若有(跟着的不是0xff…)，则紧跟着的为<strong>两字节长度参数</strong>，特指该Marker段除开Marker后参数的长度(不包含开头Marker的‘两’个字节，包含记录长度的两个字节)。这个参数可以用于快速跳过该Marker段达到下一个Marker段。</p>
+<h3 id="具体数据构造">具体数据构造</h3>
+<p>让我们结合例子逐步剖析。</p>
+<p>这里使用<a href="https://www.onlinehexeditor.com/">onlinehexeditor</a>作为十六进制查看器，因为它还能提供对jpeg结构的部分信息的解析与提取，有助于辅助验证。</p>
+<p>注：建议使用钉图工具如PixPin，将上面提到的Marker符号表钉在屏幕的某个位置，方便确认Marker类型。</p>
+<p>上传一张jpeg图像A作为示例：</p>
+<h4 id="最上层">最上层</h4>
+<p>本节开篇展示了JPEG的多层级结构。在最上层，把Frame视为主体，则两侧分别有SOI和EOI，如图所示:</p>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/JPEG-overview-structure.png" alt="JPEG-overview-structure" loading="lazy" decoding="async"/></p>
+<p>而图像A的实际数据头尾如图所示：</p>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/PixPin_2025-09-19_22-12-40.png" alt="PixPin_2025-09-19_22-12-40" loading="lazy" decoding="async"/></p>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/PixPin_2025-09-19_22-13-49.png" alt="PixPin_2025-09-19_22-13-49" loading="lazy" decoding="async"/></p>
+<p>查表不难发现，开头的数据和结尾的数据恰恰就是SOI和EOI的Marker。所以中间的部分就是架构图中的Frame。</p>
+<p>​ 注: 这两个Maker没有长度参数，因为仅作标识作用，无内部信息需要存储。</p>
+<h4 id="frame内">Frame内</h4>
+<p>进入Frame，重点要找的是帧头Frame Header。Frame内部结构如图所示:</p>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/JPEG-frame-structure.png" alt="JPEG-frame-structure" loading="lazy" decoding="async"/></p>
+<h5 id="frame-header前">Frame header前</h5>
+<p>先看看Frame header前面有什么数据:</p>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/PixPin_2025-09-19_22-19-51.png" alt="PixPin_2025-09-19_22-19-51" loading="lazy" decoding="async"/></p>
+<p>APP<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow></mrow><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">{}_{n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.3014em;vertical-align:-0.15em"></span><span class="mord"><span class="mord"></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em"><span style="top:-2.55em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span></span></span></span> 是为应用程序预留的(或者为其他拓展规范预留的插槽)，可能会有很多，在这里会写入些应用程序想要写入的元数据，这些数据可能是各种类型，比如对于图片旋转的说明，也有可能是一些设备信息等等。这里看右侧转译结果，可以隐约看到JFIF的字眼，这说明该JPEG图像大概率是基于JFIF标准的。至于comment，则如其名。</p>
+<p><strong>DQT</strong>代表定义量化表Define Quantization Table，这跟JPEG的压缩算法直接相关。大致理解的话，应该是在压缩过程中——具体可参考文档中的DCT算法——对于处理后得到的8 × 8 DCT coefficient array，去除以量化表中的64个值。这里注意到DQT段的长度并非0x0041(多出来的第一个字节是量化精度), 而是0x0084, 是因为这里存了两个量化表，0x0082的长度，再算上长度数据本身的两个字节，就得到了0x0084的总长.</p>
+<p>这里只是一个例子，表明Frame header前存在某些数据，至于有哪些，有多少，则根据具体情况会有所不同。</p>
+<h5 id="frame-header">Frame header</h5>
+<p>这里就到了对于解析出图像尺寸而言最重要的<strong>Frame header</strong>了！</p>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/JPEG-frame-header-structure.png" alt="JPEG-frame-header-structure" loading="lazy" decoding="async"/></p>
+<p><strong>Frame header</strong>也是一个<strong>标记段Marker Segment</strong>，SOF类。</p>
+<p>如图所示，遍历到SOF的Marker就说明遍历到了<strong>Frame header</strong> (不知道为什么文档35页配图位置附近只特别提了所有非差分类型的SOF，但Frame Header的结构应该都是一样的，即图中所示SOF<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow></mrow><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">{}_{n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.3014em;vertical-align:-0.15em"></span><span class="mord"><span class="mord"></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em"><span style="top:-2.55em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span></span></span></span>, 是一种一般表示， SOF<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow></mrow><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">{}_{n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.3014em;vertical-align:-0.15em"></span><span class="mord"><span class="mord"></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em"><span style="top:-2.55em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span></span></span></span>​的标记段都遵从图示结构)。</p>
+<p>其参数代表的含义为：</p>
+<ul>
+<li><strong>Lf</strong>：这个Segment的长度，和其他Segment保持一致。</li>
+<li><strong>P</strong>: 样本精度，即每个采样点(sample)需要多少位来存储，即<strong>每个color的位深</strong>。</li>
+<li><strong>Y</strong>: 行数，即图像的<strong>高</strong></li>
+<li><strong>X</strong>：一行的采样点数，即图像的<strong>宽</strong></li>
+</ul>
+<p><strong>Y和X参数就是我们要寻找的图像尺寸信息</strong>，感兴趣可以看看它们的官方解释:</p>
+<blockquote>
+<p><strong>Y</strong>: Number of lines – Specifies the maximum number of lines in the source image. This shall be equal to the number of lines in the component with the maximum number of vertical samples (see A.1.1). Value 0 indicates that the number of lines shall be defined by the DNL marker and parameters at the end of the first scan (see B.2.5)</p>
+<p><strong>X</strong>: Number of samples per line – Specifies the maximum number of samples per line in the source image. This shall be equal to the number of samples per line in the component with the maximum number of horizontal samples (see A.1.1)</p>
+</blockquote>
+<p>这几个参数的位宽如下图所示:</p>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/JPEG-frame-header-parameter-sizes.png" alt="JPEG-frame-header-parameter-sizes" loading="lazy" decoding="async"/></p>
+<p>让我们结合先前图像A的例子来观察一下真实的数据，0xFFC0表示SOF<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow></mrow><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">{}_{0}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4511em;vertical-align:-0.15em"></span><span class="mord"><span class="mord"></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em"><span style="top:-2.55em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span></span></span></span>, 图示部分就是Frame header：</p>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/PixPin_2025-09-19_22-52-12.png" alt="PixPin_2025-09-19_22-52-12" loading="lazy" decoding="async"/></p>
+<p>可以看到P为<strong>0x08</strong>，单色为8bits，三个颜色通道各8bits，每个像素就是24bits，符合位深度24的文件属性。</p>
+<p>而高宽均为十六进制<strong>0x0438</strong>, 十进制数<strong>1080</strong>。这恰好符合文件属性。</p>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/PixPin_2025-09-19_23-00-48.png" alt="PixPin_2025-09-19_23-00-48" loading="lazy" decoding="async"/></p>
+<ul>
+<li>注：如果看官方文档对P的说明的话，这里可能会有一点让人感到困惑的地方，因为官方的说法是P代表the precision in bits for the samples of the components in the frame。实际上sample是指一个color sample，而不是指一个像素。想象多个矩阵阵列即可理解，不同颜色的矩阵可以独立存储(即不是[R1, G1, B1], [R2, G2, B2], [R3, G3, B3] … 这样存，而是R单独一个矩阵，G单独一个矩阵这样存，对任一矩阵的任一元素，位深为P —— 虽然事实上不一定真的这样存，但逻辑上大致是这样)。</li>
+</ul>
+<p><strong>补充</strong>：刚才那张图高宽相同，不便验证高宽顺序，这里再换个例子看一遍，这是另一张位深24，分辨率4096x2160的JPEG图像：</p>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/PixPin_2025-09-19_23-06-03.png" alt="PixPin_2025-09-19_23-06-03" loading="lazy" decoding="async"/></p>
+<p>可以看到，高<strong>0x0870</strong>, 即十进制2160，宽<strong>0x1000</strong>，即十进制4096, 完美符合预期，顺序也可以得到映证。</p>
+<p>为了直观地感受到这张图是<strong>扁</strong>的，而非<strong>长</strong>的，这里附上分辨率4096x2160的样例图:</p>
+<p><img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/gallery/%E8%96%AA%E7%82%8E%E6%B0%B8%E7%87%83.jpg" alt="薪炎永燃" loading="lazy" decoding="async"/></p>
+<p>眼尖的话其实会发现刚才两个案例在SOF, <strong>0xFFC0</strong>的Marker后面都出现了<strong>FFC4</strong>， 它对应的是Marker <strong>DHT</strong>， 即Define Huffman table(s), 哈夫曼表。这里涉及到压缩算法，不展开讲——<del>因为它似乎有很多版本</del>, 至少除了Huffman coding还有arithmetic coding。</p>
+<h3 id="如何获得图像尺寸-1">如何获得图像尺寸</h3>
+<p>基于上述观察，我们只需要首先通过检验<strong>SOI</strong> marker，确认这是一张JPEG图像，然后一路跳过无用的标记段，直到遇到<strong>SOF<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow></mrow><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">{}_{n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.3014em;vertical-align:-0.15em"></span><span class="mord"><span class="mord"></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em"><span style="top:-2.55em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span></span></span></span>​​</strong> 标记，此时停下来，在Frame header的固定偏移位置取出宽高即可。</p>
+<ul>
+<li>注：RST、EOI、SOI没有长度字段。以RST<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow></mrow><mn>7</mn></msub></mrow><annotation encoding="application/x-tex">{}_{7}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4511em;vertical-align:-0.15em"></span><span class="mord"><span class="mord"></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em"><span style="top:-2.55em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">7</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span></span></span></span>(0xFFD7)为例，可以看到后面跟的既非新的marker也非长度，对于我们的场景(不关心“重启间隔”标记)，就必须要通过遍历的方式才能安全地找到下一个标记。</li>
+</ul>
+<p>​ <img src="https://pub-a1cb67b2f5c34421bbd8c98bcf68643b.r2.dev/img/2025/09/22/PixPin_2025-09-22_22-37-43.png" alt="PixPin_2025-09-22_22-37-43" loading="lazy" decoding="async"/></p>
+<p>基于<strong>ITU-T T.81</strong>标准的主流JPEG规范，如JFIF<sup><a href="#user-content-fn-5" id="user-content-fnref-5" data-footnote-ref aria-describedby="footnote-label">5</a></sup>和EXIF<sup><a href="#user-content-fn-6" id="user-content-fnref-6" data-footnote-ref aria-describedby="footnote-label">6</a></sup>等规范理论上都能够被支持。</p>
+<h2 id="get-image-size">Get Image Size</h2>
+<p>基于以上观察，这里给出获取PNG图像和大部分JPEG图像(包括JFIF和EXIF)宽高的js代码。仅供参考:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word" tabindex="0" data-language="text"><code><span class="line"><span>/**</span></span>
+<span class="line"><span> * @file imageSize.js</span></span>
+<span class="line"><span> * A image dimension parser.</span></span>
+<span class="line"><span> * Supports PNG and JPEG formats.</span></span>
+<span class="line"><span> */</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>/**</span></span>
+<span class="line"><span> * A function to get dimensions of PNG and JPEG images from a Buffer.</span></span>
+<span class="line"><span> * @param {Buffer} buffer The image data buffer.</span></span>
+<span class="line"><span> * @returns {{width: number, height: number, type: &#39;png&#39; | &#39;jpeg&#39;} | null}</span></span>
+<span class="line"><span> */</span></span>
+<span class="line"><span>function imageSize(buffer) {</span></span>
+<span class="line"><span>  try {</span></span>
+<span class="line"><span>    //PNG</span></span>
+<span class="line"><span>    const pngResult = parsePNG(buffer);</span></span>
+<span class="line"><span>    if (pngResult) {</span></span>
+<span class="line"><span>      return pngResult;</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    //JPEG</span></span>
+<span class="line"><span>    const jpegResult = parseJPEG(buffer);</span></span>
+<span class="line"><span>    if(jpegResult){</span></span>
+<span class="line"><span>      return jpegResult;</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    console.error(&#39;Unsupported image format&#39;)</span></span>
+<span class="line"><span>    return null;</span></span>
+<span class="line"><span>  } catch (e) {</span></span>
+<span class="line"><span>    console.error(e);</span></span>
+<span class="line"><span>    return null;</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>// --- Constants for PNG Parsing ---</span></span>
+<span class="line"><span>// reference: https://www.w3.org/TR/png-3/#5DataRep</span></span>
+<span class="line"><span>// All PNG files start with this 8-byte signature.</span></span>
+<span class="line"><span>const PNG_SIGNATURE = Buffer.from([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]);</span></span>
+<span class="line"><span>// The IHDR chunk type identifier in ASCII.</span></span>
+<span class="line"><span>const IHDR_CHUNK_TYPE = Buffer.from(&#39;IHDR&#39;);</span></span>
+<span class="line"><span>// The IHDR chunk&#39;s data section must be 13 bytes long.</span></span>
+<span class="line"><span>const EXPECTED_IHDR_LENGTH = 13;</span></span>
+<span class="line"><span>/**</span></span>
+<span class="line"><span> * Parses a Buffer to extract dimensions of a PNG image.</span></span>
+<span class="line"><span> * @param {Buffer} buffer The buffer containing the image data.</span></span>
+<span class="line"><span> * @returns {{width: number, height: number, type: &#39;png&#39;} | null} Dimensions object or null if not a valid PNG with IHDR chunk.</span></span>
+<span class="line"><span> */</span></span>
+<span class="line"><span>function parsePNG(buffer) {</span></span>
+<span class="line"><span>  try {</span></span>
+<span class="line"><span>    // A valid PNG with dimensions requires at least 33 bytes for signature and IHDR info.</span></span>
+<span class="line"><span>    // 8 (signature) + 4 (length) + 4 (type) + 13 + 4(CRC) = 33 bytes</span></span>
+<span class="line"><span>    if (buffer.length &lt; 33) {</span></span>
+<span class="line"><span>      return null;</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    // Verify the PNG file signature.</span></span>
+<span class="line"><span>    if (!PNG_SIGNATURE.equals(buffer.subarray(0, 8))) {</span></span>
+<span class="line"><span>      return null;</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    // --- IHDR Chunk Verification  ---</span></span>
+<span class="line"><span>    // length must be 13. readUInt32BE reads a 4-byte, Big-Endian integer.</span></span>
+<span class="line"><span>    const ihdrLength = buffer.readUInt32BE(8);</span></span>
+<span class="line"><span>    if (ihdrLength !== EXPECTED_IHDR_LENGTH) {</span></span>
+<span class="line"><span>      return null;</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    // type must be &quot;IHDR&quot;.</span></span>
+<span class="line"><span>    const chunkType = buffer.subarray(12, 16);</span></span>
+<span class="line"><span>    if (!IHDR_CHUNK_TYPE.equals(chunkType)) {</span></span>
+<span class="line"><span>      return null;</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    // --- extract the dimensions ---</span></span>
+<span class="line"><span>    // width: 4 bytes</span></span>
+<span class="line"><span>    const width = buffer.readUInt32BE(16);</span></span>
+<span class="line"><span>    // height: 4 bytes</span></span>
+<span class="line"><span>    const height = buffer.readUInt32BE(20);</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    return { width, height, type: &#39;png&#39; };</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  } catch (e) {</span></span>
+<span class="line"><span>    console.error(e);</span></span>
+<span class="line"><span>    return null;</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>// --- Constants for JPEG Parsing ---</span></span>
+<span class="line"><span>// reference: ITU T.81, Annex B  https://www.w3.org/Graphics/JPEG/itu-t81.pdf</span></span>
+<span class="line"><span>// Start of Image marker</span></span>
+<span class="line"><span>const JPG_SOI = 0xFFD8;</span></span>
+<span class="line"><span>// End of Image marker</span></span>
+<span class="line"><span>const JPG_EOI = 0xFFD9;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>// Start of Frame markers</span></span>
+<span class="line"><span>//non-differential, Huffman coding</span></span>
+<span class="line"><span>const JPG_SOF0  = 0xFFC0; // Baseline DCT</span></span>
+<span class="line"><span>const JPG_SOF1  = 0xFFC1; // Extended sequential DCT</span></span>
+<span class="line"><span>const JPG_SOF2  = 0xFFC2; // Progressive DCT</span></span>
+<span class="line"><span>const JPG_SOF3  = 0xFFC3; // Lossless (sequential)</span></span>
+<span class="line"><span>//differential, Huffman coding</span></span>
+<span class="line"><span>const JPG_SOF5  = 0xFFC5; // sequential DCT</span></span>
+<span class="line"><span>const JPG_SOF6  = 0xFFC6; // progressive DCT</span></span>
+<span class="line"><span>const JPG_SOF7  = 0xFFC7; // lossless (sequential)</span></span>
+<span class="line"><span>//non-differential, arithmetic coding</span></span>
+<span class="line"><span>const JPG_SOF9  = 0xFFC9; // Extended sequential DCT</span></span>
+<span class="line"><span>const JPG_SOF10 = 0xFFCA; // Progressive DCT</span></span>
+<span class="line"><span>const JPG_SOF11 = 0xFFCB; // Lossless (sequential)</span></span>
+<span class="line"><span>//differential, arithmetic coding</span></span>
+<span class="line"><span>const JPG_SOF13 = 0xFFCD; // sequential DCT</span></span>
+<span class="line"><span>const JPG_SOF14 = 0xFFCE; // progressive DCT</span></span>
+<span class="line"><span>const JPG_SOF15 = 0xFFCF; // lossless (sequential)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>const SOF_MARKERS = [</span></span>
+<span class="line"><span>  JPG_SOF0, JPG_SOF1, JPG_SOF2, JPG_SOF3,</span></span>
+<span class="line"><span>  JPG_SOF5, JPG_SOF6, JPG_SOF7,</span></span>
+<span class="line"><span>  JPG_SOF9, JPG_SOF10, JPG_SOF11,</span></span>
+<span class="line"><span>  JPG_SOF13, JPG_SOF14, JPG_SOF15</span></span>
+<span class="line"><span>]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>/**</span></span>
+<span class="line"><span> * Parses a Buffer to extract dimensions of a JPEG image.</span></span>
+<span class="line"><span> * @param {Buffer} buffer The buffer containing the image data.</span></span>
+<span class="line"><span> * @returns {{width: number, height: number, type: &#39;jpeg&#39;} | null}</span></span>
+<span class="line"><span> */</span></span>
+<span class="line"><span>function parseJPEG(buffer){</span></span>
+<span class="line"><span>  try{</span></span>
+<span class="line"><span>    //Start with SOI</span></span>
+<span class="line"><span>    if(buffer.readUInt16BE(0) !== JPG_SOI){</span></span>
+<span class="line"><span>      return null;</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    let offset = 2;</span></span>
+<span class="line"><span>    while(offset &lt; buffer.length){</span></span>
+<span class="line"><span>      //find next marker</span></span>
+<span class="line"><span>      while(buffer[offset] !== 0xFF){</span></span>
+<span class="line"><span>        offset++;</span></span>
+<span class="line"><span>        if(offset &gt;= buffer.length) return null;</span></span>
+<span class="line"><span>      }</span></span>
+<span class="line"><span>      //jump over fill bytes</span></span>
+<span class="line"><span>      while(buffer[offset] === 0xFF){</span></span>
+<span class="line"><span>        offset++;</span></span>
+<span class="line"><span>        if(offset &gt;= buffer.length) return null;//for broken image</span></span>
+<span class="line"><span>      }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      //now offset points to the second byte of marker</span></span>
+<span class="line"><span>      const markerByte = buffer[offset];</span></span>
+<span class="line"><span>      offset++;</span></span>
+<span class="line"><span>      if(markerByte === 0x00){</span></span>
+<span class="line"><span>        //not a marker, but a data</span></span>
+<span class="line"><span>        continue;</span></span>
+<span class="line"><span>      }</span></span>
+<span class="line"><span>      const marker = 0xFF00 | markerByte;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      if(SOF_MARKERS.includes(marker)){</span></span>
+<span class="line"><span>        //find Frame header</span></span>
+<span class="line"><span>        //For frameheader: 2 for marker, 2 for length, 1 for precision, 2 for height, 2 for width</span></span>
+<span class="line"><span>        return { height: buffer.readUInt16BE(offset+3), width: buffer.readUInt16BE(offset+5), type: &#39;jpeg&#39; };</span></span>
+<span class="line"><span>      }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      //if not the SOF marker, skip to the next marker;</span></span>
+<span class="line"><span>      if(marker === JPG_EOI || (marker &gt;= 0xFFD0 &amp;&amp; marker &lt;= 0xFFD7)){</span></span>
+<span class="line"><span>        // note: RST_m(and SOI,EOI) doesn&#39;t have its length field, even though it won&#39;t occur before frame header; for safety, do not try to read length field</span></span>
+<span class="line"><span>        continue;</span></span>
+<span class="line"><span>      }</span></span>
+<span class="line"><span>      const length = buffer.readUInt16BE(offset);</span></span>
+<span class="line"><span>      offset += length;</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    return null;</span></span>
+<span class="line"><span>  }catch(e){</span></span>
+<span class="line"><span>    console.error(e);</span></span>
+<span class="line"><span>    return null;</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>module.exports = {</span></span>
+<span class="line"><span>  imageSize,</span></span>
+<span class="line"><span>  parsePNG,</span></span>
+<span class="line"><span>  parseJPEG,</span></span>
+<span class="line"><span>};</span></span></code></pre>
+<section data-footnotes class="footnotes"><h2 class="sr-only" id="footnote-label">注释</h2>
+<ol>
+<li id="user-content-fn-1">
+<p>W3C. <a href="https://www.w3.org/TR/png-3/#5DataRep">Portable Network Graphics (PNG) Specification (Third Edition)</a>. W3C, 2025-06-25 <a href="#user-content-fnref-1" data-footnote-backref aria-label="返回正文" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-4">
+<p>. <a href="https://en.wikipedia.org/wiki/APNG">APNG</a>. wikipedia, 2025-9-10 <a href="#user-content-fnref-4" data-footnote-backref aria-label="返回正文" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-2">
+<p><a href="https://www.cnblogs.com/senior-engineer">maxiongying</a>. <a href="https://www.cnblogs.com/senior-engineer/p/9548347.html">PNG文件格式详解</a> . 博客园, 2018-08-25 <a href="#user-content-fnref-2" data-footnote-backref aria-label="返回正文" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-3">
+<p>CCITT (The International Telegraph and Telephone Consultative Committee) / ITU (International Telecommunication Union). <a href="https://www.w3.org/Graphics/JPEG/itu-t81.pdf">Recommendation T.81: Information Technology - Digital Compression and Coding of Continuous-tone Still Images - Requirements and Guidelines</a>. ITU (International Telecommunication Union), 1992-9-18 <a href="#user-content-fnref-3" data-footnote-backref aria-label="返回正文" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-5">
+<p>Recommendation ITU-T T.871. <a href="https://www.ijg.org/files/T-REC-T.871-201105-I!!PDF-E.pdf">Digital compression and coding of continuous-tone still images: JPEG File Interchange Format (JFIF)</a> . ITU, 2011-05 <a href="#user-content-fnref-5" data-footnote-backref aria-label="返回正文" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-6">
+<p>Technical Standardization Committee on AV &amp; IT Storage Systems and Equipment. <a href="https://exiv2.org/Exif2-2.PDF">EXIF文档，指出基于ISO/IEC 10918-1标准</a>. Japan Electronics and Information Technology Industries Association, 2002-4 <a href="#user-content-fnref-6" data-footnote-backref aria-label="返回正文" class="data-footnote-backref">↩</a></p>
+</li>
+</ol>
+</section></div></div></article><footer class="post-footer"><p>写于 2025年9月17日。如有疏漏，欢迎指正。</p></footer></main><template data-code-copy-icon><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></template><template data-code-check-icon><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"></path></svg></template><script type="module">var e=document.querySelector(`[data-code-copy-icon]`),t=document.querySelector(`[data-code-check-icon]`);document.querySelectorAll(`.prose pre`).forEach(n=>{if(n.parentElement?.classList.contains(`code-block`))return;let r=document.createElement(`div`);r.className=`code-block`,n.before(r),r.append(n);let i=document.createElement(`button`);i.className=`code-copy`,i.type=`button`,i.title=`复制代码`,i.setAttribute(`aria-label`,`复制代码`),e&&i.append(e.content.cloneNode(!0)),r.append(i),i.addEventListener(`click`,async()=>{try{await navigator.clipboard.writeText(n.textContent??``),i.replaceChildren(...t?[t.content.cloneNode(!0)]:[document.createTextNode(`OK`)]),i.dataset.state=`success`,i.title=`已复制`,i.setAttribute(`aria-label`,`代码已复制`)}catch{i.dataset.state=`error`,i.title=`复制失败`,i.setAttribute(`aria-label`,`复制失败`)}window.setTimeout(()=>{i.replaceChildren(...e?[e.content.cloneNode(!0)]:[document.createTextNode(`COPY`)]),delete i.dataset.state,i.title=`复制代码`,i.setAttribute(`aria-label`,`复制代码`)},1600)})});</script><footer class="site-footer" data-astro-cid-nns7i3if><div class="site-footer__main page-width" data-astro-cid-nns7i3if><div data-astro-cid-nns7i3if><a class="site-footer__brand" href="/" data-astro-cid-nns7i3if><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-nns7i3if="true" class="lucide lucide-sparkles"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path><path d="M20 2v4"></path><path d="M22 4h-4"></path><circle cx="4" cy="20" r="2"></circle></svg><strong data-astro-cid-nns7i3if>17号的航行日志</strong></a><p data-astro-cid-nns7i3if>Prometheus 的个人博客。漫步星海，记录研究思考、日常折腾与宝贵回忆。</p></div><nav aria-label="页脚导航" data-astro-cid-nns7i3if><a href="/" data-astro-cid-nns7i3if>首页</a><a href="/posts/" data-astro-cid-nns7i3if>文章</a><a href="/gallery/" data-astro-cid-nns7i3if>画廊</a><a href="/about/" data-astro-cid-nns7i3if>关于</a><a href="/friends/" data-astro-cid-nns7i3if>友链</a><a href="/rss.xml" data-astro-cid-nns7i3if><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-nns7i3if="true" class="lucide lucide-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>RSS</a></nav></div><div class="site-footer__meta page-width" data-astro-cid-nns7i3if><span data-astro-cid-nns7i3if>PROMETHEUS © 2026</span><span data-astro-cid-nns7i3if>CC BY-NC-SA 4.0</span><a href="#top" aria-label="回到页面顶部" title="回到顶部" data-astro-cid-nns7i3if><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-nns7i3if="true" class="lucide lucide-arrow-up"><path d="m5 12 7-7 7 7"></path><path d="M12 19V5"></path></svg></a></div></footer></body></html>

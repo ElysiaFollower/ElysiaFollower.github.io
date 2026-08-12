@@ -1,2 +1,0 @@
-export function initMasonry(){var n=document.querySelector(".loading-placeholder"),t=document.querySelector("#masonry-container");n&&t&&(n.style.display="none",n.style.opacity=0,t.style.display="block",new MiniMasonry({baseWidth:window.innerWidth>=768?255:150,container:t,gutterX:10,gutterY:10,surroundingGutter:!1}).layout(),t.style.opacity=1)}if(data.masonry){try{swup.hooks.on("page:view",(()=>{initMasonry()}))}catch(n){console.log("❌ Masonry swup init failed: "+n)}document.addEventListener("DOMContentLoaded",initMasonry)}
-//# sourceMappingURL=masonry.js.map
