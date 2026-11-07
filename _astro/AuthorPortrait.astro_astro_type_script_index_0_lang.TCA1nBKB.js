@@ -1,0 +1,1 @@
+import{a as e,n as t,r as n}from"./scroll-scene.Bqr7U-AV.js";document.querySelectorAll(`[data-author-portrait]`).forEach(r=>{e(r,n,e=>{let n=t(e);r.style.setProperty(`--portrait-y`,`${(1-n)*55}px`),r.style.setProperty(`--portrait-angle`,`${-5+n*3}deg`),r.style.setProperty(`--portrait-copy-y`,`${(1-n)*25}px`)})});
